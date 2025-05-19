@@ -1,0 +1,166 @@
+body, html{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+/* edits the container with form and text and image */
+.container{
+   display: flex;
+   height: 100vh;
+   width: 100vw;
+   /* padding: 20px; */
+}
+
+.form-container{
+    flex: 1.5; /*form and text will take up more space*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    /* max-width: 300px; */
+    /* margin: 10px; */
+}
+
+/* editing the image container on right */
+.image-container{
+    flex: 1;
+    height: 100vh;
+    overflow: hidden; /*no scroll*/
+    position: relative;
+    /* padding: 20px; */
+}
+
+.image-container img{
+    width: 100%; /*responsive*/
+    height: 100vh; 
+    overflow: hidden;
+    object-fit: cover;
+    /* transform: rotate(180deg); */
+    opacity: 50%;
+}
+
+.text-overlay h2{
+    color: rgb(100, 139, 104);
+    font-weight: 50px;
+    font-size: 50px;
+    text-shadow: 2px 1px 3px rgba(0, 0, 0, 0.378);
+}
+
+.text-overlay p{
+    font-size: 40px;
+}
+
+.text-overlay {
+    width: 70%;
+    position: absolute;
+    top: 180px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.378); /*transparent*/
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+h1{
+   margin-bottom: 50px;
+   font-family: sans-serif;
+   font-weight: 40px;
+   color: rgb(123, 150, 127);
+   font-size: 40px;
+   /* horizontal,vertical,blur */
+   text-shadow: 1px 2px 2px #54545440;
+}
+
+/* design for input blocks */
+.form-container #signUpForm input{
+    box-shadow: 2px 2px 2px #6c6c6c40;
+    width: 450px;
+    height: 28px;
+    margin: 8px;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    background-color: rgb(244, 244, 244);
+    text-align: center;
+}
+
+/* editing the radio button */
+.custom-choice{
+    margin-top: -5px;
+}
+
+.custom-choice p{
+    margin-bottom: 5px;
+}
+
+.custom-choice label{
+    margin: 5px;
+    display: inline-block;
+}
+
+.termsDiv{
+    margin-top: 5px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.termsDiv label{
+    margin: 0;
+}
+
+.termsDiv #termsText{
+    margin-top: 4px;
+    font-size: small;
+    color: rgb(141, 141, 141);
+}
+
+/* button style */
+#createAcc{
+    width: 300px;
+    height: 45px;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    color: white;
+    font-size: 20px;
+    border-radius: 20px;
+    box-shadow: 2px 4px 3px #6c6c6c40;
+    background-color: rgb(134, 165, 134);
+    cursor: pointer;
+}
+
+#createAcc:hover{
+    background-color: white;
+    color: rgb(126, 152, 120);
+}
+
+p{
+    margin-top: 20px;
+    font-size: 20px;
+}
+
+p #loginLink{
+    color: rgb(126, 152, 120);
+}
+
+@media (max-width: 768px) {
+    .container{
+        flex-direction: column;
+        /* align-items: center; */
+    }
+
+    /*equal space for smaller screens */
+     .image-container {
+        height: 50vh;
+     }
+} 

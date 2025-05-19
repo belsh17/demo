@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/defaultDashboard.css">
+    <script src="/demo/src/main/resources/script/defaultDashboard.js"></script>
+    <title>Default Dashboard</title>
+
+    <div class="dashboard-container">
+        <!-- code for side tab for every screen -->
+        <div class="side-tab">
+            <div class="header-side">
+                    <button class="back-button" onclick="signOut()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <h2>Plan-Nest</h2>
+            </div>
+            <ul class="tab-list">
+                <li><a href="projectsHome.html">My Projects</a></li>
+                <li><a href="templatesHome.html">Templates & Graphs</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html">My Calendar</a></li>
+            </ul>
+        </div>
+        <!-- end of side tab -->
+
+        <!-- code for main content on right of page -->
+        <div class="main-content">
+
+            <!-- code of the top header -->
+            <div class="search-block">
+               <div class="user-icon" onclick="openPopup()">
+                    <i class="fa-regular fa-user"></i>
+               </div>  
+               
+               <!-- code for the user popup block -->
+                <div id="userPopup" class="popup">
+                    <div class="popup-content">
+                        <span class="close" onclick="closePopup()">&times;</span>
+                        <h3>User Information</h3>
+                        <p>Username: BellaCard</p>
+                        <p>Email: bella@example.com</p>
+                        <button onclick="signOut()">Sign Out</button>
+                    </div>
+                </div>
+
+                <!-- code for notifications icon -->
+                <div class="bell-icon">
+                    <i class="fa-regular fa-bell"></i>
+                </div>
+
+                <!-- code for new project block -->
+                 <div class="newProject">
+                    <div class="newProj-btn">
+                        <i class="fa-solid fa-plus"></i>
+                    </div>
+                    <h3>New Project</h3>
+                 </div>
+
+                 <div class="search-bar">
+                        <input type="text" placeholder="Search">
+                 </div>
+            </div>
+                <h1>My Dashboard</h1>
+                <p>Welcome to your dashboard!!</p>
+        </div>
+    </div>
+</head>
+<body>
+    
+</body>
+</html>

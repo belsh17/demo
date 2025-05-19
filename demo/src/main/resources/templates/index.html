@@ -1,0 +1,62 @@
+<!-- shortcut "! + tab" -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, initial-scale=1.0">
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/index.css">
+    <script src="/demo/src/main/resources/script/signup.js"></script>
+    <title>My Application</title>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+    <!-- heading  -->
+            <h1>Welcome to Plan-Nest!! <br>Your user-friendly project planner</h1>
+
+    <!-- sign up form of user details -->
+            <form id="signUpForm">
+                <!-- <label for="username">Username:</label> -->
+                <input type="text" id="username" name="username" placeholder="Username" required><br><br>
+                <!-- <label for="email">Email:</label> -->
+                <input type="email" id="email" name="email" placeholder="Email" required><br><br>
+                <!-- <label for="password">Password:</label> -->
+                <input type="password" id="password" name="password" placeholder="Password" required><br><br>
+            
+            </form>
+            
+    <!-- custom dashboard question  -->
+            <div class="custom-choice">
+                <p>Choose your dashboard layout:</p>
+                <label>
+                    <input type="radio" name="dashboardSetup" value="default" checked>
+                    Default
+                </label>
+                <label>
+                    <input type="radio" name="dashboardSetup" value="customizable">
+                    Customizable
+                </label>
+            </div>
+
+    <!-- terms and conditions block -->
+           <div class="termsDiv">
+                <input type="checkbox" name="termsBox" id="termsBox">
+                <label for="termBox">Terms & Conditions<p id="termsText">I accept the terms and conditions</p> </label>
+                
+            </div>
+
+    <!-- create account button -->
+            <button id="createAcc">Create Account</button>
+            <p>Already have an account? <a id="loginLink" href="login.html">Login here</a></p>
+        <p id="error-message" style="color: red;"></p>
+        </div>
+
+        <div class="image-container">
+            <img src="/demo/src/main/resources/assets/signUpSide.jpg" alt="No display">
+            <div class="text-overlay">
+                <h2>About Plan-Nest</h2><p>Providing users with a minimalist, affordable and customizable project planning software tool. </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
