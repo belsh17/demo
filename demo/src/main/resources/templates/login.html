@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/login.css">
+    <script src="/demo/src/main/resources/script/login.js"></script>
+
+    <link rel="stylesheet" href="/CSS/login.css">
+    <script src="/script/login.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
@@ -11,11 +15,11 @@
         <div class="login-container">
             <h1>Welcome back!!</h1>
             <p id="login-text">Sign into your account.</p>
-            <form id="login-form">
+            <form id="login-form" method="post">
                 <input type="text" id="username" name="username" placeholder="Username">
                 <input type="password" id="password" name="password" placeholder="Password">
             </form>
-            <button id="login-btn">Login</button>
+            <button type="button" id="login-btn" onclick="loginUser()">Login</button>
             <p>Don't have an account? <a href="index.html" id="signUp-link">Sign Up here.</a></p>
         </div>
         <div class="image-container">

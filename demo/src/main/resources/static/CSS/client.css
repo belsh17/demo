@@ -1,0 +1,188 @@
+body,html {
+    margin: 0;
+    padding: 0;
+    font-family: arial, sans-serif;
+    height: 100vh;
+}
+
+.projects-container{
+   display: flex;
+   height: 100vh;
+}
+
+.side-tab{
+   background-color: #7d9b7e;
+   color: white;
+   width: 250px;
+   min-width: 250px;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   /* justify-content: space-between; */
+   position: fixed; /*stays on screen even scrolling*/
+   height: 100vh;
+}
+
+.header-side{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+
+.back-button{
+   /* display: inline-flex;
+   align-items: center; */
+   /* gap: 8px; */
+   border: none;
+   background-color: transparent;
+   color: rgb(59, 100, 61);
+   font-size: 30px;
+   cursor: pointer;
+}
+
+
+.side-tab h2{
+   margin: 0;
+   font-size: 35px;
+}
+
+.back-button:hover{
+   color: #ecf0f1;
+}
+
+.side-tab ul{
+   list-style-type: none;
+   padding: 0;
+   margin-top: 30px;
+}
+
+.side-tab l{
+   margin: 10px 0;
+}
+
+ .tab-list a{
+   color: white;
+   text-decoration: none; /*no underline*/
+   font-size: 20px;
+   padding: 30px 20px;
+   display: inline-block;
+   border-radius: 5px;
+   /* transition: background-color 0.3s; */
+}
+
+.tab-list a:hover{
+   /* text-decoration: underline; */
+   background-color: #000000;
+   width: 200px;
+   color: #7d9b7e;
+}
+
+/* editing individual items on tab list */
+.tab-list li:nth-child(1) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(1) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(3) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(3) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+
+
+.tab-list li:nth-child(5) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(5) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+
+/* styling of content on the right */
+.main-content{
+   margin-left: 280px; 
+   padding: 20px;
+   width: calc(100%-250px);
+   overflow-y: auto;
+}
+
+#create-new-client{
+    background-color: #ffffff;
+    display: flex;
+    box-shadow: 2px 2px 8px black;
+    flex-direction: column;
+    padding: 50px;
+    margin: 10px 20px;
+    /* height: 80vh; */
+}
+
+#create-new-client h2{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: rgb(97, 143, 102);
+    text-shadow: 2px 2px 5px rgb(130, 129, 129);
+    font-size: 40px;
+    margin-top: 0;
+}
+
+.form-label{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 25px;
+    color: #7d9b7e;
+    padding: 20px;
+}
+
+#client-name,
+#client-email,
+#client-number,
+#client-account{
+    border-radius: 5px;
+    height: 30px;
+    margin-bottom: 10px;
+}
+
+/* #project-description{
+    border-radius: 5px;
+    height: 80px;
+} */
+
+/* #project-deadline,
+#startDate{
+    border-radius: 5px;
+    height: 30px;
+} */
+
+#submit-btn{
+    padding: 15px;
+    background-color: #7d9b7e;
+    color: #ecf0f1;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 2px 2px 3px rgb(133, 133, 133);
+    border: none;
+    font-size: 20px;
+    margin: 20px 300px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#submit-btn:hover{
+    background-color: white;
+    color: #7d9b7e;
+}

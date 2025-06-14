@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/teams.css">
+    <script src="/demo/src/main/resources/script/teams.js"></script>
+
+    <link rel="stylesheet" href="/CSS/teams.css">
+    <script src="/script/teams.js"></script>
+    <title>Teams</title>
+
+</head>
+<body>
+    
+    <div class="dashboard-container">
+        <!-- code for side tab for every screen -->
+        <div class="side-tab">
+            <div class="header-side">
+                    <button title="back" type = "submit" class="back-button" onclick="signOut()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <!-- <h2>Plan-Nest</h2> -->
+            </div>
+            <ul class="tab-list">
+                <li><a href="defaultDashboard.html">My Dashboard</a></li>
+                <li><a href="projectsHome.html">My Projects</a></li>
+                <li><a href="templatesHome.html">Templates & Graphs</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="client.html">Clients</a></li>
+                 <li><a href="teams.html">Teams</a></li>
+                <li><a href="adminUsers.html">Active Users</a></li>
+            </ul>
+        </div>
+        <!-- end of side tab -->
+
+        <!-- code for main header on right of page -->
+        <div class="main-content">
+                <form id="create-new-team">
+
+                <h2>NEW TEAM FORM</h2>
+               
+                <label for="team-name" class="form-label">Team Name</label>
+                <input title="team-input" type="text" id="team-name" name="teamName" placeholder="Enter team's name." required />
+
+                <label for="project-team" class="form-label">Assign to project:</label>
+                <select name="projectId" id="project-team">
+                    <option value="" disabled selected>-- Select a Project --</option>
+                </select>
+
+                <div id="membersContainer"></div>
+                <button id="member-btn" type="button" onclick="addMember()">Add Member</button>
+
+                <button type="submit" id="submit-btn">Create Team</button>
+            </form>
+            
+        </div>
+    </div>
+
+</body>
+</html>

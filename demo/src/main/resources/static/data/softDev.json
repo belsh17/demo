@@ -1,0 +1,348 @@
+{
+    "templates": [
+        {
+            "id": "1",
+            "name": "RAID Log",
+            "fields": [
+                {
+                    "label": "",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "No.",
+                        "RAID Category",
+                        "Description",
+                        "Impact",
+                        "Owner",
+                        "Priority"
+                    ],
+                    "rows": []
+                }
+            ],
+            "image": "",
+            "tags": ["raid", "IT"]
+        },
+        {
+            "id": "2",
+            "name": "Test/Issue Log",
+            "fields": [
+                {
+                    "label": "Project Name",
+                    "type": "text"
+                },
+                {
+                    "label": "Project Manager",
+                    "type": "text"
+                },
+                {
+                    "label": "Start Date",
+                    "type": "date"
+                },
+                {
+                    "label": "",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Issue No.",
+                        "Status",
+                        "Description",
+                        "Category",
+                        "Priority",
+                        "Assignee",
+                        "Raised By",
+                        "Open",
+                        "Close",
+                        "Comments"
+                    ],
+                    "rows": []
+                }
+            ],
+            "image": "",
+            "tags": ["test log", "IT"]
+        },
+        {
+            "id": "3",
+            "name": "Change Log",
+            "fields": [
+                {
+                    "label": "Project Name",
+                    "type": "text"
+                },
+                {
+                    "label": "Project Manager",
+                    "type": "text"
+                },
+                {
+                    "label": "",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Change No.",
+                        "Type",
+                        "Description",
+                        "Date Identified",
+                        "Status",
+                        "Priority",
+                        "Assigned",
+                        "Expected Resolution",
+                        "Action",
+                        "Date Work Begins",
+                        "Date Resolved"
+                    ],
+                    "rows": []
+                }
+            ],
+            "image": "",
+            "tags": ["change log", "IT"]
+        },
+        {
+            "id": "4",
+            "name": "Sign Off Document",
+            "fields": [
+                {
+                    "label": "Project Name",
+                    "type": "text",
+                    "placeholder": "Enter the project name"
+                },
+                {
+                    "label": "Project deliverable accepted",
+                    "type": "radio",
+                    "description": "The project deliverables are accepted.",
+                    "options": ["Yes", "No"]
+                },
+                {
+                    "label": "Project accepted with issues",
+                    "type": "radio",
+                    "description": "The project is accpeted pending the issues noted.",
+                    "options": ["Yes", "No"]
+                },
+                {
+                    "label": "Project not accepted",
+                    "type": "radio",
+                    "description": "The project is not accepted due to the reasons below.",
+                    "options": ["Yes", "No"]
+                },
+                {
+                    "label": "Project Manager",
+                    "type": "text",
+                    "placeholder": "Enter the project manager's name"
+                },
+                {
+                    "label": "Director Date",
+                    "type": "date"
+                },
+                {
+                    "label": "",
+                    "type": "table",
+                    "columns": [
+                        "Issue Id.",
+                        "Issue Description",
+                        "Status"
+                    ],
+                    "rows": [
+                        ["","",""],
+                        ["","",""],
+                        ["","",""],
+                        ["","",""]
+                    ]
+                }
+            ],
+            "image": "",
+            "tags": ["sign off", "IT"]
+        },
+         {
+            "id": "5",
+            "name": "Statement of Work",
+            "fields": [
+                {
+                    "label": "Company Name",
+                    "type": "text",
+                    "placeholder": "Enter the companies name"
+                },
+                {
+                    "label": "SOW Version",
+                    "type": "text",
+                    "placeholder": "Enter the SOW version number"
+                },
+                {
+                    "label": "Date Submitted",
+                    "type": "date"
+                },
+                {
+                    "label": "Author",
+                    "type": "text",
+                    "placeholder": "Enter the author's name"
+                },
+                {
+                    "label": "",
+                    "type": "table",
+                    "columns": [
+                        "Organization",
+                        ""
+                    ],
+                    "rows": [
+                        ["Client Name",""],
+                        ["Client Phone",""],
+                        ["Client Email",""],
+                        ["Client Mailing Address",""]
+                    ]
+                },
+                {
+                    "label": "",
+                    "type": "table",
+                    "columns": [
+                        "Project",
+                        ""
+                    ],
+                    "rows": [
+                        ["Project Name",""],
+                        ["Client",""],
+                        ["Brand",""],
+                        ["Product",""]
+                    ]
+                },
+                {
+                    "label": "",
+                    "type": "table",
+                    "columns": [
+                        "Begin Date",
+                        "End Date",
+                        "Project Duration"
+                    ],
+                    "rows": [
+                        ["","",""]
+                    ]
+                },
+                {
+                    "label": "Assumptions",
+                    "type": "textarea",
+                    "placeholder": "List all made assumptions"
+                },
+                {
+                    "label": "Goals",
+                    "type": "table",
+                    "columns": ["",""],
+                    "rows": [
+                        ["Objective", ""],
+                        ["Business",""],
+                        ["Solution",""],
+                        ["Technical",""],
+                        ["Service",""],
+                        ["Security",""]
+                    ]
+                },
+                {
+                    "label": "Scope of the Work",
+                    "type": "textarea",
+                    "placeholder": "What does the project entail? What are the delivery methods?"
+                },
+                {
+                    "label": "Project Deliverables",
+                    "type": "textarea",
+                    "placeholder": "What does the project entail? What are the delivery methods?"
+                },
+                {
+                    "label": "Milestones",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Est Delivery date",
+                        "Project Milestone Title"
+                    ],
+                    "rows": []
+                },
+                {
+                    "label": "Standard Adherence",
+                    "type": "textarea",
+                    "placeholder": "What industry standards must be followed? How will thias process be monitored?"
+                },
+                {
+                    "label": "Requirements",
+                    "type": "textarea",
+                    "placeholder": "Services, products, tasks, etc."
+                },
+                {
+                    "label": "Human Resources",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Job Title",
+                        "Skills Required"
+                    ],
+                    "rows": []
+                },
+                 {
+                    "label": "Additional Resources",
+                    "type": "textarea",
+                    "placeholder": "Resource Description"
+                },
+                 {
+                    "label": "Change Control Procedure",
+                    "type": "textarea",
+                    "placeholder": "Describe the process used to implement changes to the SOW"
+                },
+                {
+                    "label": "Deliverables & Delivery Schedule",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Deliverable Date Due",
+                        "Deliverable Description"
+                    ],
+                    "rows": []
+                },
+                {
+                    "label": "Rate Schedule",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Estimated Cost",
+                        "Delivery Schedule",
+                        "Description"
+                    ],
+                    "rows": []
+                },
+                {
+                    "label": "Payment Terms",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Completion Date",
+                        "Payment Due",
+                        "Phase Description"
+                    ],
+                    "rows": []
+                },
+                {
+                    "label": "Points of Contact",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Name/Title",
+                        "Contact Information"
+                    ],
+                    "rows": []
+                },
+                {
+                    "label": "Business Terms/Conditions",
+                    "type": "table",
+                    "columns": ["",""],
+                    "rows": [
+                        ["Duration of Services", ""],
+                        ["Terms of Payment",""],
+                        ["Expenses",""],
+                        ["Mileage/Travel",""],
+                        ["Place of Inspection",""],
+                        ["Contract Modifications",""],
+                        ["Confidentiality",""],
+                        ["Termination",""]
+                    ]
+                },
+                  {
+                    "label": "Authorization",
+                    "type": "table",
+                    "columns": ["Client","","Provider",""],
+                    "rows": [
+                        ["Client Signature", "", "Provider Signature", ""],
+                        ["Client Printed Name","", "Provider Printed Name", ""],
+                        ["Client Date","","Provider Date",""]
+                    ]
+                }
+            ],
+            "image": "",
+            "tags": ["sow", "IT"]
+        }
+
+    ]
+}

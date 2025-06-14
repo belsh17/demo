@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "taskName":"Design Web Page",
+        "taskDescription":"Create web page for ad campaign",
+        "creationDate":"2025-06-01",
+        "taskStatus":"Incomplete",
+        "dueDate":"2025-06-10",
+        "projectId": 1,
+        "userAssigned": 1
+    },
+    {
+        "id": 2,
+        "taskName":"Wireframe design",
+        "taskDescription":"Design homepage wireframes",
+        "creationDate":"2025-06-01",
+        "taskStatus":"Incomplete",
+        "dueDate":"2025-0-10",
+        "projectId": 2,
+        "userAssigned": 4
+    },
+    {
+        "id": 3,
+        "taskName":"Launch ads",
+        "taskDescription":"Run ads on Facebook and Instagram",
+        "creationDate":"2025-06-01",
+        "taskStatus":"Incomplete",
+        "dueDate":"2025-06-10",
+        "projectId": 2,
+        "userAssigned": 3
+    }
+]

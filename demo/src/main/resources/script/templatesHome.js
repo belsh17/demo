@@ -1,4 +1,17 @@
+//functionality for highlighting active page side tab
+const links = document.querySelectorAll(".tab-list a");
+//const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
+const currentURL = window.location.href;
 
+links.forEach(link => {
+    const href = link.href;
+    //const href = link.getAttribute("href");
+    //if(href === currentPath){
+    if(currentURL.includes(href)){
+        link.classList.add("active");
+    }
+});
+//end of side tab functionality
 // code for clicking generic tile to redirect to generic templates
 document.addEventListener("DOMContentLoaded", function(){
     const genericTile = document.getElementById("generic");

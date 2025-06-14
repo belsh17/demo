@@ -3,9 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.css">
+    <script src="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js"></script>
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/marketing.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="/demo/src/main/resources/script/Marketing/marketingGantt.js"></script>
+    <script src="/demo/src/main/resources/script/Marketing/prodLaunchCommun.js"></script>
+    <script src="/demo/src/main/resources/script/Marketing/marketingChecklist.js"></script>
+    <script src="/demo/src/main/resources/script/Marketing/contentMarketing.js"></script>
+    <script src="/demo/src/main/resources/script/Marketing/campaign.js"></script>
+    <script src="/demo/src/main/resources/script/pdfDownload.js"></script>
     <title>Marketing Templates</title>
 </head>
 <body>
-    
+    <!-- code for side tab for every screen -->
+        <div class="side-tab">
+            <div class="header-side">
+                    <button title="back-btn" class="back-button" onclick="signOut()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <!-- <h2>Plan-Nest</h2> -->
+            </div>
+            <ul class="tab-list">
+                <li><a href="defaultDashboard.html">My Dashboard</a></li>
+                <li><a href="projectsHome.html">My Projects</a></li>
+                <li><a href="templatesHome.html">Templates & Graphs</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="client.html">Clients</a></li>
+                 <li><a href="teams.html">Teams</a></li>
+                <li><a href="adminUsers.html">Active Users</a></li>
+            </ul>
+        </div>
+        <!-- end of side tab -->
+        <div class="main-content">
+            <div class="top-header">
+                <h2>Marketing Templates </h2>
+            </div>
+
+            <div id="template-gallery" class="template-gallery"></div>
+            <div id="template-form" class="template-form"></div>
+            <button onclick="saveTemplate()" id="save-button" class="save-btn">Save</button>
+            <button onclick="downloadPDF()" id="pdf-btn" class="pdf-btn">Download PDF</button>
+        
+            <span id="loading-indicator" style="display: none;">
+                <img src="https://i.imgur.com/xATDnBR_lq.mp4" alt="Loading..." style="width: 20px; height: 20px;">
+            </span>
+            <!-- container for gannt -->
+             <!-- <div id="gantt-template-tile" class="tile" onclick="loadGanttTemplate()">Financial Reporting Timeline</div> -->
+            <div id="gantt-target" style="width:100%; height: 500px; margin-top: 20px;"></div>
+        </div>
+        
 </body>
 </html>

@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "projectName": "Marketing Campaign",
+    "projectDescription": "Launch summer social media ads",
+    "clientName": "ABC Corp",
+    "projectDeadline": "2025-06-15",
+    "startDate": "2025-05-01",
+    "projectManagerName": "John Doe"
+  },
+  {
+    "id": 2,
+    "projectName": "Website Redesign",
+    "projectDescription": "Update homepage and product pages",
+    "clientName": "XYZ Ltd",
+    "projectDeadline": "2025-07-01",
+    "startDate": "2025-06-01",
+    "projectManagerName": "Jane Smith"
+  }
+]
+

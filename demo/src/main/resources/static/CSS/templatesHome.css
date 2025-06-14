@@ -113,7 +113,8 @@ body,html {
    display: flex;
    gap: 30px;
    border-radius: 30px;
-   background-color: #c4c4c4;
+   background-color: #dddddd;
+   box-shadow: 0 0 10px #dddddd;
    /* width: 1208px; */
    width: calc(100% - 20px);
    height: 70px;

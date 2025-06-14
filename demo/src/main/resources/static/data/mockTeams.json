@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "teamName": "McClaren",
+        "projectId" : 1
+    },
+    {
+        "id": 2,
+        "teamName": "Ferrari",
+        "projectId" : 2
+    },
+    {
+        "id": 3,
+        "teamName": "Red Bull",
+        "projectId" : 3
+    }
+
+]

@@ -80,7 +80,7 @@ h1{
 }
 
 /* design for input blocks */
-.form-container #signUpForm input{
+.form-container #signUpForm #username,#email,#password, #fullName{
     box-shadow: 2px 2px 2px #6c6c6c40;
     width: 450px;
     height: 28px;
@@ -90,6 +90,12 @@ h1{
     border-radius: 15px;
     background-color: rgb(244, 244, 244);
     text-align: center;
+}
+
+.form-container #signUpForm .termsDiv{
+    text-align: center;
+    align-items: center;
+    margin-left: 140px;
 }
 
 /* editing the radio button */

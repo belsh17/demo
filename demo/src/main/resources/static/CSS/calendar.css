@@ -74,7 +74,7 @@ body,html {
 
 .tab-list a:hover{
    /* text-decoration: underline; */
-   background-color: #000000;
+   background-color: rgb(42, 88, 49);
    width: 200px;
    color: #7d9b7e;
 }
@@ -87,7 +87,7 @@ body,html {
 }
 
 .tab-list li:nth-child(1) a:hover{
-     background-color: rgb(28, 28, 28);
+     background-color: rgb(42, 88, 49);
      color: #7d9b7e;
      width: 200px;
 }
@@ -99,10 +99,23 @@ body,html {
 }
 
 .tab-list li:nth-child(3) a:hover{
-     background-color: rgb(28, 28, 28);
+     background-color: rgb(42, 88, 49);
      color: #7d9b7e;
      width: 200px;
 }
+
+.tab-list li:nth-child(5) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(5) a:hover{
+     background-color: rgb(42, 88, 49);
+     color: #7d9b7e;
+     width: 200px;
+}
+
 
 /* styling of content on the right */
 .main-content{
@@ -110,4 +123,61 @@ body,html {
    padding: 20px;
    width: calc(100%-250px);
    overflow-y: auto;
+   background-image: image("/demo/src/main/resources/assets/background.png");
+}
+
+#msg-block{
+   position: absolute;
+   display: flex;
+   flex-direction: column;
+   width: 50vw;
+   height: 50vh;
+   background-color: white;
+   border: none;
+   box-shadow: 1px 1px 3px rgb(157, 157, 157);
+   padding: 30px;
+   border-radius: 10px;
+   margin-left: 15%;
+   margin-top: 8%;
+   text-align: center;
+}
+
+#msg-block h1{
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   color: #7d9b7e;
+   margin-top: 2rem;
+}
+
+#calendar{
+   width: 75vw;
+   /* max-width: 100%; */
+   margin: 40px auto;
+   height: 78vh;
+   padding: 0 10px;
+}
+
+/* .calendar-container{
+   width: 95%;
+   margin: 0 auto;
+} */
+
+#link-btn{
+   position: relative;
+   width: 15rem;
+   height: 3rem;
+   font-size: 20px;
+   border: 1px solid green;
+   color: green;
+   background-color: white;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   padding: 10px;
+   margin-top: 130px;
+   border-radius: 10px;
+   box-shadow: 1px 1px 3px rgb(148, 148, 148);
+   cursor: pointer;
+}
+
+#link-btn:hover{
+   color: #ecf0f1;
+   background-color: #7d9b7e;
 }

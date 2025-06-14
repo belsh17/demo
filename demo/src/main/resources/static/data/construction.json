@@ -1,0 +1,317 @@
+{
+    "industry": "Construction",
+    "templates": [
+                {
+                    "id": "1",
+                    "name": "Construction Project Report",
+                    "description": "Progress and materials for project",
+                    "fields": [
+                        {
+                            "label": "Project Name",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Job Number",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Contractor Name",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Superintendent Name",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Date",
+                            "type": "date"
+                        },
+                        {
+                            "label": "Weather & Temperature",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Today's Progress",
+                            "type": "textarea",
+                            "placeholder": "Describe today's progress"
+                        },
+                        {
+                            "label": "",
+                            "type": "dynamic_table",
+                            "columns":[
+                                "List Materials Received/Equipment Rented",
+                                "Trades",
+                                "Workers",
+                                "Hours",
+                                "Progress Details"
+                            ],
+                            "rows":[]
+                        },
+                        {
+                            "label": "Describe Any Obstruction to normal procedures",
+                            "type": "textarea"
+                        },
+                        {
+                            "label": "",
+                            "type": "dynamic_table",
+                            "columns":[
+                                "List Names of Official Visitors From Today",
+                                "Representing",
+                                "Time of Visit"
+                            ],
+                            "rows":[]
+                        },
+                        {
+                            "label": "",
+                            "type": "table",
+                            "columns":[
+                                "Inspector Name and Title",
+                                "Inspector Signature",
+                                "Date"
+                            ],
+                            "rows":[
+                                ["","",""]
+                            ]
+                        }
+                    ],
+                    "image": "/demo/src/main/resources/assets/ConstructionTemps/constructionProjectReport.png",
+                    "tags": ["report", "construction"]
+                },
+                {
+                    "id": "2",
+                    "name": "Daily Progress Report",
+                    "description": "On site workers and progress",
+                    "fields": [
+                        {
+                            "label": "Project Name",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Job Number",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Contractor Name",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Superintendent Name",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Date",
+                            "type": "date"
+                        },
+                        {
+                            "label": "Weather & Temperature",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Today's Overall Progress",
+                            "type": "textarea",
+                            "placeholder": "Describe today's overall progress"
+                        },
+                        {
+                            "label": "",
+                            "type": "dynamic_table",
+                            "columns":[
+                                "Workers Present On Site",
+                                "Work Completed",
+                                "Equipement Used",
+                                "Progress Details"
+                            ],
+                            "rows":[]
+                        },
+                        {
+                            "label": "Estimated Quantities",
+                            "type": "dynamic_table",
+                            "columns":[
+                                "Task Location",
+                                "Description of Work",
+                                "Item #",
+                                "Today's Total",
+                                "Overall Total"
+                            ],
+                            "rows":[]
+                        }
+                    ],
+                    "image": "/demo/src/main/resources/assets/ConstructionTemps/dailyProgressReport.png",
+                    "tags": ["daily progress","construction"]
+                },
+                {
+                    "id": "3",
+                    "name": "Construction Estimate",
+                    "description": "Pricing of work and equipment",
+                    "fields": [
+                        {
+                            "label": "Prepared by:",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Job Number",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Address",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Date",
+                            "type": "date"
+                        },
+                        {
+                            "label": "Phone:",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Email:",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Valid Until",
+                            "type": "date"
+                        },
+                        {
+                            "label": "Client",
+                            "type": "text"
+                        },
+                        {
+                            "label": "General Description of Work",
+                            "type": "textarea"
+                        },
+                        {
+                            "label": "Terms & Conditions",
+                            "type": "textarea"
+                        },
+                        {
+                            "label": "",
+                            "type": "dynamic_table",
+                            "columns":[
+                                "Itemized Description of Work",
+                                "Amount"
+                            ],
+                            "rows":[]
+                        },
+                        {
+                            "label": "SUBTOTAL",
+                            "type": "text"
+                        },
+                        {
+                            "label": "TAX RATE%",
+                            "type": "text"
+                        },
+                        {
+                            "label": "TOTAL TAX",
+                            "type": "text"
+                        },
+                        {
+                            "label": "TOTAL",
+                            "type": "text"
+                        }
+                    ],
+                    "image": "/demo/src/main/resources/assets/ConstructionTemps/constructionEstimate.jpg",
+                    "tags": ["estimate","construction"]
+                },
+                {
+                    "id": "4",
+                    "name": "Project Handover Report",
+                    "description": "Form describing handover work and who signed over",
+                    "fields": [
+                        {
+                            "label": "Project Name:",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Handed over by:",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Taken over by:",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Handover",
+                            "type": "table",
+                            "columns":[],
+                            "rows":[
+                                ["Subject matter of handover:",""],
+                                ["Handover method:", ""]
+                            ]
+                        },
+                        {
+                            "label": "Note:",
+                            "type": "textarea"
+                        },
+                        {
+                            "label": "Place:",
+                            "type": "text"
+                        },
+                        {
+                            "label": "Date:",
+                            "type": "date"
+                        },
+                        {
+                            "label": "Signature Sheet",
+                            "type": "table",
+                            "columns":[
+                                "Person accepting handover",
+                                "Person handing over subject matter"
+                            ],
+                            "rows":[
+                                ["Name:","Name:"],
+                                ["Signature:", "Signature:"]
+                            ]
+                        }
+                    ],
+                    "image": "/demo/src/main/resources/assets/ConstructionTemps/handover-form.jpg",
+                    "tags": ["handover","construction"]
+                },
+                 {
+                    "id": "5",
+                    "name": "Progress Report",
+                    "description": "Progress summary and informtion",
+                    "fields": [
+                         {
+                            "label": "",
+                            "type": "table",
+                            "columns":[],
+                            "rows":[
+                                ["Author:","","Project name:",""],
+                                ["Stakeholder:","","Start date:",""],
+                                ["Project manager:","","End date:",""],
+                                ["Report #:","","Status:",""]
+                            ]
+                        },
+                        {
+                            "label": "Progress Summary:",
+                            "type": "textarea",
+                            "placeholder": "Add detailed summary of progress here"
+                        },
+                        {
+                            "label": "Project objectives:",
+                            "type": "textarea",
+                            "placeholder": "A brief description of the project's goals"
+                        },
+                        {
+                            "label": "Scope of work:",
+                            "type": "textarea",
+                            "placeholder": "Outline of the work to be performed"
+                        },
+                        {
+                            "label": "Cost/budget information:",
+                            "type": "textarea",
+                            "placeholder": "Details regarding budget"
+                        },
+                        {
+                            "label": "Risks & Issues:",
+                            "type": "textarea",
+                            "placeholder": "Outline risks of the work to be performed"
+                        }
+
+                    ],
+                    "image": "/demo/src/main/resources/assets/ConstructionTemps/progressReport.webp",
+                    "tags": ["progress","construction"]
+                }
+               
+    ]
+}

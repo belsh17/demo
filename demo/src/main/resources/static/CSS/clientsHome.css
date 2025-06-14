@@ -1,0 +1,254 @@
+body,html {
+    margin: 0;
+    padding: 0;
+    font-family: arial, sans-serif;
+    height: 100vh;
+}
+
+.projects-container{
+   display: flex;
+   height: 100vh;
+}
+
+.side-tab{
+   background-color: #7d9b7e;
+   color: white;
+   width: 250px;
+   min-width: 250px;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   /* justify-content: space-between; */
+   position: fixed; /*stays on screen even scrolling*/
+   height: 100vh;
+}
+
+.header-side{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+
+.back-button{
+   /* display: inline-flex;
+   align-items: center; */
+   /* gap: 8px; */
+   border: none;
+   background-color: transparent;
+   color: rgb(59, 100, 61);
+   font-size: 30px;
+   cursor: pointer;
+}
+
+
+.side-tab h2{
+   margin: 0;
+   font-size: 35px;
+}
+
+.back-button:hover{
+   color: #ecf0f1;
+}
+
+.side-tab ul{
+   list-style-type: none;
+   padding: 0;
+   margin-top: 30px;
+}
+
+.side-tab l{
+   margin: 10px 0;
+}
+
+ .tab-list a{
+   color: white;
+   text-decoration: none; /*no underline*/
+   font-size: 20px;
+   padding: 30px 20px;
+   display: inline-block;
+   border-radius: 5px;
+   /* transition: background-color 0.3s; */
+}
+
+.tab-list a:hover{
+   /* text-decoration: underline; */
+   background-color: #000000;
+   width: 200px;
+   color: #7d9b7e;
+}
+
+/* editing individual items on tab list */
+.tab-list li:nth-child(1) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(1) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(3) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(3) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+
+/* styling of content on the right */
+.main-content{
+   margin-left: 280px; 
+   padding: 20px;
+   width: calc(100%-250px);
+   overflow-y: auto;
+}
+
+.title-block{
+   display: flex;
+   gap: 30px;
+   border-radius: 30px;
+   background-color: #dddddd;
+   box-shadow: 0 0 10px #dddddd;
+   /* width: 1208px; */
+   /* width: calc(100% - 10px); */
+   padding-right: 30px;
+   height: 60px;
+   align-items: center;
+   margin-left: 5px;
+}
+
+.title-block h1{
+   color: #485648;
+   font-size: 40px;
+   margin-left: 15px;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.search-block{
+   display: flex;
+   flex: 1;
+   gap: 30px;
+   border-radius: 30px;
+   background-color: #c4c4c4;
+   width: 1208px;
+   height: 70px;
+   align-items: center;
+}
+
+.newClient{
+   z-index: 1;
+   display: flex;
+   gap: 8px;
+   background-color: rgb(255, 255, 255);
+   border-radius: 40px;
+   height: 55px;
+   position: relative;
+   align-items: center;
+}
+
+.newClient h3{
+   font-size: 20px;
+   margin-left: 60px;
+   padding-right: 8px;
+}
+
+.newProj-btn{
+   display: flex;
+   position: absolute;
+   cursor: pointer;
+   width: 30px;
+   height: 30px;
+   color: rgb(255, 255, 255);
+   font-size: 35px;
+   background-color: #7d9b7e;
+   border-radius: 50%;
+   border: none;
+   padding: 10px 10px;
+   margin-left: 5px;
+   justify-content: center;
+   align-items: center;
+   text-decoration: none;
+}
+
+.newProj-btn:hover{
+   background-color: rgb(59, 100, 61);
+   color: white;
+}
+
+/* code for search bar */
+.search-block .search-bar input{
+   display: flex;
+   width: 600px;
+   height: 50px;
+   border-radius: 30px;
+   border: none;
+   font-size: 25px;
+   padding-left: 10px;
+   margin-left: 100px;
+}
+
+/* styling for project message and tiles */
+.clients-display{
+   margin-top: 30px;
+}
+
+.no-clients-msg{
+   font-size: 40px;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   color: #3c5a40;
+   margin: 150px 100px;
+   background-color: #e2e2e2;
+   border-radius: 20px;
+   /* width: 50%;
+   height: 50vh; */
+   box-shadow: 2px 2px 10px rgb(67, 67, 67);
+   padding: 100px;
+   align-items: center;
+   justify-items: center;
+}
+
+
+
+
+/* styling for project tiles but dont display until user creates project */
+.clients-tiles{
+   display: flex;
+   flex-wrap: wrap;
+   gap: 25px;
+   margin: 15px 15px;
+}
+
+.client-tile{
+   background-color: #ffffff;
+   color: rgb(0, 0, 0);
+   padding: 20px;
+   border-radius: 15px;
+   width: 220px;
+   cursor: pointer;
+   box-shadow: 0 4px 8px rgb(125 155 126 / 0.5);
+   transition: transform 0.2s ease;
+}
+
+.client-tile:hover{
+   background-color: #5f7a5a;
+   color: white;
+   transform: scale(1.05);
+}
+
+.client-title{
+   font-size: 22px;
+   margin-bottom: 10px;
+}
+
+.project-description{
+   font-size: 16px;
+   color: #dbe8d6;
+}

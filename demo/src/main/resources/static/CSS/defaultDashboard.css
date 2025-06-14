@@ -66,7 +66,7 @@ body, html{
    color: white;
    text-decoration: none; /*no underline*/
    font-size: 20px;
-   padding: 30px 20px;
+   padding: 20px 20px;
    display: inline-block;
    border-radius: 5px;
    /* transition: background-color 0.3s; */
@@ -80,7 +80,7 @@ body, html{
 }
 
 /* editing individual items on tab list */
-.tab-list li:nth-child(1) a{
+/* .tab-list li:nth-child(1) a{
      background-color: white;
      color: #7d9b7e;
      width: 200px;
@@ -102,6 +102,13 @@ body, html{
      background-color: rgb(28, 28, 28);
      color: #7d9b7e;
      width: 200px;
+} */
+
+/* styling for active screen or tab */
+.tab-list a.active{
+   background-color: white;
+   color: #7d9b7e;
+   width: 200px;
 }
 
 /* styling of content on the right */
@@ -150,10 +157,12 @@ body, html{
    font-size: 35px;
    background-color: #7d9b7e;
    border-radius: 50%;
+   border: none;
    padding: 10px 10px;
    margin-left: 5px;
    justify-content: center;
    align-items: center;
+   text-decoration: none;
 }
 
 .newProj-btn:hover{
@@ -244,4 +253,127 @@ body, html{
 
 .popup-content button:hover{
    background-color: #2980b9;
+}
+
+/* code for dash right container with tiles */
+.dash-container{
+   display: grid;
+   /* grid-template-columns: repeat(2, 1fr);  */
+   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+   gap: 40px;
+   /* background-color: #abc7a8a7; */
+   background-color: whitesmoke;
+   margin-top: 10px;
+   padding: 10px;
+   border-radius: 20px;
+}
+
+.dash-widget, 
+#s-curve-tile, 
+#deadlines-tile, 
+#progress-tile, 
+#teams-tile{
+   background-color: white;
+   border-radius: 15px;
+   box-shadow: 2px 2px 8px rgb(101, 101, 101);
+   /* height: 250px; */
+   height: auto;
+   padding: 0.5rem;
+   transition: transform 0.2s;
+}
+
+.graph-widget{
+   height: auto;
+}
+
+#date-widget{
+   /* display: flex;
+   flex-wrap: wrap; */
+   display: flex;
+   flex-direction: column;
+   gap: 15px;
+   border-radius: 10px;
+   height: auto;
+   padding: 1rem;
+   margin: 10px 10px;
+}
+
+.deadline-item{
+   /* background-color: #e6ffe9; */
+   background-color: #fffee8;
+   padding: 10px;
+   border-radius: 10px;
+   height: auto;
+}
+
+.teams-heading{
+    margin-top: 2px;
+    margin-bottom: 10px;
+    font-size: 21px;
+}
+
+.team-item{
+   background-color: #fff6e8;
+   padding: 10px;
+   border-radius: 10px;
+   height: auto;
+   margin: 20px 20px;
+}
+
+#s-curve-tile:hover{
+   transform: scale(1.05);
+}
+
+.dash-widget:hover{
+   transform: scale(1.05);
+}
+
+#deadlines-tile{
+   min-height: 250px;
+}
+
+#deadlines-tile h2{
+   margin-bottom: 0.5rem;
+}
+
+#progress-tile{
+   min-height: 250px;
+}
+
+#teams-tile{
+   min-height: 250px;
+}
+
+/* description when blocks are empty */
+.empty-state{
+   color: #888;
+   font-style: italic;
+   padding-top: 0.5rem;
+}
+
+/* tour styling blocks */
+.tour-overlay{
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgba(0,0,0,0.6);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   z-index: 10000;
+}
+
+.tour-message{
+   background-color: white;
+   padding: 30px;
+   border-radius: 12px;
+   max-width: 400px;
+   text-align: center;
+   box-shadow: 0 0 10px black;
+}
+
+.hidden{
+   display: none;
 }

@@ -1,0 +1,282 @@
+{
+    "industry": "Generic",
+    "templates": [
+        {
+            "id": "1",
+            "name": "Project Planner",
+            "description": "Organize projects on 1 template",
+            "fields":[
+                {
+                    "label": "Project Name",
+                    "type": "text",
+                    "placeholder": "Enter Project Name"
+                },
+                {
+                    "label": "Deadline",
+                    "type": "date",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project Overview",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project Goals",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Strategies & Ideas",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Resources & Ideas",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Important Notes",
+                    "type": "textarea",
+                    "placeholder": ""
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/GenericTemps/projectPlanner.PNG",
+            "tags": ["plan", "generic"]
+        },
+        {
+            "id": "2",
+            "name": "Project Charter",
+            "decsription": "Define the risks and scope of your project.",
+            "fields":[
+                {
+                    "label": "Project Title",
+                    "type": "text",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project Manager",
+                    "type": "text",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project Start Date",
+                    "type": "date",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project End Date",
+                    "type": "date",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project Sponser",
+                    "type": "text",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Business Need",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project Scope",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Deliverables",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Risks & Issues",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Assumptions/Dependencies",
+                    "type": "textarea",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Financials",
+                    "type": "text",
+                    "placeholder": "Budget to complete this project..."
+                },
+                {
+                    "label": "Milestones Schedule",
+                    "type": "dynamic_table",
+                    "columns": ["Milestones","target Completion Date", "Actual Date"],
+                    "rows": []
+                },
+                {
+                    "label": "Project Team",
+                    "type": "dynamic_table",
+                    "columns": ["Project Manager","Team Members"],
+                    "rows": []
+                },
+                {
+                    "label": "Approval/Review Committee",
+                    "type": "dynamic_table",
+                    "columns": ["Sponsor","Business Division Head", "Business Unit Head", "Finance Manager"],
+                    "rows": []
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/GenericTemps/projectCharter.webp",
+            "tags": ["charter","generic"]
+        },
+        {
+            "id": "3",
+            "name": "Project Handover",
+            "description": "Ensure all tasks have been checked for handover",
+            "fields":[
+                    {
+                        "label": "Plan created by:",
+                        "type": "text"
+                    },
+                    {
+                        "label": "Date:",
+                        "type": "date"
+                    },
+                    {
+                        "label": "Goals",
+                        "type": "textarea"
+                    },
+                    {
+                        "label": "Risks",
+                        "type": "textarea"
+                    },
+                    {
+                        "label": "Assumptions",
+                        "type": "textarea"
+                    },
+                    {
+                        "label": "Other",
+                        "type": "textarea"
+                    },
+                    {
+                        "label": "Roles and Tasks",
+                        "type": "dynamic_table",
+                        "columns": ["Roles","Assigned To","Start Date","End Date","Notes"],
+                        "rows": []
+                    },
+                    {
+                        "label": "",
+                        "type": "dynamic_table",
+                        "columns": ["Tasks","Assigned To","Start Date","End Date","Notes"],
+                        "rows": []
+                    },
+                    {
+                        "label": "",
+                        "type": "dynamic_table",
+                        "columns": ["Training","Assigned To","Start Date","End Date","Notes"],
+                        "rows": []
+                    }
+            ],
+            "image": "/demo/src/main/resources/assets/GenericTemps/IC-Project-Handover-Plan-Template.png",
+            "tags": ["handover", "generic"]
+        },
+        {
+            "id": "4",
+            "name": "Project Brief",
+            "description": "Define the purpose and goals of a project",
+            "fields": [
+                {
+                    "label": "Project Title",
+                    "type": "text"
+                },
+                {
+                    "label": "Client Name",
+                    "type": "text"
+                },
+                {
+                    "label": "Project Manager",
+                    "type": "text"
+                },
+                {
+                    "label": "Contact Name",
+                    "type": "text"
+                },
+                {
+                    "label": "Phone Number",
+                    "type": "text"
+                },
+                {
+                    "label": "Email",
+                    "type": "text"
+                },
+                {
+                    "label": "Brief Information",
+                    "type": "table",
+                    "columns": ["Focus Points", "Description"],
+                    "rows": [
+                            ["PURPOSE - Identify how your content strategy will support your company's mission.",""],
+                            ["GOALS - A summary of the SMART goals for your content strategy.",""],
+                            ["AUDIENCE - List the persona(s) your strategy will address.",""],
+                            ["STORY - The overall theme or message for your content, including the unique value of your project.",""],
+                            ["TEAM - List the project leader, contributors, creators, and other key stakeholders.",""],
+                            ["BUDGET - Outline the expense for this project, and when expenses are expected by week, month, quarter, or year.",""],
+                            ["TIMEFRAME - Specify key dates and deadlines for deliverables. Also, include any timeframe for evaluating the metrios of this project.",""],
+                            ["COMMENTS",""]
+                        ]
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/GenericTemps/projectBrief.png",
+            "tags": ["brief", "generic"]
+
+        },
+        {
+            "id": "5",
+            "name": "Simple Project Plan",
+            "description": "Define assignement of tasks and dates",
+            "fields":[
+                    {
+                    "label": "Project Name",
+                    "type": "text",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project Manager",
+                    "type": "text",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Project Deliverable",
+                    "type": "text",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Scope Statement",
+                    "type": "text",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Start Date",
+                    "type": "date",
+                    "placeholder": ""
+                },
+                {
+                    "label": "End Date",
+                    "type": "date",
+                    "placeholder": ""
+                },
+                {
+                    "label": "Overall Progress",
+                    "type": "text",
+                    "placeholder": "Budget to complete this project..."
+                },
+                {
+                    "label": "Task Assignment",
+                    "type": "dynamic_table",
+                    "columns": ["At Risk","Task Name", "Assigned To", "Start Date","End Date", "Duration in days","Status"],
+                    "rows": []
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/GenericTemps/simpleProjectPlan.png",
+            "tags": ["simple", "generic"]
+
+        }
+    ]
+}

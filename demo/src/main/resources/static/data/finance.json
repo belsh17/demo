@@ -1,0 +1,228 @@
+{
+    "industry": "Finance",
+    "templates": [
+        {
+            "id": 1,
+            "name": "Audit Plan",
+            "description": "Audting the figures of a company.",
+            "fields": [
+                {
+                    "label": "Audit Purpose", 
+                    "type": "text", 
+                    "placeholder": "Inventory Verification"
+                },
+                {
+                    "label": "Audit Scope", 
+                    "type": "textarea", 
+                    "placeholder": "Inventory risk assessment\nAudit consists of XXX hours of work"
+                },
+                {
+                    "label": "Audit Process", 
+                    "type": "textarea", 
+                    "placeholder": "The audit process consists of inspection, data collection, inquiries with employees, review of documents, etc."
+                },
+                {
+                    "label": "", 
+                    "type": "table", 
+                    "columns": ["Stages", "Deliverables", "Estimated Hours"],
+                    "rows":[
+                        ["Risk assessment\n- Understanding of client business\n -Scrutinize financial statements", "Compliance checklist\n - Inventory risk checklist\n - Sugesstions", "50"],
+                        ["Further audit procedures\n- Inspecting warehouse and factory\n - Physical counting of inventory\n - Reconcile the physical inventory count to the general ledger", "Audit evidence\n - Resulting documents from the implementation of the audit procedure", "70"],
+                        ["Reporting\n- Draft report\n- Follow-up meeting\n- Discussion on risks and recommendations\n- Incorporation of comments\n - Final report", "\n - Draft Report\n - Final Report", "90"]
+                    ]
+                },
+                {
+                    "label": "Conclusion",
+                    "type": "textarea",
+                    "placeholder": "We expect to submit our final report for this audit by XXX hours. Our findings and recommendations will be discussed with the management before the submission of the final report."
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/FinanceTemps/Audit-Plan.png",
+            "tags":["audit", "finance"]
+        },
+        {
+            "id": 2,
+            "name": "Tax compliance tracker",
+            "description": "UPDATE YOUR TRACKER EVERY YEAR TO KEEP TRACK OF YOUR TAXES. FORMATTED TO EASILY USE TEMPLATE.",
+            "fields":
+            [
+                {
+                    "label": "Tax Compliance Tracker",
+                    "type": "dynamic_table",
+                    "columns": ["Description",
+                                "Year1 - Reported","Year1 - Actual ",
+                                "Year2 - Reported", "Year2 - Actual", 
+                                "Year3 - Reported", "Year3 - Actual"
+                            ],
+                    "rows": [] 
+                },
+                {
+                    "label": "Conclusion",
+                    "type": "textarea"
+                }
+                
+            ],
+            "image": "/demo/src/main/resources/assets/FinanceTemps/taxComplianceTracker.jpg",
+            "tags": ["tax", "finance"]
+        },
+        {
+            "id": 3,
+            "name": "Regulation Obligation Tracker",
+            "Description": "Uncovers obligations specific to the laws governing the business",
+            "fields":[
+                {
+                    "label": "Regulations Obligation Tracker",
+                    "type": "dynamic_table",
+                    "columns": ["Item",
+                                "Type",
+                                "Company",
+                                "Resonsibility",
+                                "Description",
+                                "Clause Reference",
+                                "Priority",
+                                "Start Date",
+                                "Due Date",
+                                "Actual Date",
+                                "Delay",
+                                "Remarks",
+                                "Status"
+                               ],
+                    "rows": []
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/FinanceTemps/Reg-Obligation-Tracker.PNG",
+             "tags": ["obligation", "finance"]
+        },
+        {
+            "id": 4,
+            "name": "Profit and Loss Report",
+            "Description": "Report whether the company makes a profit or loss",
+            "fields":[
+                {
+                    "label": "Company Name",
+                    "type": "text",
+                    "placeholder": "Enter company name here"
+                },
+                {
+                    "label": "Date Created:",
+                    "type": "date"
+                },
+                {
+                    "label": "Date Issued",
+                    "type": "date"
+                },
+                {
+                    "label": "Profit and Loss Report",
+                    "type": "table",
+                    "columns": [
+                                "Revenue",
+                                "Year1",
+                                "Year2",
+                                "Year3"
+                    ],
+                    "rows": [
+                            ["Sales","","",""],
+                            ["Less: Sales Return","","",""],
+                            ["Less: Discount and Allowances","","",""],
+                            ["Net Sales","","",""],
+                            ["Cost of Goods Sold","","",""],
+                            ["Materials","","",""],
+                            ["Labor","","",""],
+                            ["Overhead","","",""],
+                            ["Total Cost of Goods Sold","","",""],
+                            ["Gross Profit","","",""],
+                            ["Operating Expenses","","",""],
+                            ["Wages","","",""],
+                            ["Advertising","","",""],
+                            ["Repairs & Maintenance","","",""],
+                            ["Travel","","",""],
+                            ["Rent/Lease","","",""],
+                            ["Delivery/Freight Expense","","",""],
+                            ["Utilities/Telephone Expenses","","",""],
+                            ["Insurance","","",""],
+                            ["Mileage","","",""],
+                            ["Office Supplies","","",""],
+                            ["Interest","","",""],
+                            ["Other Expenses","","",""],
+                            ["Total Operating Expenses","","",""],
+                            ["Operating Profit (Loss)","","",""],
+                            ["Add: Other Income","","",""],
+                            ["Interest Income","","",""],
+                            ["Other Income","","",""],
+                            ["Profit (Loss) Before Taxes","","",""],
+                            ["Less: Tax Expense","","",""],
+                            ["Net Profit (Loss)","","",""]
+
+                    ]
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/FinanceTemps/profit-and-loss-template-by-freshbooks.png",
+            "tags": ["profit/loss", "finance"]
+        },
+        {
+            "id": 5,
+            "name": "Financial Reporting Timeline",
+            "description": "Timeline of financial reports",
+            "fields": [
+              {
+                "label": "Timeline Tasks",
+                "type": "gantt",
+                "tasks":[
+                      {
+                    "id": "Task 1",
+                    "name": "Establishing Goal",
+                    "start": "2024-09-18",
+                    "end": "2024-10-02",
+                    "progress": "62",
+                    "dependencies": ""
+                },
+                {
+                    "id": "Task 2",
+                    "name": "data Gathering",
+                    "start": "2024-09-18",
+                    "end": "2024-10-02",
+                    "progress": "62",
+                    "dependencies": ""
+                },
+                 {
+                    "id": "Task 3",
+                    "name": "data Analysis",
+                    "start": "2024-09-18",
+                    "end": "2024-10-02",
+                    "progress": "62",
+                    "dependencies": ""
+                },
+                 {
+                    "id": "Task 4",
+                    "name": "Planning",
+                    "start": "2024-09-18",
+                    "end": "2024-10-02",
+                    "progress": "62",
+                    "dependencies": ""
+                },
+                 {
+                    "id": "Task 1",
+                    "name": "Implementation",
+                    "start": "2024-09-18",
+                    "end": "2024-10-02",
+                    "progress": "62",
+                    "dependencies": ""
+                },
+                 {
+                    "id": "Task 6",
+                    "name": "Monitoring",
+                    "start": "2024-09-18",
+                    "end": "2024-10-02",
+                    "progress": "62",
+                    "dependencies": ""
+                }
+                ]
+              }
+
+            ],
+            "image": "/demo/src/main/resources/assets/FinanceTemps/financial-reporting-gantt-chart-template-uxblb.jpg",
+            "tags": ["timeline", "finance"]
+        }
+    ]
+}
+

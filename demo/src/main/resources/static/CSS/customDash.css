@@ -1,0 +1,467 @@
+body, html{
+   margin: 0;
+   padding: 0;
+   font-family: Arial, sans-serif;
+   height: 100%;
+}
+
+.dashboard-container{
+   display: flex;
+   height: 100vh;
+}
+
+.side-tab{
+   background-color: #7d9b7e;
+   color: white;
+   width: 250px;
+   min-width: 250px;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   /* justify-content: space-between; */
+   position: fixed; /*stays on screen even scrolling*/
+   height: 100vh;
+   z-index: 10;
+}
+
+.header-side{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+
+.back-button{
+   /* display: inline-flex;
+   align-items: center; */
+   /* gap: 8px; */
+   border: none;
+   background-color: transparent;
+   color: rgb(59, 100, 61);
+   font-size: 30px;
+   cursor: pointer;
+}
+
+
+.side-tab h2{
+   margin: 0;
+   font-size: 35px;
+}
+
+.back-button:hover{
+   color: #ecf0f1;
+}
+
+.side-tab ul{
+   list-style-type: none;
+   padding: 0;
+   margin-top: 30px;
+}
+
+.side-tab l{
+   margin: 10px 0;
+}
+
+ .tab-list a{
+   color: white;
+   text-decoration: none; /*no underline*/
+   font-size: 20px;
+   padding: 30px 20px;
+   display: inline-block;
+   border-radius: 5px;
+   /* transition: background-color 0.3s; */
+}
+
+.tab-list a:hover{
+   /* text-decoration: underline; */
+   background-color: #000000;
+   width: 200px;
+   color: #7d9b7e;
+}
+
+/* editing individual items on tab list */
+.tab-list li:nth-child(1) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(1) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(3) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(3) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+
+/* styling of content on the right */
+.main-content{
+   margin-left: 280px; 
+   padding: 20px;
+   width: calc(100% - 300px);
+   overflow-y: auto;
+}
+
+.search-block{
+   display: flex;
+   flex: 1;
+   gap: 30px;
+   border-radius: 30px;
+   background-color: #c4c4c4;
+   width: 1193px;
+   height: 70px;
+   align-items: center;
+}
+
+.newProject{
+   z-index: 1;
+   display: flex;
+   gap: 8px;
+   background-color: rgb(255, 255, 255);
+   border-radius: 40px;
+   height: 55px;
+   position: relative;
+   align-items: center;
+}
+
+.newProject h3{
+   font-size: 20px;
+   margin-left: 60px;
+   padding-right: 8px;
+}
+
+.newProj-btn{
+   display: flex;
+   position: absolute;
+   cursor: pointer;
+   width: 30px;
+   height: 30px;
+   color: rgb(255, 255, 255);
+   font-size: 35px;
+   background-color: #7d9b7e;
+   border-radius: 50%;
+   border: none;
+   padding: 10px 10px;
+   margin-left: 5px;
+   justify-content: center;
+   align-items: center;
+   text-decoration: none;
+}
+
+.newProj-btn:hover{
+   background-color: rgb(59, 100, 61);
+   color: white;
+}
+
+/* code for user icon */
+.user-icon, .bell-icon{
+   display: flex;
+   cursor: pointer;
+   width: 30px;
+   height: 35px;
+   color: rgb(59, 100, 61);
+   font-size: 35px;
+   background-color: white;
+   border-radius: 40px;
+   padding: 10px 15px;
+   margin-left: 10px;
+}
+
+.user-icon:hover, .bell-icon:hover{
+   background-color: rgb(59, 100, 61);
+   color: white;
+}
+
+/* code for search bar */
+.search-block .search-bar input{
+   display: flex;
+   width: 763px;
+   height: 50px;
+   border-radius: 30px;
+   border: none;
+   font-size: 25px;
+   padding-left: 10px;
+}
+
+/* code for popup background */
+.popup{
+  /*hidden*/
+   display: none;
+   position: fixed;
+   z-index: 1000;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   background-color: rgb(59, 100, 61);
+}
+
+/* content of user inside popup block */
+.popup-content{
+   background-color: white;
+   margin: 15% auto;
+   padding: 20px;
+   border-radius: 8px;
+   width: 300px;
+   text-align: center;
+}
+
+.popup-content h3{
+    font-size: 25px;
+}
+
+.close{
+   color: #aaa;
+   float: right;
+   font-size: 30px;
+   font-weight: bold;
+}
+
+.close:hover,
+.close:focus{
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.popup-content button{
+   margin-top: 10px;
+   padding: 10px 10px;
+   background-color:#7d9b7e;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+.popup-content button:hover{
+   background-color: #2980b9;
+}
+/* end of styling for top header */
+
+.tiles-container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+}
+ /* .tiles-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1rem;
+} */
+
+.tiles-container > div{
+    /* background-color: #f5f5f5; */
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    cursor: grab;
+    /* width: 48%; */
+    transition: transform 0.2s ease;
+}
+
+.tiles-container > div.over{
+    border: 2px dashed #007bff;
+}
+.close-btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    color: #7d9b7e;
+    font-size: 25px;
+    border: none;
+    margin-left: 95%;
+}
+
+.widget-heading{
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    size: 20px;
+    margin-bottom: 10px 10px 10px 0;
+    text-shadow: 1px 1px 2px #d2d2d2;
+    background-color: white;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.task-input-block{
+    display: flex;
+    gap: 5px;
+    /* margin-bottom: 10px; */
+}
+
+.task-input-block input{
+    flex: 1;
+    margin: 10px 10px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 30px;
+}
+
+.task-input-block button{
+    margin: 10px 10px;
+    padding: 5px 10px;
+    height: 40px;
+    background-color: darkgreen;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.task-input-block button:hover{
+    background-color: rgb(255, 255, 255);
+    color: darkgreen;
+    box-shadow: 2px 2px 4px #ccc;
+}
+
+#task-list{
+    list-style: none;
+    padding: 0;
+    margin: 0px 10px 10px 10px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+#task-list li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+}
+
+#task-list li label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.delete-btn{
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
+
+/* button{
+    padding: 5px 10px;
+    margin-left: 5px;
+} */
+
+
+.progress-circle{
+    --size: 100px;
+    --thickness: 12px;
+    --progress: 0;
+
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    background: conic-gradient(
+        rgb(255, 97, 124) calc(var(--progress) * 1%),
+        #e0e0e0 0%
+    );
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-family: sans-serif;
+    position: relative;
+    color: #333;
+    margin-bottom: 20px;
+    transition: background 0.5s ease;
+}
+
+.progress-circle::before{
+    content: '';
+    position: absolute;
+    width: calc(var(--size) - var(--thickness) * 2);
+    height: calc(var(--size) - var(--thickness) * 2);
+    background: white;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.progress-circle span{
+    position: absolute;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    z-index: 1;
+}
+
+.deadlines-heading{
+    margin-top: 2px;
+    margin-bottom: 10px;
+    font-size: 21px;
+}
+
+.deadline-item{
+    padding: 1rem;
+    background-color: rgb(237, 238, 254);
+    border-radius: 8px;
+    margin-top: 5px;
+    font-size: 20px;
+}
+
+/* edit icons on the tiles */
+#deadlines #deadline-icon{
+    height: 20px;
+    width: 20px;
+    padding: 15px;
+    font-size: 25px;
+    margin: 10px 10px 10px 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 4px black;
+    border-radius: 50%;
+}
+
+.teams-heading{
+    margin-top: 2px;
+    margin-bottom: 10px;
+    font-size: 21px;
+}
+
+.team-item{
+   background-color: #fff6e8;
+   padding: 10px;
+   border-radius: 10px;
+   height: auto;
+   margin: 20px 20px;
+}
+
+.dragging{
+    opacity: 0.6;
+    z-index: 1000;
+    transform: scale(1.02);
+    transition: transform 0.2s;
+    position: relative;
+}
+
+.dragging *{
+    pointer-events: none;
+}
+
+/* responsive */
+@media(max-width: 768px){
+    .tiles-container{
+        grid-template-columns: 1fr;
+    }
+}
+

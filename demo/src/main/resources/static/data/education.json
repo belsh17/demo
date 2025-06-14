@@ -1,0 +1,165 @@
+{
+    "templates": [
+        {
+            "id": "1",
+            "name": "Staff Hours",
+            "fields": [
+                {
+                    "label": "",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Name",
+                        "Mon", 
+                        "Tue", 
+                        "Wed", 
+                        "Thu",
+                        "Fri",  
+                        "Rate per Hour", 
+                        "Total Pay"]
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/EducationTemps/staff-hours.png",
+            "tags": ["hours", "education"]
+        },
+        {
+            "id": "2",
+            "name": "Lesson Plan",
+            "fields": [
+                {
+                    "label": "Grade:",
+                    "type": "text"
+                },
+                {
+                    "label": "Date:",
+                    "type": "date"
+                },
+                {
+                    "label": "Subject:",
+                    "type": "text"
+                },
+                {
+                    "label": "Lesson Topic:",
+                    "type": "text"
+                },
+                {
+                    "label": "Learning Objectives:",
+                    "type": "textarea"
+                },
+                {
+                    "label": "Materials needed:",
+                    "type": "textarea"
+                },
+                {
+                    "label": "Lesson Structure:",
+                    "type": "textarea"
+                },
+                {
+                    "label": "Notes:",
+                    "type": "textarea"
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/EducationTemps/lessonPlan.webp",
+            "tags": ["lesson", "education"]
+        },
+        {
+            "id": "3",
+            "name": "Semester Planner",
+            "fields": [
+                {
+                    "label": "Semester",
+                    "type": "text"
+                },
+                {
+                    "label": "Start Date:",
+                    "type": "date"
+                },
+                {
+                    "label": "End Date:",
+                    "type": "date"
+                },
+                {
+                    "label": "Notes:",
+                    "type": "text"
+                },
+                {
+                    "label": "Class Tracker",
+                    "type": "dynamic_table",
+                    "columns": [
+                            "Time", 
+                            "Mon", 
+                            "Tue", 
+                            "Wed", 
+                            "Thu",
+                            "Fri",
+                            "Sat"
+                    ],
+                     "rows":[]
+                },
+                {
+                    "label": "Class Details",
+                    "type": "dynamic_table",
+                     "columns": [
+                        "Class Name", 
+                        "Room", 
+                        "Teacher Info", 
+                        "NB Dates/Assignments", 
+                        "Notes"
+                    ],
+                    "rows":[]
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/EducationTemps/semesterPlan.webp",
+            "tags": ["semester", "education"]
+        },
+        {
+            "id": "4",
+            "name": "Weekly Planner",
+            "fields": [
+                {
+                    "label": "Class Notes",
+                    "type": "table",
+                    "columns": [
+                        "",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday"
+                    ],
+                    "rows": [
+                        ["Working on","","","","",""],
+                        ["Reminders","","","","",""],
+                        ["Class Notes","","","","",""]
+                    ]
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/EducationTemps/weekly-planner.webp",
+            "tags": ["week", "education"]
+        },
+        {
+            "id": "5",
+            "name": "Weekly Work Schedule",
+            "fields": [
+                {
+                    "label": "Week Of:",
+                    "type": "date"
+                },
+                {
+                    "label": "",
+                    "type": "dynamic_table",
+                    "columns": [
+                        "Staff member",
+                        "Monday",
+                        "Tuesday",
+                        "Wednesday",
+                        "Thursday",
+                        "Friday"
+                    ],
+                    "rows": []
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/EducationTemps/workSchedule.webp",
+            "tags": ["schedule", "education"]
+        }
+    ]
+}

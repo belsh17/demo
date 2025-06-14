@@ -1,0 +1,370 @@
+/* *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} */
+
+body, html{
+   margin: 0;
+   padding: 0;
+   font-family: Arial, sans-serif;
+   height: 100%;
+}
+
+/* code for side tab */
+
+.dashboard-container{
+   display: flex;
+   height: 100vh;
+}
+
+.side-tab{
+   background-color: #7d9b7e;
+   color: white;
+   width: 250px;
+   min-width: 250px;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   /* justify-content: space-between; */
+   position: fixed; /*stays on screen even scrolling*/
+   height: 100vh;
+   z-index: 10;
+}
+
+.header-side{
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   margin-bottom: 20px;
+}
+
+.back-button{
+   /* display: inline-flex;
+   align-items: center; */
+   /* gap: 8px; */
+   border: none;
+   background-color: transparent;
+   color: rgb(59, 100, 61);
+   font-size: 30px;
+   cursor: pointer;
+}
+
+
+.side-tab h2{
+   margin-right: 50px;
+   margin-bottom: 0;
+   font-size: 35px;
+}
+
+.back-button:hover{
+   color: #ecf0f1;
+}
+
+.side-tab ul{
+   list-style-type: none;
+   padding: 0;
+   margin-top: 30px;
+}
+
+.side-tab l{
+   margin: 10px 0;
+}
+
+ .tab-list a{
+   color: white;
+   text-decoration: none; /*no underline*/
+   font-size: 20px;
+   padding: 30px 20px;
+   display: inline-block;
+   border-radius: 5px;
+   /* transition: background-color 0.3s; */
+}
+
+.tab-list a:hover{
+   /* text-decoration: underline; */
+   background-color: #000000;
+   width: 200px;
+   color: #7d9b7e;
+}
+
+/* editing individual items on tab list */
+.tab-list li:nth-child(1) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(1) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(3) a{
+     background-color: white;
+     color: #7d9b7e;
+     width: 200px;
+}
+
+.tab-list li:nth-child(3) a:hover{
+     background-color: rgb(28, 28, 28);
+     color: #7d9b7e;
+     width: 200px;
+}
+/* end of side tab style */
+
+/* styling of content on the right */
+.main-content{
+   margin-left: 280px; 
+   padding: 20px;
+   width: calc(100%-250px);
+   overflow-y: auto;
+}
+
+.top-header{
+   display: flex;
+   gap: 30px;
+   border-radius: 30px;
+   background-color: #dddddd;
+   box-shadow: 0 0 10px #dddddd;
+   /* width: 1208px; */
+   width: calc(100% - 20px);
+   height: 70px;
+   align-items: center;
+}
+
+.top-header h2{
+   color: #485648;
+   font-size: 40px;
+   margin-left: 15px;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+/* styling the templates tile container */
+.template-gallery{
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.template-tile1,
+.template-tile2,
+.template-tile3,
+.template-tile4,
+.template-tile5{
+    width: 300px;
+    height: 350px;
+    /* background-color: rgb(120, 153, 120); */
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgb(66, 66, 66);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.template-tile1{
+   background-color: rgb(61, 80, 61);
+}
+
+.template-tile2{
+    background-color: #485648;
+}
+
+.template-tile3{
+    background-color: #ffffff;
+}
+
+.template-tile4{
+    background-color:#7d9b7e;
+}
+
+.template-tile5{
+    background-color: #485648;
+}
+
+.template-tile1:hover,
+.template-tile2:hover,
+.template-tile3:hover,
+.template-tile4:hover,
+.template-tile5:hover{
+    transform: scale(1.05);
+}
+
+.template-tile1 img,
+.template-tile2 img,
+.template-tile3 img,
+.template-tile4 img,
+.template-tile5 img
+{
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    /* height: 280px; */
+    /* max-height: 100%; */
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.template-tile1 h3,
+.template-tile2 h3,
+.template-tile4 h3,
+.template-tile5 h3{
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: white;
+}
+
+.template-tile3 h3{
+    margin-top: 10px;
+    font-size: 1.2em;
+    color: rgb(0, 0, 0);
+}
+
+/* styling for javascript html elements created at runtime */
+.template-form{
+    background-color: rgb(255, 255, 255);
+    overflow-x: auto;
+    width: 100%;
+    /* height: auto; */
+    box-sizing: border-box;
+    padding: 20px;
+    margin: 50px auto;
+    box-shadow: 3px 3px 8px rgb(106, 106, 106);
+    font-family: Arial, sans-serif;
+}
+
+/* styling for template heading */
+.template-form h2,
+.template-form h3{
+   color: #343434;
+   font-size: 35px;
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-weight: bold;
+   margin-top: 0;
+}
+
+/* .tile-title-3{
+   color: #000000;
+} */
+
+.dynamic-table{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+    margin-top: 20px;
+     margin-bottom: 20px;
+     overflow: hidden;
+   border-radius: 4px;
+   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+/* styling for text block input for lesson plan */
+.text-input{
+   width: 100%;
+   height: 30px;
+   margin-top: 15px;
+   border-color: #7d9b7e;
+   /* border: none; */
+   margin-bottom: 10px;
+}
+
+/* styling for lesson plan textarea */
+.textarea-input{
+   width: 100%;
+   height: 100px;
+   margin-top: 20px;
+   margin-bottom: 20px;
+}
+
+.table-input{
+    width: auto;
+    height: 30px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.95rem;
+}
+
+.dynamic-input{
+    border-collapse: collapse;
+    table-layout: auto;
+    width: 98%;
+     height: 30px;
+     font-size: 0.95rem;
+}
+
+.table-header,
+.dynamic-header{
+    background-color: #dddddd;
+    font-size: 18px;
+}
+
+.table-header th,
+.dynamic-header th{
+    background-color: #dddddd;
+    font-size: 18px;
+    padding: 10px;
+    border-bottom:  1px solid #ddd;
+    text-align: left;
+}
+
+.table-header td,
+.dynamic-header td{
+    padding: 10px;
+    border-bottom:  1px solid #eee;
+}
+
+/* styling for all labels */
+.field-label{
+   color: #485648;
+   font-size: 20px;
+   font-weight: bold;
+}
+
+/* styling the save button */
+.save-btn{
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* display: none;  */
+}
+
+.save-btn:active{
+    background-color: #45a049;
+}
+
+
+.add-row-btn{
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-row-btn:hover{
+    background-color: #45a049;
+}
+
+/* add to all templates  */
+.field-wrapper{
+   padding: 20px;
+}
+
+.tile-title{
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 15px;
+}

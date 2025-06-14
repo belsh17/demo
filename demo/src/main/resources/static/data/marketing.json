@@ -1,0 +1,499 @@
+{
+    "industry": "Marketing",
+    "templates":[
+        {
+            "id": "1",
+            "name": "Campaign Plan",
+            "description": "Phase planning for campaign",
+            "fields":[
+                    {
+                        "activity": "Phase 1: Planning",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": "",
+                        "isHeader": true
+                    },
+                    {
+                        "activity": "Establish Goals",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Determine Target Audience",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Develop Creative Concept",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Identify Marketing Channels",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Budget & Financial Projection",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Set Up Campaign Calendar",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Develop Plan for Testing",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Creative Brief",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Phase 2: Creative Development",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": "",
+                        "isHeader": true
+                    },
+                    {
+                        "activity": "Message Planning",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Create Marketing Assets",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Gather Customer testimonals",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Other",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Phase 3: Promotion Plan",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": "",
+                        "isHeader": true
+                    },
+                    {
+                        "activity": "Email Campaign",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Social Media",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Sales Outreach",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Other",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Phase 4: Testing",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": "",
+                        "isHeader": true
+                    },
+                    {
+                        "activity": "Split Testing",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Results Analyzation",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Plan Refinement",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Other",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Phase 5: Launch",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": "",
+                        "isHeader": true
+                    },
+                    {
+                        "activity": "Channel A",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Channel B",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Channel C",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Channel D",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Phase 6: Measurement",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": "",
+                        "isHeader": true
+                    },
+                    {
+                        "activity": "Key Metrics Channel A",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Key Metrics Channel B",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Performance Evaluation",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    },
+                    {
+                        "activity": "Plan Refinement",
+                        "status": "",
+                        "assigned to": "",
+                        "start date": "",
+                        "end date": "",
+                        "notes": ""
+                    }
+                ],
+                "image": "/demo/src/main/resources/assets/Marketing/campaignTemplate.png",
+                "tags": ["campaign","marketing"]
+        },
+        {
+            "id": "2",
+            "name": "Content Marketing Plan",
+            "description": "define content goals and description",
+            "fields": [
+                {
+                    "label": "Product",
+                    "type": "text"
+                },
+                {
+                    "label": "Company",
+                    "type": "text"
+                },
+                {
+                        "Focus": "Goal 1",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Goal 2",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Goal 3",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Message",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Story Elements",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Content to keep",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Content to update",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Content to delete",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Content to add",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Blog posts",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Guides/E-books",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Graphics",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Video",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Podcasts",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Webinars",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Branding",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Voice & Style",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Metadata",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Visuals",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                },
+                {
+                        "Focus": "Bests Practices: Writing",
+                        "Description": "",
+                        "Project Lead": "",
+                        "Date Completed": "",
+                        "Stakeholder Approval": ""
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/Marketing/contentMarketingPlan.jpg",
+            "tags": ["content", "marketing"]
+
+        },
+        {
+            "id": "3",
+            "name": "Marketing Project Plan Checklist",
+            "description": "Keep track of all marketing tasks",
+            "fields":[
+                    {
+                        "label": "",
+                        "type": "dynamic_table",
+                        "columns": [
+                            "ID",
+                            "Item",
+                            "Assigned to",
+                            "Status",
+                            "Date Opened",
+                            "Date Due",
+                            "Date Closed"
+                        ],
+                        "rows": []
+                    }
+            ],
+             "image": "/demo/src/main/resources/assets/Marketing/marketingChecklistFinal.png",
+            "tags": ["checklist", "marketing"]
+        },
+        {
+            "id": "4",
+            "name": "Product Launch Communication Plan",
+            "description": "Define objectives and roles for product launch",
+            "fields": [
+                {
+                    "label": "",
+                    "type":"dynamic_table",
+                    "columns": [
+                        "Type of Communication",
+                        "Objectives",
+                        "Method of Commmunication",
+                        "Frequency",
+                        "Audience",
+                        "Person Responsible",
+                        "Deliverable",
+                        "Format"
+                    ],
+                    "rows": []
+                }
+            ],
+            "image": "/demo/src/main/resources/assets/Marketing/prodLaunchCommunication.png",
+            "tags": ["checklist", "marketing"]
+        }
+
+    ]
+}
+

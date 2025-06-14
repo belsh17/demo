@@ -8,7 +8,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String homePage() {
-        return "index"; // Refers to templates/index.html
+        return "defaultDashboard"; // Refers to templates/index.html
     }
     
 }
