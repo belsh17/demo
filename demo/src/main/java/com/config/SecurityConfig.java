@@ -87,12 +87,14 @@ public class SecurityConfig{
             ).permitAll()
             //Public GET routes - login,calendar events...
             .requestMatchers(HttpMethod.GET, 
-                        "/calendar/events",
+                        // "/calendar/events",
                         "/signup",
                         "/login",
                         "/oauth2/**",
                         "/api/defaultDashboard",
-                        "/api/customizableDashboard.html"
+                        "/api/customizableDashboard.html",
+                        "/calendar/api/google/link",
+                        "/calendar/api/google/callback"
             ).permitAll()
             // .requestMatchers(HttpMethod.PUT,
             //             "/api/admin/users/**"
@@ -105,6 +107,7 @@ public class SecurityConfig{
             .requestMatchers(
                 "/api/admin/**",
                             "/api/admin/users"
+                            // "/api/projects/user"
             ).hasRole("ADMIN")
             //static assests and other public paths
             .requestMatchers(
@@ -112,7 +115,9 @@ public class SecurityConfig{
                         "/script/**",
                         "/assets/**",
                         "/calendar",
-                        "/calendar/*",
+                        // "/calender/events",
+                        // "/api/**",
+                        "/calendar/events",
                         "/api/auth/**",
                         "/api/auth/register",
                         "/api/auth/login",
@@ -131,7 +136,15 @@ public class SecurityConfig{
                         "/api/users",
                         "/api/projects/{id}/teams",
                         "/api/files/**",
-                        "/api/teams/users"
+                        "/api/teams/users",
+                        "/api/projects/user",
+                        "/api/user-templates/save",
+                        "/api/notifications/user",
+                        "/api/projects/deadlines/user",
+                        "/oauth2/",
+                        "/login/oauth2/**",
+                        "/calendar/api/google/**",
+                        "/calendar/api/google/callback"
                         //"/api/admin/**"
 
             ).permitAll()
@@ -166,8 +179,14 @@ public class SecurityConfig{
 
         //commented out while testing pages
         // .oauth2Login(oauth2 -> oauth2
+        //     //ADDING THIS CODE SO IT STILL USES JWT
+        //     .successHandler((request, response, authentication) -> {
+        //         //redirect to frontend - do not create session auth
+        //         response.sendRedirect("http://localhost:8081/calendar?linked=true");
+        //     })
+        //     //END OF USING JWT STILL
         //     //.loginPage("/oauth2/authorization/google")
-        //     .defaultSuccessUrl("/calendar?linked=true", true)
+        //     //.defaultSuccessUrl("/calendar?linked=true", true)
         // )
 
         //commmented out while testing

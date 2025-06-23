@@ -83,6 +83,9 @@ function renderRegObligTemplateForm(template){
             const addRowBtn = document.createElement("button");
             addRowBtn.textContent = "Add Row";
             addRowBtn.className = "add-row-btn";
+            //ADDED TO TEST HIDING ADD ROW BTN
+            addRowBtn.setAttribute("data-html2canvas-ignore", "true");
+            //END OF ADDED
             addRowBtn.onclick = () =>{
                 const newRow = document.createElement("tr");
                 field.columns.forEach(() => {
@@ -123,13 +126,101 @@ function renderRegObligTemplateForm(template){
         }
     });
 
-     const saveButton = document.getElementById("save-button");
-    if(saveButton) {
-        saveButton.style.display = "inline-block";
-    }else{
-        console.error("Save button not found");
-    }
+     
 
+    //code to load projects connnected to user logged in
+    async function loadUserProjects(){
+        const token = localStorage.getItem("jwt");
+
+        if(!token){
+            console.error("No token found. User not authenticated.");
+            return;
+        }
+
+        const response = await fetch("http://localhost:8081/api/projects/user", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if(!response.ok){
+            console.error("Failed to load user projects.");
+            return;
+        }
+
+          const projects = await response.json();
+          const selector = document.getElementById("project-selector");
+
+          projects.forEach(p => {
+            const opt = document.createElement("option");
+            opt.value = p.id;
+            opt.textContent = p.projectName;
+            selector.appendChild(opt);
+          });
+    }
+    //end projects code
+
+
+     document.getElementById("save-button").onclick = async () => {
+        const form = document.getElementById("template-form");
+        const templateId = form.dataset.templateId;
+        const templateName = form.querySelector("h2")?.textContent || "Unnamed Template";
+
+        const fields = [];
+        form.querySelectorAll(".field-wrapper").forEach(wrapper => {
+            const label = wrapper.querySelector("label")?.textContent || "";
+            const input = wrapper.querySelector("input, textarea, table");
+
+            if(input?.tagName === 'TABLE'){
+                const tableRows = [];
+                input.querySelectorAll("tr").forEach((tr, i) => {
+                    if(i === 0) return; 
+                    const rowValues = [];
+                    tr.querySelectorAll("input").forEach(cellInput => {
+                        rowValues.push(cellInput.value);
+                    });
+                    tableRows.push(rowValues);
+
+                });
+                fields.push({ label, type: "dynamic_table", value: tableRows });
+            }else{
+                fields.push({ label, type: input?.type || "text", value: input?.value });
+            }
+        });
+
+        const selectedProjectId = document.getElementById("project-selector").value;
+        if(!selectedProjectId){
+            alert("Please select a project before saving.");
+            return;
+        }
+
+        const payload = {
+            templateName,
+            templateType: "Finance",
+            projectId: parseInt(selectedProjectId), 
+            userId: getUserIdFromToken(),
+            templateData: JSON.stringify(fields)
+        };
+
+        const token = localStorage.getItem("jwt")
+
+        const response = await fetch("http://localhost:8081/api/user-templates/save", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if(response.ok){
+            alert("Template saved successfully!");
+        }else{
+            alert("Error saving temaplate");
+        }
+     };
+
+     loadUserProjects();
 
 }
 //code for pdf conversion and download
@@ -137,14 +228,56 @@ function renderRegObligTemplateForm(template){
         const form = document.getElementById("template-form");
 
         const templateName = form.querySelector("h2")?.textContent || "Template";
-        //use html2canvas to capture form as image
-        const canvas = await html2canvas(form);
-        const imgData = canvas.toDataURL("image/png");
-
-
+        
         //chooses orientation based on template name
         const isLandscape = templateName.includes("Regulation Obligation Tracker")
-        //create pdf using jsPDF library
+        
+        // //clone form so its expanded without messing with layout
+        // const clone = form.cloneNode(true);
+        // clone.id = "pdf-clone";
+        // clone.style.position = "absolute";
+        // clone.style.left = "-9999px";
+        // clone.style.top = "0";
+        // clone.style.zIndex = "-1";
+        // clone.style.overflow = "visible";
+        // clone.style.minWidth = "max-content";
+        // clone.style.maxWidth = "none";
+        // clone.style.display = "block";
+        // clone.style.width = "auto"
+        // clone.style.padding = "20px"
+        // //while testing
+        // clone.style.border = "2px dashed red";
+        // //clone.style.height = form.scrollHeight + "px";
+        
+        
+
+        // const tables = clone.querySelectorAll("table");
+        // tables.forEach(table => {
+        //     table.style.width = "fit-content";
+        //     table.style.maxWidth = "none";
+        //     table.style.tableLayout = "auto";
+        //     table.style.overflow = "visible";
+        // });
+
+        // const inputs = clone.querySelectorAll("input");
+        // inputs.forEach(input => {
+        //     input.style.width = "100%";
+        //     input.style.boxSizing = "border-box";
+        // });
+
+        // document.body.appendChild(clone);
+
+        // await new Promise(resolve => setTimeout(resolve, 100));
+
+        const canvas = await html2canvas(clone, {
+            backgroundColor: "#fff", 
+            scale: 2, //used for quality
+            useCORS: true
+        });
+
+
+        const imgData = canvas.toDataURL("image/png");
+        // //create pdf using jsPDF library
         const { jsPDF } = window.jspdf;
         const pdf = new jsPDF({
             //asks if it is ladnscape according to templates defined as landscape
@@ -154,12 +287,23 @@ function renderRegObligTemplateForm(template){
         });
 
         const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
 
+        const ratio = Math.min(pageWidth / canvas.width, pageHeight / canvas.height);
+        const imgWidth = canvas.width * ratio;
+        const imgHeight = canvas.height * ratio;
+
+        const x = (pageWidth - imgWidth) / 2;
+        const y = (pageHeight - imgHeight) / 2;
+        
         //fit image to page
-        const imgWidth = pageWidth - 40;
-        const imgHeight = canvas.height * imgWidth / canvas.width;
+        // const imgWidth = pageWidth - 40;
+        // const imgHeight = canvas.height * imgWidth / canvas.width;
 
-        pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
+        // pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
+        pdf.addImage(imgData, 'PNG', x, y, imgWidth, imgHeight);
+        //pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
         pdf.save(`${templateName.replace(/\s+/g, "_")}.pdf`);
     }
+
 loadRegObligTemplate();

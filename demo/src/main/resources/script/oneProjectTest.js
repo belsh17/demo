@@ -27,13 +27,46 @@ async function getProjectDetails(){
 
 //fetch for tasks once created and saved
 async function getTaskDetails(){
-    return fetch(`http://localhost:8081/api/projects/${projectId}/tasks`)
-    // return fetch("http://localhost:8081/api/tasks")
-    .then(res => res.json())
-    .catch(error => {
+    // return fetch(`http://localhost:8081/api/projects/${projectId}/tasks`)
+    // // return fetch("http://localhost:8081/api/tasks")
+    // .then(res => res.json())
+    // .catch(error => {
+    //     console.log("Error fetching from backend: " + error);
+    //     return [];
+    // });
+
+     const token = localStorage.getItem("jwt");
+     if(!token){
+                alert("No token found. Please log in again");
+                return [];
+            }
+    try {
+        const res = await fetch(`http://localhost:8081/api/projects/${projectId}/tasks`, {
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        }
+    });
+
+    if(!res.ok) {
+        if(res.status === 401){
+            alert("Session expired. Please log in again.");
+            localStorage.removeItem("jwt");
+            window.location.href = "/login.html";
+            return [];
+        } else {
+            throw new Error("Unauthorized.");
+        }
+    }
+
+    const data = await res.json();
+    return data;
+
+    } catch(error) {
         console.log("Error fetching from backend: " + error);
         return [];
-    });
+    }
 }
 
 //needed for creating new tasks with user assigned
@@ -79,6 +112,7 @@ async function getTeamDetails(projectId){
                 return [];
             }
     try {
+        console.log("projectId being passed to fetch:", projectId);
         const res = await fetch(`http://localhost:8081/api/projects/${projectId}/teams`, {
         method: "GET",
         headers: {
@@ -104,14 +138,6 @@ async function getTeamDetails(projectId){
         console.log("Error fetching from backend: " + error);
         return [];
     }
-
-
-    // return fetch(`http://localhost:8081/api/projects/${projectId}/teams`)
-    // .then(res => res.json())
-    // .catch(error => {
-    //     console.log("Error fetching from backend: " + error);
-    //     return [];
-    // });
 }
 
 //function to fetch existing project files
@@ -149,10 +175,83 @@ async function getTeamDetails(projectId){
         }
     }
 
+    //function to fetch saved templates for specified project
+    async function getSavedTemplates(projectId){
+        const token = localStorage.getItem("jwt");
+        if(!token){
+            alert("No token found. PLease log in again");
+            return [];
+        }
+
+        try{
+            const res = await fetch(`http://localhost:8081/api/user-templates/my-templates?projectId=${projectId}`,{
+                method: "GET",
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            });
+            if(!res.ok){
+                if(res.status === 401){
+                    alert("Session expired. Please log in again");
+                    localStorage.removeItem("jwt");
+                    window.location.href = "/login.html";
+                    return [];
+                }else{
+                    throw new Error("Failed to fetch project templates.");
+                }
+            }
+
+            const data = await res.json();
+            return data;
+        }catch(error){
+            console.log("Error fetching project templates: " + error);
+            return [];
+        }
+            
+    }
 
 let relatedTasks = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
+
+    //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
+        const adminTab = document.getElementById("admin-tab");
+        const token = localStorage.getItem("jwt");
+        if(!token){
+            adminTab.style.display = "none";
+            return;
+        }
+
+        const decoded = parseJwt(token);
+        const roles = decoded?.roles || [];
+        console.log("Decoded roles:", roles);
+
+        const isAdmin = roles === "ADMIN" || roles === "ROLE_ADMIN";
+
+        if(!isAdmin){
+            adminTab.style.display = "none";
+        }
+        //END OF ADMIN USERS
+    
+    //TESTING DASH LINK
+    const dashboardType = localStorage.getItem("dashboardType");
+    const dashboardLink = document.querySelector('.tab-list a[href*="defaultDashboard.html"]');
+
+    if(dashboardLink){
+        dashboardLink.setAttribute("href",
+            dashboardType === "customizable"
+            ? "customizableDashboard.html"
+            : "defaultDashboard.html");
+    }
+
+    const links = document.querySelectorAll(".tab-list a");
+    const currentURL = window.location.href;
+    links.forEach(link => {
+        if(currentURL.includes(link.href)){
+            link.classList.add("active");
+        }
+    });
+    //END OF DASH SET UP
     //can only use await with async
     const project = await getProjectDetails();
     const container = document.querySelector(".main-content > .projects-display");
@@ -163,7 +262,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
 
-    if(!project || !project.id){
+    if(!project){
         container.innerHTML = "<p>Project not found.</p>";
         return;
     }
@@ -176,14 +275,25 @@ document.addEventListener("DOMContentLoaded", async () => {
     const projectDisplay = document.querySelector(".projects-display");
     const projectBlock =document.getElementById("project-block");
 
+    const projectName = project?.projectName || "Unnamed Project";
+    const projDescription = project?.projDescription || "No description";
+    const clientName = project?.clientName || "No client";
+    const managerName = project?.managerName || "No manager";
+    
+    // const clientName = project?.client?.name || "No client";
+    // const managerName = project?.projectManager?.name || "No manager";
+    const startDate = project?.startDate || "N/A";
+    const deadlineDate = project?.deadlineDate || "N/A";
+    //const projectId = project?.id || "#";
+
     projectBlock.innerHTML = `
-            <h3 class="project-title1">Project Details: </h3>
-            <p class="project-description"><strong>Description: </strong>${project.projDescription}</p>
-            <p class="project-details"><strong>Client: </strong> ${project.client.name}</p>
-            <p class="project-details"><strong>Project Manager: </strong> ${project.projectManager.name}</p>
-            <p class="project-details"><strong>Start Date: </strong> ${project.startDate}</p>
-            <p class="project-details"><strong>Deadline: </strong> ${project.deadlineDate}</p>
-        `;
+                <h3 class="project-title">${projectName}</h3>
+                <p class="project-description"><strong>Description:</strong>${projDescription}</p>
+                <p class="project-details"><strong>Client:</strong> ${clientName}</p>
+                <p class="project-details"><strong>Project Manager:</strong> ${managerName}</p>
+                <p class="project-details"><strong>Start Date:</strong> ${startDate}</p>
+                <p class="project-details"><strong>Deadline:</strong> ${deadlineDate}</p>
+            `;
         //projectDisplay.appendChild(projectBlock);
     //end code for project div
 
@@ -196,7 +306,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     users = await getUserDetails();
     console.log("Users fetched from backend:", users);
 
-    relatedTasks = task.filter(task => task.projectId === project.id);
+    relatedTasks = task.filter(task => Number(task.projectId) === Number(projectId));
+   
+    //relatedTasks = task.filter(task => task.project?.id === project.id);
     const taskBlock = document.getElementById("task-block");
     if(!taskBlock){
         console.error("Task block not found in DOM");
@@ -216,11 +328,11 @@ document.addEventListener("DOMContentLoaded", async () => {
                         relatedTasks.length > 0
                         ? relatedTasks.map(task => ` 
                             <div class="task-item">
-                                <input type="checkbox" class="task-checkbox" data-task-id="${task.id}" ${task.taskStatus === "Complete" ? "checked" : ""}>MARK COMPLETE</input>
+                                <input type="checkbox" class="task-checkbox" data-task-id="${task.id}" ${task.taskStatus?.toUpperCase() === "COMPLETE" ? "checked" : ""}>MARK COMPLETE</input>
                                 <h4 class="dead-text1">${task.name || task.taskName}</h4>
                                 <p class="dead-text1"><strong>Description: </strong> ${task.description || task.taskDescription}</p>
                                 <p class="dead-text1"><strong>Due: </strong> ${task.dueDate}</p>
-                                <p class="dead-text1"><strong>Status: </strong> <span id="status-${task.id}">${task.taskStatus}</span></p>
+                                <p class="dead-text1"><strong>Status: </strong> <span id="status-${task.id}">${task.taskStatus || "INCOMPLETE"}</span></p>
             
                                 <p class="dead-text1"><strong>Assigned to: </strong>${getUserNameById(task.assignedUserId)}</p>
                             </div>
@@ -240,15 +352,53 @@ document.addEventListener("DOMContentLoaded", async () => {
                 //projectDisplay.appendChild(taskBlock);
                 attachTaskEventListener();
             }
-        function attachTaskEventListener(){
+        async function attachTaskEventListener(){
         document.querySelectorAll(".task-checkbox").forEach(checkbox => {
-            checkbox.addEventListener("change", (e) => {
+            checkbox.addEventListener("change", async (e) => {
                 const taskId = parseInt(e.target.dataset.taskId);
                 const task = relatedTasks.find(t => t.id === taskId);
                 if(task){
-                    task.taskStatus = e.target.checked ? "Complete" : "Incomplete";
-                    document.getElementById(`status-${task.id}`).innerText = task.taskStatus;
+                    //THIS IS STATIC NOT DYNAMIC
+                    // task.taskStatus = e.target.checked ? "Complete" : "Incomplete";
+                    // document.getElementById(`status-${task.id}`).innerText = task.taskStatus;
+                    // updateProgressBar(relatedTasks);
+                    //END OF STATIC
+
+                    //TESTING DYNAMIC
+
+                    //END OF DYNAMIC
+
+                    const updatedStatus = e.target.checked ? "COMPLETE" : "INCOMPLETE";
+
+                    //update UI immediately
+                    task.taskStatus = updatedStatus;
+                    document.getElementById(`status-${task.id}`).innerText = updatedStatus;
                     updateProgressBar(relatedTasks);
+
+                    //persist to backend 
+                    const token = localStorage.getItem("jwt");
+                    try{
+                        console.log("Sending updated status:", updatedStatus);
+                        const res = await fetch(`http://localhost:8081/api/tasks/${task.id}`,{
+                            method: "PUT",
+                            headers: {
+                                "Authorization" : "Bearer " + token,
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                taskStatus: updatedStatus
+                            })
+                        });
+
+                        if(!res.ok){
+                            throw new Error("Failed to update task status");
+                        }
+
+                        console.log("Task status updated in backend:", updatedStatus);
+                    }catch(err){
+                        console.error("Error updating task status:", err);
+                        alert("Failed to save task status. Please try again.");
+                    }
                 }
             });
         }); 
@@ -273,7 +423,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 taskDescription: newTaskDescription,
                 //creationDate: new Date().toISOString().split("T")[0],
                 //creationDate: newTaskDueDate ? new Date().toISOString().split("T")[0] : null,
-                taskStatus: "Incomplete",
+                taskStatus: "INCOMPLETE",
                 dueDate: newTaskDueDate,
                 //projectId: project.id,
                 assignedUserId: assignedUserId
@@ -300,6 +450,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             console.log("Sending task to backend: ", newTask);
             const savedTask = await res.json();
+            console.log("Saved task from backend: ", savedTask);
+            // savedTask.projectId = project.id;
+            // savedTask.assignedUserId = savedTask.assignedUserId?.id;
             relatedTasks.push(savedTask);
 
             nameInput.value = "";
@@ -381,13 +534,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                 body: formData
             });
 
+            //const text = await response.text();
+
          if(response.ok){
             const uploadedFiles = await response.json();
-            console.log("Files uploaded successfully: ", uploadFiles);
+            console.log("Files uploaded successfully: ", uploadedFiles);
 
             //refresh the file to show all project files
             const updatedFiles = await getProjectFiles(projectId);
-            displayUploadedFiles(updatedFiles);
+            //displayUploadedFiles(updatedFiles);
+            displayProjectFiles(updatedFiles);
 
             //clear file input
             fileInput.value = "";
@@ -409,12 +565,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     uploadFiles();
 
     //end code for files
+
+    //start code for templates div
+    const templates = await getSavedTemplates(projectId);
+    const templatesBlock = document.getElementById("templates-block");
+
+        templatesBlock.innerHTML = `
+            <h3 id="templates-title"><strong>Project templates: </strong></h3>
+            <ul id="template-list"></ul>
+        `;
+
+        const list = document.getElementById("template-list");
+
+        if(templates.length === 0){
+            list.innerHTML = "<li>No saved templates for this project.</li>";
+            return;
+        }
+
+        templates.forEach(template => {
+            const li = document.createElement("li");
+            li.innerHTML = `
+                <strong>${template.templateName}</strong> (${template.templateType})<br/>
+                <button class="edit-btn" onclick="editTemplate(${template.id})">Edit</button>
+            `;
+            list.appendChild(li);
+        });
+        //display existing files immediatly
+        //getSavedTemplates(templates);
+    //end code for templates div
 });
 
+//additional helper functions
+function editTemplate(templateId){
+    window.location.href = `edit-template.html?templateId=${templateId}`;
+    console.log("Edit template with ID:", templateId);
+}
 function updateProgressBar(taskList){
             const progressContainer = document.getElementById("progress-bar-container");
             const total = taskList.length;
-            const completed = taskList.filter(t => t.taskStatus === "Complete").length;
+            const completed = taskList.filter(t => t.taskStatus === "COMPLETE").length;
             const percent = total === 0 ? 0 : Math.round((completed / total) * 100);
             const barColor = percent === 100 ? "green" : percent >= 50 ? "orange" : "red";
 
@@ -447,7 +636,7 @@ function updateProgressBar(taskList){
             const fileLink = document.createElement("a");
             fileLink.href = `http://localhost:8081/api/files/${file.id}`;
             fileLink.target = "_blank";
-            fileLink.target = file.filename || file.originalName || file.fileName | "Unknown file";
+            fileLink.textContent = file.filename || file.originalName || file.fileName | "Unknown file";
             fileLink.style.cssText = "text-decoration: none; color: #007bff; flex-grow: 1;";
 
             //add file size
@@ -515,85 +704,19 @@ function updateProgressBar(taskList){
             alert("Error deleting file: " + error.message);
         }
     }
-        //renderUpdatedTasks();
-        // updateProgressBar(relatedTasks);
+     
+//helper for logout function
+  function parseJwt(token){
+    try{
+        const base64Url = token.split('.')[1]; //gets payload of jwt
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
 
-        // <p class="dead-text1"><strong>Assigned to: </strong>${getUserNameById(task.userAssigned)}</p>
-
-    // const filesBlock = document.getElementById("files-block");
-
-        // function uploadFiles(){
-        //     filesBlock.innerHTML = `
-        //         <h3 id="file-title"><strong>Upload project files: </strong></h3>
-        //         <input type="file" id="file-input" style="display: none;" multiple />
-        //         <button type="button" id="upload-button">ADD FILE</button>
-        //         <ul id="file-list"></ul>
-        //     `;
-
-        //     const fileInput = document.getElementById("file-input");
-        //     const uploadButton = document.getElementById("upload-button");
-        //     //const fileList = document.getElementById("file-list");
-
-        //     uploadButton.addEventListener("click", () => {
-        //         fileInput.click();
-        //     });
-
-        //     fileInput.addEventListener("change", async () => {
-        //         //const fileInput = document.getElementById("file-input");
-        //         const files = fileInput.files;
-
-        //         if(files.length === 0){
-        //             alert("Please select a file to upload");
-        //             return;
-        //         }
-
-        //         const formData = new FormData();
-        //         for(let file of files) {
-        //             formData.append("files", file); //append ea file
-        //         }
-
-        //         try{
-        //             const token = localStorage.getItem("jwt");
-        //             const response = await fetch("http://localhost:8081/api/files/upload", {
-        //                 method:"POST",
-        //                 headers: {
-        //                     "Authorization": "Bearer " + token
-        //                 },
-        //                 body: formData
-        //             });
-
-        //             if(response.ok){
-        //                 const fileList = await response.json();
-        //                 displayUploadedFiles(fileList);
-        //             }else{
-        //                 const errorText = await response.text();
-        //                 console.error("Upload failed:", errorText);
-        //                 alert("Upload failed.");
-        //             }
-        //         }catch (error){
-        //                 console.error("Error uploading file: ", error);
-        //                 alert("Error uploading file.");
-        //         }
-                
-        //     });
-        // }
-
-        // function displayUploadedFiles(fileList){
-        //     const listContainer = document.getElementById("file-list");
-        //     listContainer.innerHTML = "<h4>Uploaded Files:</h4>";
-
-        //     const fragment = document.createDocumentFragment();
-
-        //     fileList.forEach(file => {
-        //         const p = document.createElement("p");
-        //         const a = document.createElement("a");
-        //         a.href = `/api/files/${file.id}`;
-        //         a.target = "_blank";
-        //         a.textContent = file.originName;
-        //         p.appendChild(a);
-        //         fragment.appendChild(p);
-        //         //listContainer.innerHTML += `<p><a href="/api/files/${file.id}" target="_blank">${file.originName}</a></p>`;
-        //     });
-        //     listContainer.appendChild(fragment);
-        // }
-        // uploadFiles();
+        return JSON.parse(jsonPayload);
+    } catch (e){
+        console.error("Ivalid JWT", e);
+        return null;
+    }
+  }

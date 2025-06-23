@@ -1,5 +1,20 @@
 //const { createElement } = require("react");
 
+//code for decoding jwt and getting user signed in
+function getUserIdFromToken(){
+    const token = localStorage.getItem("jwt");
+    if(!token) return null;
+
+    try{
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.userId || payload.sub || null;
+    }catch(error){
+        console.error("Error decoding token:", error);
+        return null;
+    }
+}
+//end of code for user
+
 async function loadSimplePlanTemplate()
 {
     try{
@@ -82,6 +97,10 @@ function renderSimplePlanForm(template){
             const addRowBtn = document.createElement("button");
             addRowBtn.textContent = "Add Row";
             addRowBtn.className = "add-row-btn";
+
+            //ADDED TO TEST HIDING ADD ROW BTN
+            addRowBtn.setAttribute("data-html2canvas-ignore", "true");
+            //END OF ADDED
             addRowBtn.onclick = () =>{
                 const newRow = document.createElement("tr");
                 field.columns.forEach(() => {
@@ -125,6 +144,12 @@ function renderSimplePlanForm(template){
     //code to load projects connnected to user logged in
     async function loadUserProjects(){
         const token = localStorage.getItem("jwt");
+
+        if(!token){
+            console.error("No token found. User not authenticated.");
+            return;
+        }
+
         const response = await fetch("http://localhost:8081/api/projects/user", {
             headers: {
                 "Authorization": "Bearer " + token
@@ -136,28 +161,18 @@ function renderSimplePlanForm(template){
             return;
         }
 
-        const projects = response.json();
+          const projects = await response.json();
+          const selector = document.getElementById("project-selector");
+
+          projects.forEach(p => {
+            const opt = document.createElement("option");
+            opt.value = p.id;
+            opt.textContent = p.projectName;
+            selector.appendChild(opt);
+          });
     }
     //end projects code
 
-    //function for loading projects into dorpdown selector
-    async function loadProjects(userId){
-        try{
-            const response = await fetch(`http://localhost:8081/api/projects/user/${userId}`);
-            const projects = response.json();
-
-            const projectsSelector = document.getElementById("project-selector");
-            projects.forEach(project => {
-                const option = document.createElement("option");
-                option.value = project.id;
-                option.textContent = project.projectName || `Project ${project.id}`;
-                projectsSelector.appendChild(option);
-            });
-        }catch(error){
-            console.error("Failed to load projects: ", error);
-        }
-    }
-    //end of function for project dropdown
 
      document.getElementById("save-button").onclick = async () => {
         const form = document.getElementById("template-form");
@@ -196,13 +211,18 @@ function renderSimplePlanForm(template){
             templateName,
             templateType: "Generic",
             projectId: parseInt(selectedProjectId), 
-            userId: 2,
+            userId: getUserIdFromToken(),
             templateData: JSON.stringify(fields)
         };
 
+        const token = localStorage.getItem("jwt")
+
         const response = await fetch("http://localhost:8081/api/user-templates/save", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
             body: JSON.stringify(payload)
         });
 
@@ -213,14 +233,37 @@ function renderSimplePlanForm(template){
         }
      };
 
+     loadUserProjects();
+
 }
 //code for pdf conversion and download
     async function downloadPDF() {
         const form = document.getElementById("template-form");
 
-        const templateName = form.querySelector("h2")?.textContent || "Template";
+        //ADDED FOR PDF BTN HIDE
+        //form.classList.add("pdf-export");
+        // const buttons = form.querySelectorAll("button");
+        // buttons.forEach(btn => btn.style.display = "none");
+        //END OF ADDED
+        // await new Promise(resolve => {
+        //     requestAnimationFrame(() => {
+        //         setTimeout(() => {
+        //             resolve();
+        //         }, 100);
+        //     });
+        // });
+
         //use html2canvas to capture form as image
         const canvas = await html2canvas(form);
+         //form.classList.remove("pdf-export");
+
+        const templateName = form.querySelector("h2")?.textContent || "Template";
+        
+
+        //ADDED FOR PDF BTN HIDE
+        //form.classList.remove("pdf-export");
+        //buttons.forEach(btn => btn.style.display = "");
+        //HIDE BTN
         const imgData = canvas.toDataURL("image/png");
 
 
@@ -244,4 +287,5 @@ function renderSimplePlanForm(template){
         pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
         pdf.save(`${templateName.replace(/\s+/g, "_")}.pdf`);
     }
+// loadUserProjects();
 loadSimplePlanTemplate();

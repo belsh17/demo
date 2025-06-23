@@ -58,7 +58,7 @@
                     "type": "textarea"
                 }
             ],
-            "image": "/demo/src/main/resources/assets/EducationTemps/lessonPlan.webp",
+            "image": "/demo/src/main/resources/assets/EducationTemps/LessonPlan.PNG",
             "tags": ["lesson", "education"]
         },
         {
@@ -133,7 +133,7 @@
                     ]
                 }
             ],
-            "image": "/demo/src/main/resources/assets/EducationTemps/weekly-planner.webp",
+            "image": "/demo/src/main/resources/assets/EducationTemps/WeeklyPlanner.PNG",
             "tags": ["week", "education"]
         },
         {

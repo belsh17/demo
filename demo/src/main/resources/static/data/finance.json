@@ -37,7 +37,7 @@
                     "placeholder": "We expect to submit our final report for this audit by XXX hours. Our findings and recommendations will be discussed with the management before the submission of the final report."
                 }
             ],
-            "image": "/demo/src/main/resources/assets/FinanceTemps/Audit-Plan.png",
+            "image": "/demo/src/main/resources/assets/FinanceTemps/AuditPlan.PNG",
             "tags":["audit", "finance"]
         },
         {
@@ -71,26 +71,30 @@
             "Description": "Uncovers obligations specific to the laws governing the business",
             "fields":[
                 {
-                    "label": "Regulations Obligation Tracker",
+                    "label": "Obligation Tracker",
                     "type": "dynamic_table",
                     "columns": ["Item",
                                 "Type",
                                 "Company",
                                 "Resonsibility",
-                                "Description",
-                                "Clause Reference",
+                                "Description"
+                               ],
+                    "rows": []
+                },
+                 {
+                    "label": "Obligation Status",
+                    "type": "dynamic_table",
+                    "columns": [
                                 "Priority",
                                 "Start Date",
                                 "Due Date",
                                 "Actual Date",
-                                "Delay",
-                                "Remarks",
                                 "Status"
                                ],
                     "rows": []
                 }
             ],
-            "image": "/demo/src/main/resources/assets/FinanceTemps/Reg-Obligation-Tracker.PNG",
+            "image": "/demo/src/main/resources/assets/FinanceTemps/RegObligationTracker.PNG",
              "tags": ["obligation", "finance"]
         },
         {
@@ -156,7 +160,7 @@
                     ]
                 }
             ],
-            "image": "/demo/src/main/resources/assets/FinanceTemps/profit-and-loss-template-by-freshbooks.png",
+            "image": "/demo/src/main/resources/assets/FinanceTemps/ProfitLossReport.PNG",
             "tags": ["profit/loss", "finance"]
         },
         {

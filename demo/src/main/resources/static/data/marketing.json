@@ -285,7 +285,7 @@
                         "notes": ""
                     }
                 ],
-                "image": "/demo/src/main/resources/assets/Marketing/campaignTemplate.png",
+                "image": "/demo/src/main/resources/assets/Marketing/CampaignPlan.PNG",
                 "tags": ["campaign","marketing"]
         },
         {
@@ -442,7 +442,7 @@
                         "Stakeholder Approval": ""
                 }
             ],
-            "image": "/demo/src/main/resources/assets/Marketing/contentMarketingPlan.jpg",
+            "image": "/demo/src/main/resources/assets/Marketing/ContentMarketingPlan.PNG",
             "tags": ["content", "marketing"]
 
         },
@@ -466,7 +466,7 @@
                         "rows": []
                     }
             ],
-             "image": "/demo/src/main/resources/assets/Marketing/marketingChecklistFinal.png",
+             "image": "/demo/src/main/resources/assets/Marketing/ProjPlanChecklist.PNG",
             "tags": ["checklist", "marketing"]
         },
         {
@@ -490,7 +490,7 @@
                     "rows": []
                 }
             ],
-            "image": "/demo/src/main/resources/assets/Marketing/prodLaunchCommunication.png",
+            "image": "/demo/src/main/resources/assets/Marketing/ProdLaunchCommPlan.PNG",
             "tags": ["checklist", "marketing"]
         }
 

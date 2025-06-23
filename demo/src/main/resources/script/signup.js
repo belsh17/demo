@@ -67,13 +67,8 @@ async function navigate(event) {
                 //window.location.href = "/defaultDashboard";
                 //use this when its live server and use ^ when its 8081
                 window.location.href = "defaultDashboard.html";
-                //window.location.href = "http://localhost:5500/defaultDashboard.html";
-                //window.location.href = `http://localhost:${liveServerPort}/defaultDashboard.html`;
             }else if(selectedOption === "customizable"){
                 window.location.href = "customizableDashboard.html";
-                //window.location.href = "/customizableDashboard"
-                //window.location.href = "http://localhost:5500/customizableDashboard.html"
-                //window.location.href = `http://localhost:${liveServerPort}/customizableDashboard.html`;
                 } else{
                 alert("Unknown dashboard type selected.");
             }

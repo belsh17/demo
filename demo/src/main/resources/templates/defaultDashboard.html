@@ -32,7 +32,7 @@
                 <li><a href="rewards.html">Rewards</a></li>
                 <li><a href="teams.html">Teams</a></li>
                 <li><a href="client.html">Clients</a></li>
-                <li><a href="adminUsers.html">Active Users</a></li>
+                <li id="admin-tab"><a href="adminUsers.html">Active Users</a></li>
             </ul>
         </div>
         <!-- end of side tab -->
@@ -51,15 +51,20 @@
                     <div class="popup-content">
                         <span class="close" onclick="closePopup()">&times;</span>
                         <h3>User Information</h3>
-                        <p>Username: BellaCard</p>
-                        <p>Email: bella@example.com</p>
+                        <p>Username: <span id="popupUsername"></span></p>
+                        <p>User role: <span id="popupRoles"></span></p>
                         <button type="submit" onclick="signOut()">Sign Out</button>
                     </div>
                 </div>
 
                 <!-- code for notifications icon -->
-                <div class="bell-icon">
-                    <i class="fa-regular fa-bell"></i>
+                <div class="bell-icon" id="notification-wrapper">
+                    <i class="fa-regular fa-bell" id="notification-bell"></i>
+
+                    <div id="notifications-container" class="notification-dropdown hidden">
+                        <h4>Upcoming Deadlines</h4>
+                        <ul id="notification-list"></ul>
+                    </div>
                 </div>
 
                 <!-- code for new project block -->
@@ -70,8 +75,15 @@
                     <h3>New Project</h3>
                  </div>
 
+                 <div class="newProject">
+                    <a title="plus-icon" href="indivClient.html" class="newClient-btn">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                    <h3>New Client</h3>
+                 </div>
+
                  <div class="search-bar">
-                        <input type="text" placeholder="Search">
+                        <input type="text" id="dashboard-search" placeholder="Search">
                  </div>
             </div>
             <!-- end of code for header on right of page -->
@@ -80,7 +92,7 @@
             <div class="dash-container">
                 <div id="s-curve-tile" class="graph-widget">
                     <h3>Graph Visual:</h3>
-                    <p class="empty-state">This is where your project's progress curve will show. 
+                    <p class="empty-state" style="display: none;">This is where your project's progress curve will show. 
                         Start a project to see this in action.
                     </p>
                     <label for="projectSelector">Select Project:</label>
@@ -98,12 +110,12 @@
 
                 <div id="teams-tile" class="dash-widget">
                     <h3>Teams:</h3>
-                    <p class="empty-state">See all team members from this section once a team has been created.</p>
+                    <p class="empty-state-teams">See all team members from this section once a team has been created.</p>
                 </div>
 
                 <div id="progress-tile" class="dash-widget">
-                    <h3>Plan Progress:</h3>
-                    <p class="empty-state">Create a project to keep track of its progress.</p>
+                    <h3>Completed Tasks:</h3>
+                    <p class="empty-state-tasks">Create a project to keep track of its progress.</p>
                 </div>
 
             </div>

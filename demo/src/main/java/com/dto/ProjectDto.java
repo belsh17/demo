@@ -7,6 +7,7 @@ import java.time.LocalDate;
 //therefore i want manager name linked with id
 public class ProjectDto {
 
+    private Long id;
         private String projectName;
         private String projDescription;
         private LocalDate creationDate;
@@ -17,6 +18,13 @@ public class ProjectDto {
         private String managerName;
         private Long createdBy;
 
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
         public String getProjectName() {
             return projectName;
         }

@@ -76,10 +76,14 @@ public class TeamController {
     public List<TeamDto> getTeamsWithUsers() {
         List<Team> teams = teamRepository.findAll();
         return teams.stream().map(team -> {
-            List<User> users = userTeamsRepository.findByTeamsContains(team)
+            //List<User> users = userTeamsRepository.findByTeamsContains(team)
+            List<User> users = userTeamsRepository.findByTeam(team)
+           
             .stream()
             .map(UserTeams::getUser)
             .collect(Collectors.toList());
+
+            System.out.println("Team: " + team.getTeamName() + "users: " + users.size());
 
             return new TeamDto(team.getId(), team.getTeamName(), users);
    

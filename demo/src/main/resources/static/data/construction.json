@@ -209,7 +209,7 @@
                             "type": "text"
                         }
                     ],
-                    "image": "/demo/src/main/resources/assets/ConstructionTemps/constructionEstimate.jpg",
+                    "image": "/demo/src/main/resources/assets/ConstructionTemps/ConstructionEstimate.PNG",
                     "tags": ["estimate","construction"]
                 },
                 {
@@ -263,7 +263,7 @@
                             ]
                         }
                     ],
-                    "image": "/demo/src/main/resources/assets/ConstructionTemps/handover-form.jpg",
+                    "image": "/demo/src/main/resources/assets/ConstructionTemps/ProjectHandoverReport.PNG",
                     "tags": ["handover","construction"]
                 },
                  {
@@ -309,7 +309,7 @@
                         }
 
                     ],
-                    "image": "/demo/src/main/resources/assets/ConstructionTemps/progressReport.webp",
+                    "image": "/demo/src/main/resources/assets/ConstructionTemps/ProgressReport.PNG",
                     "tags": ["progress","construction"]
                 }
                

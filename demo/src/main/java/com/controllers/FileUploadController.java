@@ -111,10 +111,10 @@ public class FileUploadController {
             for(MultipartFile file : files){
                 String filename = Paths.get(file.getOriginalFilename()).getFileName().toString();
                 String uniqueFileName = UUID.randomUUID() + "_" + filename;
-                String path = "uploads/projects/" + projectId + "/" + uniqueFileName;
-
+                //String path = "uploads/projects/" + projectId + "/" + uniqueFileName;
+                String uploadDir = System.getProperty("user.dir") + "uploads/projects/" + projectId;
                 //save file to local storage in project specific dir.adminController
-                File destination = new File(path);
+                File destination = new File(uploadDir, uniqueFileName);
                 File parentDir = destination.getParentFile();
                 if(!parentDir.exists()){
                     boolean created = parentDir.mkdirs();
@@ -129,7 +129,7 @@ public class FileUploadController {
                 FileEntity fileEntity = new FileEntity();
 
                 fileEntity.setFilename(filename);
-                fileEntity.setFilepath(path);
+                fileEntity.setFilepath(destination.getAbsolutePath());
                 fileEntity.setFiletype(file.getContentType());
                 fileEntity.setSize(file.getSize());
                 fileEntity.setUploadedAt(new java.sql.Date(System.currentTimeMillis()));

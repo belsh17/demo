@@ -3,6 +3,8 @@ package com.dto;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import com.entity.Task;
+
 //created because when sending task to backend it expects a project object
 public class TaskDto {
     private String taskName;
@@ -12,7 +14,22 @@ public class TaskDto {
     private LocalDate dueDate;
     //private Long projectId;
     private Long assignedUserId;
+    private String taskStatus;
+    private Long projectId;
+
+
+    public TaskDto(){
+        
+    }
     
+    public TaskDto(String taskName, String taskDescription, LocalDate dueDate, Long assignedUserId, String taskStatus) {
+        this.taskName = taskName;
+        this.taskDescription = taskDescription;
+        this.dueDate = dueDate;
+        this.assignedUserId = assignedUserId;
+        this.taskStatus = taskStatus;
+    }
+
     public String getTaskName() {
         return taskName;
     }
@@ -46,17 +63,25 @@ public class TaskDto {
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
-    // public Long getProjectId() {
-    //     return projectId;
-    // }
-    // public void setProjectId(Long projectId) {
-    //     this.projectId = projectId;
-    // }
+    public Long getProjectId() {
+        return projectId;
+    }
+    public void setProjectId(Long projectId) {
+        this.projectId = projectId;
+    }
     public Long getAssignedUserId() {
         return assignedUserId;
     }
     public void setAssignedUserId(Long assignedUserId) {
         this.assignedUserId = assignedUserId;
+    }
+
+    public String getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(String taskStatus) {
+        this.taskStatus = taskStatus;
     }
 
     

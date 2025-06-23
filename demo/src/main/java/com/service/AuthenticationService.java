@@ -24,12 +24,14 @@ public class AuthenticationService {
     
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    // @Autowired
+    // private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    // @Autowired
+    // private RoleRepository roleRepository;
 
     public AuthenticationResponseDto authenticate(
         final AuthenticationRequestDto request)   {

@@ -3,9 +3,20 @@ package com.entity;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Builder
 @Table(name = "projects")
 public class Project {
     
@@ -20,6 +31,7 @@ public class Project {
     private LocalDate creationDate;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "projectManagerId", referencedColumnName = "id")
     //private ProjectManager projectManager;
     private User projectManager;

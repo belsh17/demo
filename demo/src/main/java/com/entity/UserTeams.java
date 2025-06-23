@@ -18,14 +18,18 @@ public class UserTeams {
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-        name = "user_team", 
-        joinColumns = @JoinColumn(name = "user_teams_id"),
-        inverseJoinColumns = @JoinColumn(name = "team_id")
-        )
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
-    private Set<Team> teams;
+    // @ManyToMany
+    // @JoinTable(
+    //     name = "user_team", 
+    //     joinColumns = @JoinColumn(name = "user_teams_id"),
+    //     inverseJoinColumns = @JoinColumn(name = "team_id")
+    //     )
+
+    //private Set<Team> teams;
 
     public Long getId() {
         return id;
@@ -43,13 +47,13 @@ public class UserTeams {
         this.teamRole = teamRole;
     }
 
-    public Set<Team> getTeams() {
-        return teams;
-    }
+    // public Set<Team> getTeams() {
+    //     return teams;
+    // }
 
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
-    }
+    // public void setTeams(Set<Team> teams) {
+    //     this.teams = teams;
+    // }
 
     public User getUser() {
         return user;
@@ -57,6 +61,14 @@ public class UserTeams {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
     
     

@@ -30,9 +30,10 @@
                 <li><a href="templatesHome.html">Templates & Graphs</a></li>
                 <li><a href="deadlines.html">Deadlines</a></li>
                 <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="teams.html">Teams</a></li>
                 <li><a href="client.html">Clients</a></li>
-                 <li><a href="teams.html">Teams</a></li>
-                <li><a href="adminUsers.html">Active Users</a></li>
+                <li id="admin-tab"><a href="adminUsers.html">Active Users</a></li>
             </ul>
         </div>
         <!-- end of side tab -->
@@ -51,15 +52,20 @@
                     <div class="popup-content">
                         <span class="close" onclick="closePopup()">&times;</span>
                         <h3>User Information</h3>
-                        <p>Username: BellaCard</p>
-                        <p>Email: bella@example.com</p>
+                        <p>Username: <span id="popupUsername"></span></p>
+                        <p>User role: <span id="popupRoles"></span></p>
                         <button type="submit" onclick="signOut()">Sign Out</button>
                     </div>
                 </div>
 
                 <!-- code for notifications icon -->
-                <div class="bell-icon">
-                    <i class="fa-regular fa-bell"></i>
+                <div class="bell-icon" id="notification-wrapper">
+                    <i class="fa-regular fa-bell" id="notification-bell"></i>
+
+                    <div id="notifications-container" class="notification-dropdown hidden">
+                        <h4>Upcoming Deadlines</h4>
+                        <ul id="notification-list"></ul>
+                    </div>
                 </div>
 
                 <!-- code for new project block -->
@@ -70,8 +76,15 @@
                     <h3>New Project</h3>
                  </div>
 
+                 <div class="newProject">
+                    <a title="plus-icon" href="indivClient.html" class="newClient-btn">
+                        <i class="fa-solid fa-plus"></i>
+                    </a>
+                    <h3>New Client</h3>
+                 </div>
+
                  <div class="search-bar">
-                        <input type="text" placeholder="Search">
+                        <input type="text" id="dashboard-search" placeholder="Search">
                  </div>
 
             </div>
@@ -91,9 +104,12 @@
             
                 
             <div id="meetings" class="meeting-widget">
-                <button title="close" type="button" class="close-btn"><i class="fa-solid fa-circle-xmark"></i></button>
+                <!-- <button title="close" type="button" class="close-btn"><i class="fa-solid fa-circle-xmark"></i></button> -->
                 <!-- <i class="fa-solid fa-handshake"></i> -->
-                <h3 class="widget-heading">My meetings</h3>
+                <h3 class="widget-heading">My complete tasks</h3>
+                <p class="empty-state-tasks">This is where your project's complete tasks will show. 
+                        Start a project to see this in action.
+                    </p>
             </div>
 
             <div id="teams" class="team-widget">
@@ -103,7 +119,7 @@
             </div>
 
             <div id="progress" class="progress-widget">
-                <button title="close" type="button" class="close-btn"><i class="fa-solid fa-circle-xmark"></i></button>
+                <!-- <button title="close" type="button" class="close-btn"><i class="fa-solid fa-circle-xmark"></i></button> -->
                 <h3 class="widget-heading">Task Progress</h3>
                 <!-- <i class="fa-solid fa-bars-progress"></i> -->
                 <div class="progress-circle" id="circle" style="--progress: 0">
@@ -112,7 +128,7 @@
             </div>
 
             <div id="tasks" class="task-widget" draggable="true">
-                <button title="close" type="button" class="close-btn"><i class="fa-solid fa-circle-xmark"></i></button>
+                <!-- <button title="close" type="button" class="close-btn"><i class="fa-solid fa-circle-xmark"></i></button> -->
             <h3 class="widget-heading">To do list:</h3>
                 <div class="task-input-block">
                     <input type="text" id="task-input" placeholder="Enter a task"/>
@@ -123,8 +139,8 @@
             </div>
 
             <div id="s-curve-tile" class="graph-widget">
-                    <h3>Graph Visual:</h3>
-                    <p class="empty-state">This is where your project's progress curve will show. 
+                    <h3 class="widget-heading">Graph Visual:</h3>
+                    <p class="empty-state-graph">This is where your project's progress curve will show. 
                         Start a project to see this in action.
                     </p>
                     <label for="projectSelector">Select Project:</label>

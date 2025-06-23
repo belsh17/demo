@@ -66,7 +66,7 @@ body, html{
    color: white;
    text-decoration: none; /*no underline*/
    font-size: 20px;
-   padding: 30px 20px;
+   padding: 20px 20px;
    display: inline-block;
    border-radius: 5px;
    /* transition: background-color 0.3s; */
@@ -79,8 +79,62 @@ body, html{
    color: #7d9b7e;
 }
 
+/* styling for active screen or tab */
+.tab-list a.active{
+   background-color: white;
+   color: #7d9b7e;
+   width: 200px;
+}
+
+.notification-dropdown{
+   position: absolute;
+   top: 30px;
+   right: 0;
+   width: 300px;
+   background-color: #ffffaa;
+   border: 1px solid #ffe186;
+   border-radius: 8px;
+   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+   padding: 10px;
+   z-index: 1000;
+   display: none;
+}
+
+.notification-dropdown h4{
+   margin-top: 0;
+   margin-bottom: 20px;
+   font-size: 0.75em;
+   color: black;
+   /* color: #7d9b7e; */
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#notification-list{
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+#notification-list li{
+   margin-bottom: 5px;
+   background-color: #fff;
+   padding: 6px 10px;
+   color: #000000;
+   font-size: 0.70em;
+   border-left: 4px solid #ffC107;
+   border-radius: 4px;
+}
+
+.notification-dropdown.show{
+   display: block;
+}
+
+.hidden{
+   display: none;
+}
+
 /* editing individual items on tab list */
-.tab-list li:nth-child(1) a{
+/* .tab-list li:nth-child(1) a{
      background-color: white;
      color: #7d9b7e;
      width: 200px;
@@ -102,7 +156,7 @@ body, html{
      background-color: rgb(28, 28, 28);
      color: #7d9b7e;
      width: 200px;
-}
+} */
 
 /* styling of content on the right */
 .main-content{
@@ -111,16 +165,48 @@ body, html{
    width: calc(100% - 300px);
    overflow-y: auto;
 }
-
 .search-block{
    display: flex;
    flex: 1;
    gap: 30px;
    border-radius: 30px;
    background-color: #c4c4c4;
-   width: 1193px;
+   width: 1208px;
    height: 70px;
    align-items: center;
+}
+
+.search-results{
+   background: #fff;
+   border: 1px solid #ccc;
+   position: absolute;
+   top: 70px;
+   right: 470px;
+   z-index: 1000;
+   padding: 15px;
+   width: 300px;
+   max-height: 300px;
+   overflow-y: auto;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.search-results .result-section{
+   margin-bottom: 10px;
+}
+
+.search-results h4{
+   margin: 0 0 5px 0;
+}
+
+.search-results ul{
+   padding: 4px 0;
+   cursor: pointer;
+   list-style: none;
+}
+
+.search-results li:hover{
+   background: #f0f0f0;
 }
 
 .newProject{
@@ -159,6 +245,30 @@ body, html{
 }
 
 .newProj-btn:hover{
+   background-color: rgb(59, 100, 61);
+   color: white;
+}
+
+
+.newClient-btn{
+   display: flex;
+   position: absolute;
+   cursor: pointer;
+   width: 30px;
+   height: 30px;
+   color: rgb(255, 255, 255);
+   font-size: 35px;
+   background-color: #7d9b7e;
+   border-radius: 50%;
+   border: none;
+   padding: 10px 10px;
+   margin-left: 5px;
+   justify-content: center;
+   align-items: center;
+   text-decoration: none;
+}
+
+.newClient-btn:hover{
    background-color: rgb(59, 100, 61);
    color: white;
 }
@@ -289,13 +399,19 @@ body, html{
 .widget-heading{
     display: flex;
     justify-content: space-between;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     size: 20px;
-    margin-bottom: 10px 10px 10px 0;
-    text-shadow: 1px 1px 2px #d2d2d2;
+    margin-top: 10px;
+    /* margin-bottom: 10px 10px 10px 0; */
+    /* text-shadow: 1px 1px 2px #d2d2d2; */
     background-color: white;
     padding: 10px;
     border-radius: 8px;
+}
+
+.empty-state{
+   font-size: 20px;
+   font-style: italic;
 }
 
 .task-input-block{
@@ -308,9 +424,10 @@ body, html{
     flex: 1;
     margin: 10px 10px;
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     border-radius: 5px;
     height: 30px;
+    font-size: 14px;
 }
 
 .task-input-block button{
@@ -339,16 +456,40 @@ body, html{
 }
 
 #task-list li{
+   background: #f9f9f9;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 0;
+    margin-bottom: 8px;
 }
 
 #task-list li label {
     display: flex;
     align-items: center;
     gap: 5px;
+}
+
+/* styling for project progress */
+.indiv-project-task{
+   background-color: rgb(234, 255, 234);
+   border-radius: 10px;
+   margin: 20px 20px;
+}
+
+#progress .widget-heading{
+   margin-left: 230px;
+   font-size: 20px;
+}
+
+.indiv-project-task #project-name{
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   margin-left: 10px;
+   padding-top: 10px;
+}
+
+.indiv-project-task .task-list{
+   padding-bottom: 10px;
 }
 
 .delete-btn{
@@ -365,8 +506,8 @@ body, html{
 
 
 .progress-circle{
-    --size: 100px;
-    --thickness: 12px;
+    --size: 120px;
+    --thickness: 14px;
     --progress: 0;
 
     width: var(--size);
@@ -385,6 +526,7 @@ body, html{
     position: relative;
     color: #333;
     margin-bottom: 20px;
+    margin-left: 250px;
     transition: background 0.5s ease;
 }
 

@@ -13,6 +13,25 @@ links.forEach(link => {
 });
 //end of side tab functionality
 document.addEventListener("DOMContentLoaded", () => {
+
+    //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
+        const adminTab = document.getElementById("admin-tab");
+        const token = localStorage.getItem("jwt");
+        if(!token){
+            adminTab.style.display = "none";
+            return;
+        }
+
+        const decoded = parseJwt(token);
+        const roles = decoded?.roles || [];
+        console.log("Decoded roles:", roles);
+
+        const isAdmin = roles === "ADMIN" || roles === "ROLE_ADMIN";
+
+        if(!isAdmin){
+            adminTab.style.display = "none";
+        }
+        //END OF ADMIN USERS
     
     //load clients into dropdown option in form
     fetch("http://localhost:8081/api/clients")
@@ -64,8 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
             projectManagerId: document.getElementById("project-manager-id").value
 
         };
-
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("jwt");
+        //const token = localStorage.getItem("token");
 
         fetch("http://localhost:8081/api/projects", {
             method: "POST",
@@ -88,3 +107,19 @@ document.addEventListener("DOMContentLoaded", () => {
             
         
 });
+
+//helper for logout function
+  function parseJwt(token){
+    try{
+        const base64Url = token.split('.')[1]; //gets payload of jwt
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    } catch (e){
+        console.error("Ivalid JWT", e);
+        return null;
+    }
+  }

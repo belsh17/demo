@@ -2,6 +2,7 @@ package com.entity;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -34,7 +35,8 @@ public class FileEntity {
 
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = true)
-    @JsonIgnoreProperties({"tasks", "files", "teams"})
+    //@JsonIgnoreProperties({"tasks", "files", "teams"})
+    @JsonBackReference
     private Project project;
 
     public FileEntity(){}

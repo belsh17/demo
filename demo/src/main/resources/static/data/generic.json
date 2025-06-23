@@ -124,7 +124,7 @@
                     "rows": []
                 }
             ],
-            "image": "/demo/src/main/resources/assets/GenericTemps/projectCharter.webp",
+            "image": "/demo/src/main/resources/assets/GenericTemps/ProjectCharterF.PNG",
             "tags": ["charter","generic"]
         },
         {
@@ -175,7 +175,7 @@
                         "rows": []
                     }
             ],
-            "image": "/demo/src/main/resources/assets/GenericTemps/IC-Project-Handover-Plan-Template.png",
+            "image": "/demo/src/main/resources/assets/GenericTemps/ProjectHandoverF.PNG",
             "tags": ["handover", "generic"]
         },
         {
@@ -223,7 +223,7 @@
                         ]
                 }
             ],
-            "image": "/demo/src/main/resources/assets/GenericTemps/projectBrief.png",
+            "image": "/demo/src/main/resources/assets/GenericTemps/ProjectBriefF.PNG",
             "tags": ["brief", "generic"]
 
         },
@@ -274,7 +274,7 @@
                     "rows": []
                 }
             ],
-            "image": "/demo/src/main/resources/assets/GenericTemps/simpleProjectPlan.png",
+            "image": "/demo/src/main/resources/assets/GenericTemps/SimpleProjectPlanF.PNG",
             "tags": ["simple", "generic"]
 
         }

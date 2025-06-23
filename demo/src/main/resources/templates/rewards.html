@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/rewards.css">
-    <script src="/demo/src/main/resources/script/rewards.js"></script>
+    <script src="/demo/src/main/resources/script/rewards.js" defer></script>
 
     <link rel="stylesheet" href="/CSS/rewards.css">
-    <script src="/script/rewards.js"></script>
+    <script src="/script/rewards.js" defer></script>
     <title>Rewards</title>
 </head>
 <body>
@@ -37,17 +37,36 @@
 
         <!-- code for main header on right of page -->
         <div class="main-content">
-            <div class="reward-container">
-                <div class="gift-box">
-                    <div class="lid"></div>
-                    <div class="box"></div>
-                    <i class="fa-solid fa-award"></i>
-                    <div class="surprise hidden"> Congratulations!</div>
+
+            <div class="search-block">
+
+                <!-- code for title top block -->
+                <div id="title-block" class="title-block">
+                    <h1>My Rewards</h1>
                 </div>
+                <!-- code for new project block -->
+                 
             </div>
-            
+            <!-- end of code for header on right of page -->
+           
+            <div id="rewardsContainer" class="project-rewards-section"></div>
+            <p  class="no-rewards-msg">You have no rewards yet. Complete project tasks to get started!</p>
+                
+            <div class="gift-box stage-0" id="giftBox">
+                <div class="box-base"></div>
+                <div class="box-wrap"></div>
+                 <div class="lid"></div>
+                <div class="box-bow"></div>
+                <div class="box-decoration"></div>
+                <div class="gift-avatar" id="avatar-${project.id}-${i}" style="display:none; width:100px; height:100px;"></div>
+                <!-- <div class="lid"></div> -->
+            </div>
+
+            <div class="surprise" id="surprise">Congratulations! You've earned a reward.</div>
+            <!-- <button type="button" id="taskBtn">Complete Task</button> -->
         </div>
     </div>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.1/lottie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </body>
 </html>

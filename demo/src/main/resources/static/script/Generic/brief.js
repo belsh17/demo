@@ -28,6 +28,14 @@ async function loadBriefTemps(){
 
 function renderBriefForm(template){
     const formContainer = document.getElementById("template-form");
+
+    //ADDED
+    //formContainer.style.display = "block";
+    // formContainer.style.visibility = "visible";
+    // formContainer.style.position = "static";
+    // formContainer.style.left = "0";
+    //END OF ADDED
+
     formContainer.innerHTML = `<h3>${template.name}</h3>`;
     formContainer.dataset.templateId = template.id;
 

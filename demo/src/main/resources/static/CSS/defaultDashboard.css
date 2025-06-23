@@ -79,31 +79,6 @@ body, html{
    color: #7d9b7e;
 }
 
-/* editing individual items on tab list */
-/* .tab-list li:nth-child(1) a{
-     background-color: white;
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(1) a:hover{
-     background-color: rgb(28, 28, 28);
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(3) a{
-     background-color: white;
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(3) a:hover{
-     background-color: rgb(28, 28, 28);
-     color: #7d9b7e;
-     width: 200px;
-} */
-
 /* styling for active screen or tab */
 .tab-list a.active{
    background-color: white;
@@ -128,6 +103,39 @@ body, html{
    width: 1208px;
    height: 70px;
    align-items: center;
+}
+
+.search-results{
+   background: #fff;
+   border: 1px solid #ccc;
+   position: absolute;
+   top: 70px;
+   right: 470px;
+   z-index: 1000;
+   padding: 15px;
+   width: 300px;
+   max-height: 300px;
+   overflow-y: auto;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.search-results .result-section{
+   margin-bottom: 10px;
+}
+
+.search-results h4{
+   margin: 0 0 5px 0;
+}
+
+.search-results ul{
+   padding: 4px 0;
+   cursor: pointer;
+   list-style: none;
+}
+
+.search-results li:hover{
+   background: #f0f0f0;
 }
 
 .newProject{
@@ -170,6 +178,29 @@ body, html{
    color: white;
 }
 
+.newClient-btn{
+   display: flex;
+   position: absolute;
+   cursor: pointer;
+   width: 30px;
+   height: 30px;
+   color: rgb(255, 255, 255);
+   font-size: 35px;
+   background-color: #7d9b7e;
+   border-radius: 50%;
+   border: none;
+   padding: 10px 10px;
+   margin-left: 5px;
+   justify-content: center;
+   align-items: center;
+   text-decoration: none;
+}
+
+.newClient-btn:hover{
+   background-color: rgb(59, 100, 61);
+   color: white;
+}
+
 /* code for user icon */
 .user-icon, .bell-icon{
    display: flex;
@@ -187,6 +218,53 @@ body, html{
 .user-icon:hover, .bell-icon:hover{
    background-color: rgb(59, 100, 61);
    color: white;
+}
+
+.notification-dropdown{
+   position: absolute;
+   top: 30px;
+   right: 0;
+   width: 300px;
+   background-color: #ffffaa;
+   border: 1px solid #ffe186;
+   border-radius: 8px;
+   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+   padding: 10px;
+   z-index: 1000;
+   display: none;
+}
+
+.notification-dropdown h4{
+   margin-top: 0;
+   margin-bottom: 20px;
+   font-size: 0.75em;
+   color: black;
+   /* color: #7d9b7e; */
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#notification-list{
+   list-style: none;
+   padding: 0;
+   margin: 0;
+}
+
+#notification-list li{
+   margin-bottom: 5px;
+   background-color: #fff;
+   padding: 6px 10px;
+   color: #000000;
+   font-size: 0.70em;
+   border-left: 4px solid #ffC107;
+   border-radius: 4px;
+}
+
+.notification-dropdown.show{
+   display: block;
+}
+
+.hidden{
+   display: none;
 }
 
 /* code for search bar */
@@ -339,6 +417,23 @@ body, html{
 #progress-tile{
    min-height: 250px;
 }
+
+.indiv-project-task{
+   background-color: rgb(234, 255, 234);
+   border-radius: 10px;
+   margin: 20px 20px;
+}
+
+.indiv-project-task #project-name{
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   margin-left: 10px;
+   padding-top: 10px;
+}
+
+.indiv-project-task .task-list{
+   padding-bottom: 10px;
+}
+
 
 #teams-tile{
    min-height: 250px;

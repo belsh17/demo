@@ -32,18 +32,31 @@ public class ManagerController {
     @Autowired
     private UserRepository userRepository;
 
+    // @GetMapping("/project-managers")
+    // //public ResponseEntity<List<UserDto>> getProjectManagers() {
+    // public ResponseEntity<List<User>> getProjectManagers() {
+     
+    //     // Role projeManagerRole = roleRepository.findByRoleName("PROJECT_MANAGER")
+    //     //     .orElseThrow(() -> new RuntimeException("Role not found"));
+
+    //     // List<UserDto> managers = userRepository.findByRoleRoleName("PROJECT_MANAGER")
+    //     //     .stream()
+    //     //     .map(user -> new UserDto(user.getId(), user.getFullName()))
+    //     //     .collect(Collectors.toList());
+    //     List<User> managers = userRepository.findByRoleRoleName("PROJECT_MANAGER");
+    //     return ResponseEntity.ok(managers);
+    //     //return ResponseEntity.ok(adminService.getUserByRole("PROJECT_MANAGER"));
+    // }
+
     @GetMapping("/project-managers")
     //public ResponseEntity<List<UserDto>> getProjectManagers() {
-    public ResponseEntity<List<User>> getProjectManagers() {
+    public ResponseEntity<List<UserDto>> getProjectManagers() {
      
-        // Role projeManagerRole = roleRepository.findByRoleName("PROJECT_MANAGER")
-        //     .orElseThrow(() -> new RuntimeException("Role not found"));
-
-        // List<UserDto> managers = userRepository.findByRoleRoleName("PROJECT_MANAGER")
-        //     .stream()
-        //     .map(user -> new UserDto(user.getId(), user.getFullName()))
-        //     .collect(Collectors.toList());
-        List<User> managers = userRepository.findByRoleRoleName("PROJECT_MANAGER");
+        List<UserDto> managers = userRepository.findByRoleRoleName("PROJECT_MANAGER")
+            .stream()
+            .map(user -> new UserDto(user.getId(), user.getFullName()))
+            .collect(Collectors.toList());
+        //List<User> managers = userRepository.findByRoleRoleName("PROJECT_MANAGER");
         return ResponseEntity.ok(managers);
         //return ResponseEntity.ok(adminService.getUserByRole("PROJECT_MANAGER"));
     }

@@ -11,9 +11,12 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+
 import com.entity.User;
 import com.dto.ProjectDto;
 import com.entity.Client;
@@ -24,7 +27,7 @@ import com.repository.ProjectRepository;
 import com.repository.UserRepository;
 import com.service.ProjectService;
 
-//@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class)
 public class ProjectServiceTest {
     
     @Mock 
@@ -33,6 +36,7 @@ public class ProjectServiceTest {
     // @Mock 
     // private ManagerRepository managerRepository;
 
+    //mocking repositroy so it doesnt use the actual database
     @Mock 
     private ClientRepository clientRepository;
 
@@ -145,7 +149,7 @@ public class ProjectServiceTest {
     }
 
     @Test
-    void testCreateProjectWithClientAndManager_ShouldLinkBoth(){
+    void ProjectService_testCreateProjectWithClientAndManager_ShouldLinkBoth(){
         //setup data transfer object as we use this for that function
         ProjectDto dto = new ProjectDto();
         dto.setProjectName("Padel Project");
@@ -159,18 +163,12 @@ public class ProjectServiceTest {
         when(clientRepository.findByClientName(dto.getClientName())).thenReturn(Optional.empty());
         when(clientRepository.save(any(Client.class))).thenReturn(client);
 
-        //mock manager
-        // ProjectManager manager = new ProjectManager();
-        // manager.setProjectManagerName(dto.getManagerName());
-        // when(managerRepository.findByProjectManagerName(dto.getManagerName())).thenReturn(Optional.empty());
-        // when(managerRepository.save(any(ProjectManager.class))).thenReturn(manager);
-
         User manager = new User();
-        manager.setUsername(dto.getManagerName());
+        manager.setFullName(dto.getManagerName());
         Role role = new Role();
         role.setRoleName("PROJECT_MANAGER");
         manager.setRole(role);
-        when(userRepository.findByUsername(dto.getManagerName())).thenReturn(Optional.of(manager));
+        when(userRepository.findByFullName(dto.getManagerName())).thenReturn(Optional.of(manager));
 
         //mock user
         User creator =  new User();
@@ -198,7 +196,7 @@ public class ProjectServiceTest {
         assertNotNull(result.getClient());
         assertEquals(dto.getClientName(), result.getClient().getClientName());
         assertNotNull(result.getProjectManager());
-        assertEquals(dto.getManagerName(), result.getProjectManager().getUsername());
+        assertEquals(dto.getManagerName(), result.getProjectManager().getFullName());
         //assertEquals(user, result.getCreatedBy());
         assertEquals(creator, result.getCreatedBy());
 

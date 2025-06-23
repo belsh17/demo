@@ -24,14 +24,15 @@
                     <h2>Plan-Nest</h2>
             </div>
             <ul class="tab-list">
-               <li><a href="defaultDashboard.html">My Dashboard</a></li>
+              <li><a href="defaultDashboard.html">My Dashboard</a></li>
                 <li><a href="projectsHome.html">My Projects</a></li>
                 <li><a href="templatesHome.html">Templates & Graphs</a></li>
                 <li><a href="deadlines.html">Deadlines</a></li>
                 <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="teams.html">Teams</a></li>
                 <li><a href="client.html">Clients</a></li>
-                 <li><a href="teams.html">Teams</a></li>
-                <li><a href="adminUsers.html">Active Users</a></li>
+                 <li id="admin-tab"><a href="adminUsers.html">Active Users</a></li>
             </ul>
         </div>
         <!-- end of side tab -->
@@ -41,9 +42,10 @@
             <div th:if="${!linked}" id="msg-block">
                 <h1>Sign into your Google account, to view google calendar events and link project deadlines.</h1>
                 <div th:if="${!linked}">
-                    <a href="/oauth2/authorization/google">
-                    <button type="button" id="link-btn">Link Google Account</button>
-                    </a>
+                    <!-- <a href="http://localhost:8081/oauth2/authorization/google"> -->
+                    <!-- <a href="http://localhost:8081/calendar/api/google/link"> -->
+                        <button type="button" id="link-btn">Link Google Account</button>
+                    <!-- </a> -->
                 </div>
             </div>   
             <div th:if="${linked}">

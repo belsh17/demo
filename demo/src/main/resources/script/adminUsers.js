@@ -13,6 +13,26 @@ links.forEach(link => {
 });
 //end of side tab functionality
 document.addEventListener("DOMContentLoaded",  () => {
+
+    //TESTING DASH LINK
+    const dashboardType = localStorage.getItem("dashboardType");
+    const dashboardLink = document.querySelector('.tab-list a[href*="defaultDashboard.html"]');
+
+    if(dashboardLink){
+        dashboardLink.setAttribute("href",
+            dashboardType === "customizable"
+            ? "customizableDashboard.html"
+            : "defaultDashboard.html");
+    }
+
+    const links = document.querySelectorAll(".tab-list a");
+    const currentURL = window.location.href;
+    links.forEach(link => {
+        if(currentURL.includes(link.href)){
+            link.classList.add("active");
+        }
+    });
+    //END OF DASH SET UP
     const token = localStorage.getItem("jwt"); //stores token of user once logged in
     if(!token){
         console.error("JWT token not found. User may not be authenticated.");

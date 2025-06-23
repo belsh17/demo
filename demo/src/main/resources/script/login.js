@@ -35,6 +35,10 @@ async function loginUser(){
 
         const data = await response.json();
         localStorage.setItem("jwt", data.token);
+        //ADDED TESTING
+        localStorage.setItem("dashboardType", data.dashboardType);
+
+        //END OF TESTING
 
         alert("Success: " + data.message);
 

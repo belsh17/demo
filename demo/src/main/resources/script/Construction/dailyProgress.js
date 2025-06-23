@@ -83,6 +83,9 @@ function renderDailyProgressForm(template){
             const addRowBtn = document.createElement("button");
             addRowBtn.textContent = "Add Row";
             addRowBtn.className = "add-row-btn";
+            //ADDED TO TEST HIDING ADD ROW BTN
+            addRowBtn.setAttribute("data-html2canvas-ignore", "true");
+            //END OF ADDED
             addRowBtn.onclick = () =>{
                 const newRow = document.createElement("tr");
                 field.columns.forEach(() => {
@@ -123,22 +126,120 @@ function renderDailyProgressForm(template){
         }
     });
 
-     const saveButton = document.getElementById("save-button");
-    if(saveButton) {
-        saveButton.style.display = "inline-block";
-    }else{
-        console.error("Save button not found");
-    }
+     
+    //code to load projects connnected to user logged in
+    async function loadUserProjects(){
+        const token = localStorage.getItem("jwt");
 
+        if(!token){
+            console.error("No token found. User not authenticated.");
+            return;
+        }
+
+        const response = await fetch("http://localhost:8081/api/projects/user", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if(!response.ok){
+            console.error("Failed to load user projects.");
+            return;
+        }
+
+          const projects = await response.json();
+          const selector = document.getElementById("project-selector");
+
+          projects.forEach(p => {
+            const opt = document.createElement("option");
+            opt.value = p.id;
+            opt.textContent = p.projectName;
+            selector.appendChild(opt);
+          });
+    }
+    //end projects code
+
+
+     document.getElementById("save-button").onclick = async () => {
+        const form = document.getElementById("template-form");
+        const templateId = form.dataset.templateId;
+        const templateName = form.querySelector("h2")?.textContent || "Unnamed Template";
+
+        const fields = [];
+        form.querySelectorAll(".field-wrapper").forEach(wrapper => {
+            const label = wrapper.querySelector("label")?.textContent || "";
+            const input = wrapper.querySelector("input, textarea, table");
+
+            if(input?.tagName === 'TABLE'){
+                const tableRows = [];
+                input.querySelectorAll("tr").forEach((tr, i) => {
+                    if(i === 0) return; 
+                    const rowValues = [];
+                    tr.querySelectorAll("input").forEach(cellInput => {
+                        rowValues.push(cellInput.value);
+                    });
+                    tableRows.push(rowValues);
+
+                });
+                fields.push({ label, type: "dynamic_table", value: tableRows });
+            }else{
+                fields.push({ label, type: input?.type || "text", value: input?.value });
+            }
+        });
+
+        const selectedProjectId = document.getElementById("project-selector").value;
+        if(!selectedProjectId){
+            alert("Please select a project before saving.");
+            return;
+        }
+
+        const payload = {
+            templateName,
+            templateType: "Construction",
+            projectId: parseInt(selectedProjectId), 
+            userId: getUserIdFromToken(),
+            templateData: JSON.stringify(fields)
+        };
+
+        const token = localStorage.getItem("jwt")
+
+        const response = await fetch("http://localhost:8081/api/user-templates/save", {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if(response.ok){
+            alert("Template saved successfully!");
+        }else{
+            alert("Error saving temaplate");
+        }
+     };
+
+     loadUserProjects();
 
 }
 //code for pdf conversion and download
     async function downloadPDF() {
         const form = document.getElementById("template-form");
 
+        //ADDED FOR PDF BTN HIDE
+        //form.classList.add("pdf-export");
+        const buttons = form.querySelectorAll("button");
+        buttons.forEach(btn => btn.style.display = "none");
+        //END OF ADDED
+
         const templateName = form.querySelector("h2")?.textContent || "Template";
         //use html2canvas to capture form as image
         const canvas = await html2canvas(form);
+
+        //ADDED FOR PDF BTN HIDE
+        //form.classList.remove("pdf-export");
+        buttons.forEach(btn => btn.style.display = "");
+        //HIDE BTN
         const imgData = canvas.toDataURL("image/png");
 
 
@@ -162,4 +263,8 @@ function renderDailyProgressForm(template){
         pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
         pdf.save(`${templateName.replace(/\s+/g, "_")}.pdf`);
     }
-loadDailyProgressTemplate();
+
+document.addEventListener("DOMContentLoaded", function(){
+  loadDailyProgressTemplate();
+});
+// loadDailyProgressTemplate();

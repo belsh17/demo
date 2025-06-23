@@ -14,9 +14,48 @@ links.forEach(link => {
 //end of side tab functionality
 let users = [];
 document.addEventListener("DOMContentLoaded", () => {
+    
+    //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
+        const adminTab = document.getElementById("admin-tab");
+        const token = localStorage.getItem("jwt");
+        if(!token){
+            adminTab.style.display = "none";
+            return;
+        }
+
+        const decoded = parseJwt(token);
+        const roles = decoded?.roles || [];
+        console.log("Decoded roles:", roles);
+
+        const isAdmin = roles === "ADMIN" || roles === "ROLE_ADMIN";
+
+        if(!isAdmin){
+            adminTab.style.display = "none";
+        }
+        //END OF ADMIN USERS
+    //TESTING DASH LINK
+    const dashboardType = localStorage.getItem("dashboardType");
+    const dashboardLink = document.querySelector('.tab-list a[href*="defaultDashboard.html"]');
+
+    if(dashboardLink){
+        dashboardLink.setAttribute("href",
+            dashboardType === "customizable"
+            ? "customizableDashboard.html"
+            : "defaultDashboard.html");
+    }
+
+    const links = document.querySelectorAll(".tab-list a");
+    const currentURL = window.location.href;
+    links.forEach(link => {
+        if(currentURL.includes(link.href)){
+            link.classList.add("active");
+        }
+    });
+    //END OF DASH SET UP
     //load projects to load into dropdown
     //using project controller for listing all projects
     fetch("http://localhost:8081/api/projects")
+    //fetch("http://localhost:8081/api/projects/user/display")
     .then(res => res.json())
     .then(projects => {
         const projectSelect = document.getElementById("project-team");
@@ -33,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //end of project loading code
 
     //code for loading users
-    const token = localStorage.getItem("jwt");
+    //const token = localStorage.getItem("jwt");
      if(!token){
                 alert("No token found. Please log in again");
                 return;
@@ -156,3 +195,19 @@ function addMember(){
     memberDiv.appendChild(roleInput);
     container.appendChild(memberDiv);
 }
+
+//helper for logout function
+  function parseJwt(token){
+    try{
+        const base64Url = token.split('.')[1]; //gets payload of jwt
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    } catch (e){
+        console.error("Ivalid JWT", e);
+        return null;
+    }
+  }

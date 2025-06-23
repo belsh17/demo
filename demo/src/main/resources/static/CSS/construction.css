@@ -75,7 +75,7 @@ body, html{
    color: white;
    text-decoration: none; /*no underline*/
    font-size: 20px;
-   padding: 30px 20px;
+   padding: 20px 20px;
    display: inline-block;
    border-radius: 5px;
    /* transition: background-color 0.3s; */
@@ -88,31 +88,12 @@ body, html{
    color: #7d9b7e;
 }
 
-/* editing individual items on tab list */
-.tab-list li:nth-child(1) a{
-     background-color: white;
-     color: #7d9b7e;
-     width: 200px;
+/* styling for active screen or tab */
+.tab-list a.active{
+   background-color: white;
+   color: #7d9b7e;
+   width: 200px;
 }
-
-.tab-list li:nth-child(1) a:hover{
-     background-color: rgb(28, 28, 28);
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(3) a{
-     background-color: white;
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(3) a:hover{
-     background-color: rgb(28, 28, 28);
-     color: #7d9b7e;
-     width: 200px;
-}
-/* end of side tab style */
 
 /* styling of content on the right */
 .main-content{
@@ -328,6 +309,19 @@ body, html{
    font-weight: bold;
 }
 
+#temp-detail{
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   font-size: 30px;
+   margin-left: 30%;
+   margin-top: 5%;
+   color: #485648;
+}
+
+.main-content p{
+   text-align: center;
+   font-size: 20px;
+}
+
 /* styling the save button */
 .save-btn{
     margin: 20px;
@@ -344,6 +338,21 @@ body, html{
     background-color: #45a049;
 }
 
+/* styling the save button */
+.pdf-btn{
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* display: none;  */
+}
+
+.pdf-btn:active{
+    background-color: #45a049;
+}
 
 .add-row-btn{
     margin: 20px;

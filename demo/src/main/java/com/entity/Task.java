@@ -2,6 +2,8 @@ package com.entity;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -30,6 +32,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "projectId", referencedColumnName = "id")
+    // @JsonIgnore
     private Project project;
 
     @ManyToOne

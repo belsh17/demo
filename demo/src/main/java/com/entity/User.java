@@ -2,9 +2,19 @@ package com.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+// @Data
+// @NoArgsConstructor
+// @AllArgsConstructor
+// @Builder
 // @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 // @DiscriminatorColumn(name = "user_type")
 @Table(name = "users")
@@ -38,6 +48,7 @@ public class User {
     private Role role;
 
     @OneToMany(mappedBy = "createdBy")
+    @JsonManagedReference
     private List<Project> createdProjects;
 
     @OneToMany(mappedBy = "assignedUser")

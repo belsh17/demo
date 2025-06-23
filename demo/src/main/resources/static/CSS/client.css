@@ -65,7 +65,7 @@ body,html {
    color: white;
    text-decoration: none; /*no underline*/
    font-size: 20px;
-   padding: 30px 20px;
+   padding: 20px 20px;
    display: inline-block;
    border-radius: 5px;
    /* transition: background-color 0.3s; */
@@ -78,8 +78,15 @@ body,html {
    color: #7d9b7e;
 }
 
+/* styling for active screen or tab */
+.tab-list a.active{
+   background-color: white;
+   color: #7d9b7e;
+   width: 200px;
+}
+
 /* editing individual items on tab list */
-.tab-list li:nth-child(1) a{
+/* .tab-list li:nth-child(1) a{
      background-color: white;
      color: #7d9b7e;
      width: 200px;
@@ -114,7 +121,7 @@ body,html {
      background-color: rgb(28, 28, 28);
      color: #7d9b7e;
      width: 200px;
-}
+} */
 
 /* styling of content on the right */
 .main-content{

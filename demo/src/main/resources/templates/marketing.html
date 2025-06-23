@@ -27,13 +27,14 @@
                     <!-- <h2>Plan-Nest</h2> -->
             </div>
             <ul class="tab-list">
-                <li><a href="defaultDashboard.html">My Dashboard</a></li>
+               <li><a href="defaultDashboard.html">My Dashboard</a></li>
                 <li><a href="projectsHome.html">My Projects</a></li>
                 <li><a href="templatesHome.html">Templates & Graphs</a></li>
                 <li><a href="deadlines.html">Deadlines</a></li>
                 <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="teams.html">Teams</a></li>
                 <li><a href="client.html">Clients</a></li>
-                 <li><a href="teams.html">Teams</a></li>
                 <li><a href="adminUsers.html">Active Users</a></li>
             </ul>
         </div>
@@ -44,7 +45,13 @@
             </div>
 
             <div id="template-gallery" class="template-gallery"></div>
+            <h3 id="temp-detail">Your template will be displayed below!</h3>
+            <p>Please select a project to link it to from the drop down and press save. You will find it under that project folder, else feel free to download it as a PDF.</p>
+           
             <div id="template-form" class="template-form"></div>
+            <select title="projectSelect" name="projectSelect" id="project-selector">
+                <option value="">Select a project</option>
+            </select>
             <button onclick="saveTemplate()" id="save-button" class="save-btn">Save</button>
             <button onclick="downloadPDF()" id="pdf-btn" class="pdf-btn">Download PDF</button>
         

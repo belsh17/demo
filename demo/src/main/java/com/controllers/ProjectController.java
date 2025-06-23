@@ -16,6 +16,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import com.AuthUtils;
 import com.dto.CreateProjectDto;
 import com.dto.ProjectDeadlineDTO;
+import com.dto.ProjectDto;
 import com.dto.SPointDTO;
 import com.entity.Client;
 import com.entity.Project;
@@ -61,7 +62,10 @@ public class ProjectController {
     
 
     @PostMapping
-    public ResponseEntity<Project> createProject(
+    //COMMMENTED OUT BELOW FOR ADDED
+    // public ResponseEntity<Project> createProject(
+    //ADDED 
+    public ResponseEntity<ProjectDto> createProject(
         @RequestBody CreateProjectDto dto,
         @AuthenticationPrincipal Jwt jwt
     ) {
@@ -79,12 +83,38 @@ public class ProjectController {
         User manager = userRepository.findById(dto.getProjectManagerId()) 
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Manager not found"));  
         
+        //ADDED THIS TO SET CREATED BY
+        String username = jwt.getSubject();
+        User creator = userRepository.findByUsername(username)
+            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+        //END OF CREATED BY
+
         project.setClient(client);
         project.setProjectManager(manager);
+        //ADDED THIS TO SET CREATED BY
+        project.setCreatedBy(creator);
+        //END OF ADDED
 
         Project saved = projectRepository.save(project);
+
+        //ADDED FOR CREATED BY
+        ProjectDto response = new ProjectDto();
+        response.setId(saved.getId());
+        response.setProjectName(saved.getProjectName());
+        response.setProjDescription(saved.getProjDescription());
+        response.setCreationDate(saved.getCreationDate());
+        response.setDeadlineDate(saved.getDeadlineDate());
+        response.setStartDate(saved.getStartDate());
+        response.setClientName(client.getClientName());
+        response.setClientAccount(client.getAccountNumber());
+        response.setManagerName(manager.getFullName());
+        response.setCreatedBy(creator.getId());
+        //END OF CREATED BY
         
-        return ResponseEntity.ok(saved);
+        //commmenting out below for added
+        //return ResponseEntity.ok(saved);
+        //ADDED BELOW
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -92,17 +122,48 @@ public class ProjectController {
         return projectRepository.findAll();
     }
 
+    // @GetMapping("/{id}")
+    // public ResponseEntity<Project> getProjectId(@PathVariable Long id) {
+    //     Project project = projectRepository.findById(id)
+    //         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
+    //         return ResponseEntity.ok(project);
+    // }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectId(@PathVariable Long id) {
+    public ResponseEntity<ProjectDto> getProjectId(@PathVariable Long id) {
         Project project = projectRepository.findById(id)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
-            return ResponseEntity.ok(project);
+        
+            ProjectDto dto = new ProjectDto();
+            dto.setProjectName(project.getProjectName());
+            dto.setProjDescription(project.getProjDescription());
+            dto.setCreationDate(project.getCreationDate());
+            dto.setDeadlineDate(project.getDeadlineDate());
+            dto.setStartDate(project.getStartDate());
+            dto.setClientName(project.getClient() != null ? project.getClient().getClientName() : null);
+            dto.setClientAccount(project.getClient() != null ? project.getClient().getAccountNumber() : null);
+            dto.setManagerName(project.getProjectManager() != null ? project.getProjectManager().getFullName() : null);
+            dto.setCreatedBy(project.getCreatedBy() != null ? project.getCreatedBy().getId() : null);
+            return ResponseEntity.ok(dto);
     }
 
     //mapping for displaying dealdines on dahsboard
     @GetMapping("/deadlines")
     public List<ProjectDeadlineDTO> getProjectDeadlines() {
         List<Project> projects = projectRepository.findAll();
+        return projects.stream()
+        .map(p -> new ProjectDeadlineDTO(p.getId(), p.getProjectName(), p.getDeadlineDate()))
+        .collect(Collectors.toList());
+    }
+
+    //mapping for displaying dealdines on dahsboard
+    @GetMapping("/deadlines/user")
+    public List<ProjectDeadlineDTO> getProjectUserDeadlines(@AuthenticationPrincipal Jwt jwt) {
+        String username = jwt.getSubject();
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Project> projects = projectRepository.findByProjectManager(user);
         return projects.stream()
         .map(p -> new ProjectDeadlineDTO(p.getId(), p.getProjectName(), p.getDeadlineDate()))
         .collect(Collectors.toList());
@@ -118,28 +179,56 @@ public class ProjectController {
         return ResponseEntity.ok(sCurveData);
     }
     
-    @GetMapping("/user")
-    public ResponseEntity<List<Project>> getProjectsForLoggedINUser() {
-        String username = AuthUtils.getAuthenticatedUsername();
-        if(username == null){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
+    // @GetMapping("/user")
+    // public ResponseEntity<List<Project>> getProjectsForLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
+    //     String username = jwt.getSubject();
+
+    //     User user = userRepository.findByUsername(username)
+    //         .orElseThrow(() -> new RuntimeException("User not found"));
+
+    //     List<Project> projects = projectRepository.findByProjectManager(user);
+    //     return ResponseEntity.ok(projects);
+    // }
+
+    //WAS WORKING
+     @GetMapping("/user")
+    public ResponseEntity<List<Project>> getProjectsForLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
+        String username = jwt.getSubject();
 
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<Project> projects = projectRepository.findByUser(user);
+        List<Project> projects = projectRepository.findByProjectManagerOrCreatedBy(user, user);
         return ResponseEntity.ok(projects);
     }
-    
-    
-    
 
-    // @GetMapping("/api/users/project-managers")
-    // public List<User> getProjectManagers() {
-    //     return userService.getUserByRole("PROJECT_MANAGER");
-    // }
-    
+
+     @GetMapping("/user/display")
+    public ResponseEntity<List<ProjectDto>> getProjectDisplayForLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
+        String username = jwt.getSubject();
+
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<Project> projects = projectRepository.findByProjectManagerOrCreatedBy(user, user);
+        
+        List<ProjectDto> dtos = projects.stream().map(project -> {
+            ProjectDto dto = new ProjectDto();
+            dto.setId(project.getId());
+            dto.setProjectName(project.getProjectName());
+            dto.setProjDescription(project.getProjDescription());
+            dto.setCreationDate(project.getCreationDate());
+            dto.setDeadlineDate(project.getDeadlineDate());
+            dto.setStartDate(project.getStartDate());
+            dto.setClientName(project.getClient() != null ? project.getClient().getClientName() : null);
+            dto.setClientAccount(project.getClient() != null ? project.getClient().getAccountNumber() : null);
+            dto.setManagerName(project.getProjectManager() != null ? project.getProjectManager().getFullName() : null);
+            dto.setCreatedBy(project.getCreatedBy() != null ? project.getCreatedBy().getId() : null);
+            return dto;
+        }).collect(Collectors.toList());
+            
+        return ResponseEntity.ok(dtos);
+    }
     
     
 }

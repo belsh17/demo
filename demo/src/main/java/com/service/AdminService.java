@@ -21,22 +21,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AdminService {
 
-    @Autowired
-    private UserRepository userRepository;
+    // @Autowired
+    // private UserRepository userRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+    // @Autowired
+    // private RoleRepository roleRepository;
 
-    // public User createUser(String username, String email, Role role){
-    //     return userRepository.findByUsername(username)
-    //     .orElseGet(() -> {
-    //         User newUser = new User();
-    //         newUser.setUsername(username);
-    //         newUser.setEmail(email);
-    //         newUser.setRole(null);
-    //         return newUser;
-    //     });
-    // }
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     public User getUserByUsername(final String username) {
         return userRepository.findByUsername(username)
