@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/templatesHome.css">
+    <script src="/demo/src/main/resources/script/templatesHome.js"></script>
+
+    <link rel="stylesheet" href="/CSS/templatesHome.css">
+    <script src="/script/templatesHome.js"></script>
+    <title>Templates</title>
+</head>
+<body>
+    <div class="templates-container">
+        <!-- code for side tab for every screen -->
+        <div class="side-tab">
+            <div class="header-side">
+                    <button title="back-btn" class="back-button">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <!-- <h2>Plan-Nest</h2> -->
+            </div>
+            <ul class="tab-list">
+                <li><a href="defaultDashboard.html">My Dashboard</a></li>
+                <li><a href="projectsHome.html">My Projects</a></li>
+                <li><a href="templatesHome.html">Templates & Graphs</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="teams.html">Teams</a></li>
+                <li><a href="client.html">Clients</a></li>
+                 <li id="admin-tab"><a href="adminUsers.html">Active Users</a></li>
+            </ul>
+        </div>
+        <!-- end of side tab -->
+
+        <!-- code for main content on right of page -->
+        <div class="main-content">
+
+            <!-- code for title top block -->
+            <div class="title-block">
+                <h1>Templates and Graphs</h1>
+            </div>
+            <!-- code for container below that -->
+             <div class="templates-grid">
+                <!-- indiv. blocks for each inductry templates -->
+                    <div id="generic" class="template-tile">
+                        <h2>Generic</h2>
+                        <img src="/demo/src/main/resources/assets/Generic.jpg" alt="no display">
+                    </div>
+                    <div id="finance" class="template-tile">
+                        <h2>Finance</h2>
+                        <img src="/demo/src/main/resources/assets/finance.jpg" alt="no display">
+                        <!-- <img src="/assets/finance.jpg" alt="no display"> -->
+                    </div>
+                    <div id="education" class="template-tile">
+                        <h2>Education</h2>
+                        <img src="/demo/src/main/resources/assets/education.jpg" alt="no display">
+                    </div>
+                    <div id="construction" class="template-tile">
+                        <h2>Construction</h2>
+                        <img src="/demo/src/main/resources/assets/construction.jpg" alt="no display">
+                    </div>
+                    <div id="software-dev" class="template-tile">
+                        <h2>Software Development</h2>
+                        <img src="/demo/src/main/resources/assets/IT.webp" alt="no display">
+                    </div>
+                    <div id="marketing" class="template-tile">
+                        <h2>Marketing</h2>
+                        <img src="/demo/src/main/resources/assets/marketing.png" alt="no display">
+                    </div>
+             </div>
+        </div>
+    </div>
+</body>
+</html>

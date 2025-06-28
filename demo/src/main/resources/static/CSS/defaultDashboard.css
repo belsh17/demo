@@ -376,12 +376,28 @@ body, html{
    margin: 10px 10px;
 }
 
+#date-widget h4{
+   margin-top: 10px;
+   color: #333;
+   font-size: 16px;
+   border-bottom: 1px solid #ccc;
+   padding-bottom: 5px;
+}
+
 .deadline-item{
    /* background-color: #e6ffe9; */
    background-color: #fffee8;
    padding: 10px;
    border-radius: 10px;
    height: auto;
+   border: 1px solid #fff08e;
+   transition: all 0.3s ease;
+}
+
+.deadline-item.expired{
+   opacity: 0.6;
+   font-style: italic;
+   background-color: #f0f0f0;
 }
 
 .teams-heading{
@@ -396,6 +412,7 @@ body, html{
    border-radius: 10px;
    height: auto;
    margin: 20px 20px;
+   border: 1px solid #ffae51;
 }
 
 #s-curve-tile:hover{
@@ -422,6 +439,7 @@ body, html{
    background-color: rgb(234, 255, 234);
    border-radius: 10px;
    margin: 20px 20px;
+   border: 1px solid #a7ff8e;
 }
 
 .indiv-project-task #project-name{

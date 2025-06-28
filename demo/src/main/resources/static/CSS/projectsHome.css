@@ -10,6 +10,15 @@ body,html {
    height: 100vh;
 }
 
+.project-badge{
+   background-color: green;
+   color: white;
+   padding: 4px 8px;
+   border-radius: 8px;
+   font-size: 0.75rem;
+   margin-left: 10px;
+}
+
 .side-tab{
    background-color: #7d9b7e;
    color: white;
@@ -233,7 +242,19 @@ body,html {
    justify-items: center;
 }
 
-
+.help-btn{
+   position: fixed;
+   bottom: 20px;
+   right: 20px;
+   padding: 10px 14px;
+   border: none;
+   background-color: #007bff;
+   color: white;
+   border-radius: 50%;
+   font-size: 18px;
+   cursor: pointer;
+   z-index: 1000;
+}
 
 
 /* styling for project tiles but dont display until user creates project */

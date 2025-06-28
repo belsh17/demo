@@ -18,6 +18,18 @@ public class ProjectDto {
         private String managerName;
         private Long createdBy;
 
+        //ADDED FOR AUTO PROJ STATUS - ALSO IN ENTITY, TASK CONTROLLER, PROJ CONTR AND HOME JS
+        private Boolean complete;
+
+        public Boolean getComplete() {
+            return complete;
+        }
+
+        public void setComplete(Boolean complete) {
+            this.complete = complete;
+        }
+        //END OF ADDED
+
         public Long getId() {
             return id;
         }

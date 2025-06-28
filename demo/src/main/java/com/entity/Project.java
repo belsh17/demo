@@ -47,6 +47,20 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<Task> task;
 
+    //ADDED THIS CODE FOR AUTO PROJ STATUS
+    @Column(nullable = false)
+    private boolean complete = false;
+
+    public boolean getComplete(){
+        return complete;
+    }
+
+    public void setComplete(boolean complete) {
+        this.complete = complete;
+    }
+    //END OF ADDED
+
+
     public Project(){
         
     }

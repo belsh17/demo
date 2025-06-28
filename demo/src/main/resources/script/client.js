@@ -1,3 +1,46 @@
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+
+function startTour() {
+
+    // const clientsDisplay = document.querySelector(".clients-display");
+    // const searchBar = document.querySelector(".search-bar");
+    // const newClientBtn = document.querySelector(".newProj-btn");
+
+    // if(!clientsDisplay || !searchBar || !newClientBtn){
+    //     console.warn("One or more tour elements are missing:", {
+    //         clientsDisplay,
+    //         searchBar,
+    //         newClientBtn
+    //     });
+    //     return;
+    // }
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your clients page!! Let's take a quick tour."
+    },
+    {
+        element: document.querySelector(".clients-display"),
+        intro: "All clients will be displayed here."
+    },
+    {
+        element: document.querySelector(".search-bar"),
+        intro: "Search for existing clients here."
+    },
+     {
+        element: document.querySelector(".newProj-btn"),
+        intro: "Create your first client here!",
+        position: 'top'
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
+
 //functionality for highlighting active page side tab
 const links = document.querySelectorAll(".tab-list a");
 //const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
@@ -56,6 +99,16 @@ document.addEventListener("DOMContentLoaded", () => {
     createClientBtn.addEventListener("click", async (event) => {
         await navigate(event);
     });
+
+    //ADDED FOR TOUR
+        const helpButton = document.getElementById("help-button");
+        if(helpButton){
+            helpButton.addEventListener("click", () => {
+                console.log("Help button clicked.");
+                startTour();
+            });
+        }
+        //END OF ADDED FOR TOUR
 });
 
 async function navigate(event) {

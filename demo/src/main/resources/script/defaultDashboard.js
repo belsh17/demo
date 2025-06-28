@@ -136,10 +136,17 @@ async function loadDeadlines() {
             emptyState.style.display = "block";
             return;
         }
-        // if(projects.length === 0){
-        //     container.innerHTML = `<p class="empty-state">No upcoming deadlines.</p>`;
-        //     return;
-        // }
+
+        //ADDED TO EDIT PASSED DEADLINES
+        const upcomingSection = document.createElement("div");
+        const pastSection = document.createElement("div");
+        upcomingSection.innerHTML = `<h4> Upcoming Deadlines</h4>`;
+        pastSection.innerHTML = `<h4>Past Deadlines</h4>`;
+
+
+        let hasUpcoming = false;
+        let hasPast = false;
+        //END OF ADDED - MORE ADDED IN LOOP BELOW
 
         projects.forEach(project => {
             const deadlineDate = new Date(project.deadline);
@@ -154,8 +161,25 @@ async function loadDeadlines() {
                 Deadline: ${deadlineDate.toDateString()}<br>
                 ${diffDays >= 0 ? `${diffDays} days left` : `Deadline passed`}
             `;
-            container.appendChild(item);
+
+            //MORE ADDED
+            if(diffDays >= 0){
+                upcomingSection.appendChild(item);
+                hasUpcoming = true;
+            }else{
+                item.classList.add("expired");
+                pastSection.appendChild(item);
+                hasPast = true;
+            }
+            //END OF ADDED - MORE OUTSIDE LOOP BELOW
+            //container.appendChild(item);
         });
+
+        //MORE ADDED
+        if(hasUpcoming) container.appendChild(upcomingSection);
+        if(hasPast) container.appendChild(pastSection);
+        if(!hasUpcoming && !hasPast) emptyState.style.display = "block";
+        //END OF ADDED
     
     } catch(err){
         console.error("Error loading deadlines: ", err);
@@ -191,7 +215,8 @@ let sCurveChart = null;
         //return data;
     //END OF ADDED
     
-    const res = await fetch("http://localhost:8081/api/projects");
+    //const res = await fetch("http://localhost:8081/api/projects/user/display");
+     const res = await fetch("http://localhost:8081/api/projects");
     const projects = await res.json();
     const selector = document.getElementById("projectSelector");
 

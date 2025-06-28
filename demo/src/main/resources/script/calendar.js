@@ -146,9 +146,23 @@ document.addEventListener("DOMContentLoaded", () => {
     //END OF DASH SET UP
     const urlParams = new URLSearchParams(window.location.search);
     const isLinked = urlParams.get("linked") === "true";
+    //ADDED THIS FOR TESTING SESSION STORAGE
+    const restoredToken = urlParams.get("token");
 
-    if(isLinked){
+    if(restoredToken){
+        localStorage.setItem("jwt", restoredToken);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        urlParams.delete("token");
+        window.history.replaceState({}, document.title, window.location.pathname + '?' + urlParams.toString());
+    }
+    //END OF STORAGE JWT
+
+    if(isLinked && localStorage.getItem("jwt")){
         fetchCalendarEvents();
+    }else if(isLinked){
+        alert("Session expired. PLease log in again")
+        //fetchCalendarEvents();
     }
     });
 

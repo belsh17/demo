@@ -1,0 +1,129 @@
+// async function loadMarketingGantt
+
+// // marketingGantt.js
+// //this is chatgpt so code yourself
+// // Load regular templates and custom Gantt tile
+// window.addEventListener("DOMContentLoaded", () => {
+//     loadMarketingTemplates();
+//     addCreateGanttTile();
+//     loadUserCreatedGanttTemplates();
+// });
+
+// async function loadMarketingTemplates() {
+//     const response = await fetch("/demo/src/main/resources/static/data/generic.json");
+//     const data = await response.json();
+//     const gallery = document.getElementById("template-gallery");
+
+//     data.templates
+//         .filter(template => template.category === "Marketing")
+//         .forEach(template => {
+//             const tile = document.createElement("div");
+//             tile.className = "template-tile";
+
+//             tile.onclick = () => renderMarketingForm(template);
+
+//             const img = document.createElement("img");
+//             img.src = template.image;
+//             img.alt = template.name;
+
+//             const title = document.createElement("h3");
+//             title.className = "tile-title";
+//             title.textContent = template.name;
+
+//             tile.appendChild(img);
+//             tile.appendChild(title);
+//             gallery.appendChild(tile);
+//         });
+// }
+
+// function addCreateGanttTile() {
+//     const gallery = document.getElementById("template-gallery");
+//     const tile = document.createElement("div");
+//     tile.className = "template-tile";
+//     tile.onclick = () => showGanttForm();
+
+//     const img = document.createElement("img");
+//     img.src = "/demo/src/main/resources/static/assets/create-gantt.png";
+//     img.alt = "Create Your Own Gantt";
+
+//     const title = document.createElement("h3");
+//     title.className = "tile-title";
+//     title.textContent = "Create Your Own Gantt";
+
+//     tile.appendChild(img);
+//     tile.appendChild(title);
+//     gallery.appendChild(tile);
+// }
+
+// function showGanttForm() {
+//     const formContainer = document.getElementById("template-form");
+//     formContainer.innerHTML = `
+//         <h3>Create Gantt Chart</h3>
+//         <div class="field-wrapper">
+//             <label>Task Name:</label><input type="text" class="gantt-task-name">
+//             <label>Start Date:</label><input type="date" class="gantt-start-date">
+//             <label>End Date:</label><input type="date" class="gantt-end-date">
+//         </div>
+//         <button onclick="addTaskToGantt()">Add Task</button>
+//         <ul id="task-list"></ul>
+//     `;
+//     document.getElementById("save-button").onclick = saveGanttChart;
+//     document.getElementById("gantt-target").innerHTML = "";
+// }
+
+// const ganttTasks = [];
+
+// function addTaskToGantt() {
+//     const name = document.querySelector(".gantt-task-name").value;
+//     const start = document.querySelector(".gantt-start-date").value;
+//     const end = document.querySelector(".gantt-end-date").value;
+    
+//     if (!name || !start || !end) return alert("Fill all fields.");
+
+//     const id = "task_" + (ganttTasks.length + 1);
+//     ganttTasks.push({ id, name, start, end, progress: 0 });
+
+//     const taskList = document.getElementById("task-list");
+//     const li = document.createElement("li");
+//     li.textContent = `${name} (${start} - ${end})`;
+//     taskList.appendChild(li);
+// }
+
+// function saveGanttChart() {
+//     const title = prompt("Enter a name for your Gantt Chart Template:");
+//     if (!title) return;
+
+//     const key = "user_gantt_" + title.toLowerCase().replace(/\s+/g, "_");
+//     localStorage.setItem(key, JSON.stringify(ganttTasks));
+//     alert("Gantt chart saved!");
+//     location.reload();
+// }
+
+// function loadUserCreatedGanttTemplates() {
+//     const gallery = document.getElementById("template-gallery");
+//     for (let key in localStorage) {
+//         if (key.startsWith("user_gantt_")) {
+//             const title = key.replace("user_gantt_", "").replace(/_/g, " ");
+
+//             const tile = document.createElement("div");
+//             tile.className = "template-tile";
+//             tile.onclick = () => {
+//                 const data = JSON.parse(localStorage.getItem(key));
+//                 const gantt = new Gantt("#gantt-target", data);
+//                 document.getElementById("template-form").innerHTML = `<h3>${title}</h3>`;
+//             };
+
+//             const img = document.createElement("img");
+//             img.src = "/demo/src/main/resources/static/assets/gantt-placeholder.png";
+//             img.alt = title;
+
+//             const h3 = document.createElement("h3");
+//             h3.className = "tile-title";
+//             h3.textContent = title;
+
+//             tile.appendChild(img);
+//             tile.appendChild(h3);
+//             gallery.appendChild(tile);
+//         }
+//     }
+// }

@@ -2,6 +2,7 @@ package com.controllers;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dto.AdminUserDto;
 import com.dto.RoleUpdateRequest;
+import com.dto.UserDto;
 import com.entity.Role;
 import com.entity.User;
 import com.repository.RoleRepository;
@@ -68,10 +71,21 @@ public class AdminController {
     }
 
     //use this mapping whenever you want list of users
-    @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return adminService.getAllUsers();
+    // @GetMapping("/users")
+    // public List<User> getAllUsers() {
+    //     return adminService.getAllUsers();
+    // }
+
+
+     @GetMapping("/users")
+    public ResponseEntity<List<AdminUserDto>> getAllUsers() {
+
+        List<User> users = userRepository.findAll();
+        List<AdminUserDto> userDtos = users.stream()
+            .map(AdminUserDto::new)
+            .collect(Collectors.toList());
+
+        return ResponseEntity.ok(userDtos);
     }
-    
     
 }

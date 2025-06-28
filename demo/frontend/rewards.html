@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/rewards.css">
+    <script src="/demo/src/main/resources/script/rewards.js" defer></script>
+
+    <link rel="stylesheet" href="/CSS/rewards.css">
+    <script src="/script/rewards.js" defer></script>
+    <title>Rewards</title>
+</head>
+<body>
+<div class="rewards-container">
+        <!-- code for side tab for every screen -->
+        <div class="side-tab">
+            <div class="header-side">
+                    <button title="back" type = "submit" class="back-button" onclick="signOut()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <h2>Plan-Nest</h2>
+            </div>
+            <ul class="tab-list">
+                <li><a href="defaultDashboard.html">My Dashboard</a></li>
+                <li><a href="projectsHome.html">My Projects</a></li>
+                <li><a href="templatesHome.html">Templates & Graphs</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="teams.html">Teams</a></li>
+                <li><a href="client.html">Clients</a></li>
+                <li><a href="adminUsers.html">Active Users</a></li>
+            </ul>
+        </div>
+        <!-- end of side tab -->
+
+        <!-- code for main header on right of page -->
+        <div class="main-content">
+
+            <div class="search-block">
+
+                <!-- code for title top block -->
+                <div id="title-block" class="title-block">
+                    <h1>My Rewards</h1>
+                </div>
+                <!-- code for new project block -->
+                 
+            </div>
+            <!-- end of code for header on right of page -->
+           
+            <div id="rewardsContainer" class="project-rewards-section"></div>
+            <p  class="no-rewards-msg">You have no rewards yet. Complete project tasks to get started!</p>
+                
+            <div class="gift-box stage-0" id="giftBox">
+                <div class="box-base"></div>
+                <div class="box-wrap"></div>
+                 <div class="lid"></div>
+                <div class="box-bow"></div>
+                <div class="box-decoration"></div>
+                <div class="gift-avatar" id="avatar-${project.id}-${i}" style="display:none; width:100px; height:100px;"></div>
+                <!-- <div class="lid"></div> -->
+            </div>
+
+            <div class="surprise" id="surprise">Congratulations! You've earned a reward.</div>
+            <!-- <button type="button" id="taskBtn">Complete Task</button> -->
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.10.1/lottie.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</body>
+</html>

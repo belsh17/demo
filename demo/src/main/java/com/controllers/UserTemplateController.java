@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.AuthUtils;
 import com.dto.SaveTemplateRequest;
+import com.dto.UserTemplateResponseDto;
 import com.repository.UserTemplatesRepository;
 
 import io.micrometer.core.ipc.http.HttpSender.Response;
@@ -97,12 +98,22 @@ public class UserTemplateController {
         if(projectId != null){
             Project project = projectRepository.findById(projectId)
                 .orElseThrow(() -> new RuntimeException("Project not found"));
-                templates = userTemplatesRepository.findByUserAndProject(user, project);
+                //templates = userTemplatesRepository.findByUserAndProject(user, project);
+                //COMMENTED OUT TOP TO TEST TEMPLATE DISPLAY
+                templates = userTemplatesRepository.findByProject(project);
+                //END OF TEST
         }else{
             templates = userTemplatesRepository.findByUser(user);
         }
 
-        return ResponseEntity.ok(templates);
+        //editing the return for displaying the temaplates in the indiv pg
+        //return ResponseEntity.ok(templates);
+        List<UserTemplateResponseDto> responseDtos = templates.stream()
+            .map(UserTemplateResponseDto::new)
+            .toList();
+
+        return ResponseEntity.ok(responseDtos);
+        //END OF ADDED
     }
 
     @PutMapping("/update/{templateId}")
@@ -139,10 +150,12 @@ public class UserTemplateController {
         
     }
 
+    //TESTING THE BLOW BUT THE OTHER ONE WAS WORKING
     @GetMapping("/{templateId}")
     public ResponseEntity<?> getTemplateById(
         @PathVariable Long templateId,
         @AuthenticationPrincipal Jwt jwt) {
+
         String username = jwt.getSubject();
         if(username == null){
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
@@ -158,8 +171,31 @@ public class UserTemplateController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied");
         }
 
-        return ResponseEntity.ok(template);
+        UserTemplateResponseDto dto = new UserTemplateResponseDto(template);
+        return ResponseEntity.ok(dto);
     }
+
+    // @GetMapping("/{templateId}")
+    // public ResponseEntity<?> getTemplateById(
+    //     @PathVariable Long templateId,
+    //     @AuthenticationPrincipal Jwt jwt) {
+    //     String username = jwt.getSubject();
+    //     if(username == null){
+    //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
+    //     }
+
+    //     User user = userRepository.findByUsername(username)
+    //         .orElseThrow(() -> new RuntimeException("User not found"));
+        
+    //     UserTemplates template = userTemplatesRepository.findById(templateId)
+    //         .orElseThrow(() -> new RuntimeException("Template not found"));
+
+    //     if(!template.getUser().getId().equals(user.getId())){
+    //         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied");
+    //     }
+
+    //     return ResponseEntity.ok(template);
+    // }
     
     
     

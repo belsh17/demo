@@ -1,4 +1,28 @@
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
 
+function startTour() {
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your rewards page!! Let's take a quick tour."
+    },
+    {
+        element: document.querySelector(".project-rewards-section"),
+        intro: "This is where your rewards are displayed"
+    },
+    {
+        element: document.querySelector(".gift-bow"),
+        intro: "A gift box will be developed once you have completed 5 tasks."
+    },
+
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
 //code for decoding jwt and getting user signed in
 function getUserIdFromToken(){
     const token = localStorage.getItem("jwt");
@@ -23,7 +47,8 @@ async function getProjectData(){
             return [];
         }
 
-        const response = await fetch("http://localhost:8081/api/projects/user", {
+        // const response = await fetch("http://localhost:8081/api/projects/user", {
+        const response = await fetch("http://localhost:8081/api/projects/user/display", {
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -86,7 +111,7 @@ async function loadProjectRewards(){
     const projects = await getProjectData();
     const allTasks = await getTasks();
 
-    console.log("All tasks recieved from backend", allTasks);
+    console.log("All tasks received from backend", allTasks);
     
     const message = document.querySelector(".no-rewards-msg");
     if(projects.length === 0)
@@ -222,3 +247,16 @@ async function loadProjectRewards(){
 }
 
 window.addEventListener("DOMContentLoaded", loadProjectRewards);
+
+//ADDED FOR TOUR
+document.addEventListener("DOMContentLoaded", () => {
+     //ADDED FOR TOUR
+        const helpButton = document.getElementById("help-button");
+        if(helpButton){
+            helpButton.addEventListener("click", () => {
+                console.log("Help button clicked.");
+                startTour();
+            });
+        }
+        //END OF ADDED FOR TOUR
+});

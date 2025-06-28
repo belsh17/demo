@@ -422,3 +422,9 @@ body, html{
    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    font-size: 15px;
 }
+
+.landscape-mode{
+   transform: scale(0.8);
+   transform-origin: top left;
+   width: 125%;
+}

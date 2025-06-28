@@ -1,4 +1,27 @@
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
 
+function startTour() {
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your templates!! Let's take a quick tour."
+    },
+    {
+        element: document.querySelector(".newProj-btn"),
+        intro: "View and create gantt charts here."
+    },
+    {
+        element: document.querySelector(".templates-grid"),
+        intro: "Choose an industry to get started."
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
 //functionality for highlighting active page side tab
 const links = document.querySelectorAll(".tab-list a");
 //const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
@@ -57,6 +80,16 @@ document.addEventListener("DOMContentLoaded", function(){
     genericTile.addEventListener("click", function(){
         window.location.href = "generic.html";
     });
+
+    //ADDED FOR TOUR
+        const helpButton = document.getElementById("help-button");
+        if(helpButton){
+            helpButton.addEventListener("click", () => {
+                startTour();
+            });
+        }
+        //END OF ADDED FOR TOUR
+
 });
 
 // code for clicking fincance tile to redirect to fincance templates

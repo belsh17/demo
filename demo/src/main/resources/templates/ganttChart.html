@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.css">
+    <script src="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js"></script>
+
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/ganttChart.css">
+    <script src="/demo/src/main/resources/script/ganttChart.js" defer></script>
+    <title>Gantt Chart</title>
+</head>
+<body>
+    <div class="rewards-container">
+        <!-- code for side tab for every screen -->
+        <div class="side-tab">
+            <div class="header-side">
+                    <button title="back" type = "submit" class="back-button" onclick="signOut()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <h2>Plan-Nest</h2>
+            </div>
+            <ul class="tab-list">
+                <li><a href="defaultDashboard.html">My Dashboard</a></li>
+                <li><a href="projectsHome.html">My Projects</a></li>
+                <li><a href="templatesHome.html">Templates & Graphs</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="teams.html">Teams</a></li>
+                <li><a href="client.html">Clients</a></li>
+                <li><a href="adminUsers.html">Active Users</a></li>
+            </ul>
+        </div>
+        <!-- end of side tab -->
+
+        <!-- code for main header on right of page -->
+        <div class="main-content">
+
+            <div class="search-block">
+
+                <!-- code for title top block -->
+                <div id="title-block" class="title-block">
+                    <h1>Gantt Chart</h1>
+                </div>
+                <!-- code for new project block -->
+                 
+            </div>
+            <div id="task-form" class="form">
+                <label class="gantt-title" for="task-name">Task Name:</label>
+                <input type="text" id="task-name" placeholder="Task Name" required>
+                <label class="gantt-title"  for="start-date">Start Date:</label>
+                <input title="start" type="date" id="start-date" required>
+                <label class="gantt-title"  for="end-date">End Date:</label>
+                <input title="end" type="date" id="end-date" required>
+                <button id="submit-btn" onclick="addTask()">Add task</button>
+            </div>
+
+            <div id="gantt-container">
+                <svg id="gantt"></svg>
+            </div>
+            <!-- end of code for header on right of page -->
+           <!-- <button type="button" id="taskBtn">Complete Task</button> -->
+            <button id="help-button" class="help-btn"><strong>?</strong></button>
+            
+        </div>
+    </div>
+</body>
+</html>

@@ -514,6 +514,17 @@ async function loadDeadlines() {
             return;
         }
 
+        //ADDED TO EDIT PASSED DEADLINES
+        const upcomingSection = document.createElement("div");
+        const pastSection = document.createElement("div");
+        upcomingSection.innerHTML = `<h4> Upcoming Deadlines</h4>`;
+        pastSection.innerHTML = `<h4>Past Deadlines</h4>`;
+
+
+        let hasUpcoming = false;
+        let hasPast = false;
+        //END OF ADDED - MORE ADDED IN LOOP BELOW
+
         const heading = document.createElement("h3");
         heading.className = "deadlines-heading";
         heading.innerHTML = "Deadlines:";
@@ -531,9 +542,26 @@ async function loadDeadlines() {
                 Deadline: ${deadlineDate.toDateString()}<br>
                 ${diffDays >= 0 ? `${diffDays} days left` : `Deadline passed`}
             `;
+
+            //MORE ADDED
+            if(diffDays >= 0){
+                upcomingSection.appendChild(item);
+                hasUpcoming = true;
+            }else{
+                item.classList.add("expired");
+                pastSection.appendChild(item);
+                hasPast = true;
+            }
+            //END OF ADDED - MORE OUTSIDE LOOP BELOW
             // container.appendChild(heading);
-            container.appendChild(item);
+            //container.appendChild(item);
         });
+
+         //MORE ADDED
+        if(hasUpcoming) container.appendChild(upcomingSection);
+        if(hasPast) container.appendChild(pastSection);
+        if(!hasUpcoming && !hasPast) emptyState.style.display = "block";
+        //END OF ADDED
     } catch(err){
         console.error("Error loading deadlines: ", err);
         container.innerHTML = `<p class="error">Could not load deadlines.</p>`;
@@ -553,7 +581,8 @@ let sCurveChart = null;
             return [];
         }
 
-    const res = await fetch("http://localhost:8081/api/projects/user", {
+    //const res = await fetch("http://localhost:8081/api/projects/user", {
+        const res = await fetch("http://localhost:8081/api/projects/user/display", {
         headers: {
             "Authorization": "Bearer " + token
         }

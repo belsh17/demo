@@ -179,6 +179,18 @@ public class TasksController {
                 
 
                 Task updatedTask = taskRepository.save(task);
+
+                //ADDED FOR AUTO PROJ STATUS ALSO ADDED IN ENTITY
+                Project project = task.getProject();
+                List<Task> tasksInProject = taskRepository.findByProjectId(project.getId());
+
+                boolean allComplete = tasksInProject.stream()
+                    .allMatch(t -> t.getTaskStatus() == TaskStatus.COMPLETE);
+
+                project.setComplete(allComplete);
+                projectRepository.save(project);
+                //END OF ADDED
+
                 return new ResponseEntity<>(updatedTask, HttpStatus.OK);
         }
         

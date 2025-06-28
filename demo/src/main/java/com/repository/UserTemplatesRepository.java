@@ -10,5 +10,6 @@ import com.entity.UserTemplates;
 
 public interface UserTemplatesRepository extends JpaRepository<UserTemplates, Long>{
     List<UserTemplates> findByUser(User user);
+    List<UserTemplates> findByProject(Project project);
     List<UserTemplates> findByUserAndProject(User user, Project project);
 }

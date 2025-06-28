@@ -1,3 +1,32 @@
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+
+function startTour() {
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your projects!! Let's take a quick tour."
+    },
+    {
+        element: document.querySelector(".projects-display"),
+        intro: "All projects will be displayed here."
+    },
+    {
+        element: document.querySelector(".search-bar"),
+        intro: "Search for existing projects here."
+    },
+     {
+        element: document.querySelector(".newProj-btn"),
+        intro: "Create your first project! Tip: Create clients first.",
+        position: 'top'
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
 
 
 //functionality for highlighting active page side tab
@@ -107,6 +136,9 @@ async function getProjectData(){
     });
     //END OF DASH SET UP
     const projects = await getProjectData();
+    //ADDED FOR AUTO PROJ STATUS ALSO IN ENTITY AND CONTROLLER
+    projects.sort((a, b) => a.complete - b.complete);
+    //END OF ADDED ALSO EDITED TILE INNER HTML
     const container = document.querySelector(".project-tiles");
     const message = document.querySelector(".no-projects-msg");
 
@@ -129,6 +161,7 @@ async function getProjectData(){
                 const tile = document.createElement("div");
                 tile.className = "project-tile";
                 tile.innerHTML = `
+                ${project.complete ? '<span class="project-badge">Completed</span>' : ''}
                 <h3 class="project-title">${projectName}</h3>
                 <p class="project-description"><strong>Description:</strong>${projDescription}</p>
                 <p class="project-details"><strong>Client:</strong> ${clientName}</p>
@@ -139,6 +172,15 @@ async function getProjectData(){
                 container.appendChild(tile);
             });
         }
+
+        //ADDED FOR TOUR
+        const helpButton = document.getElementById("help-button");
+        if(helpButton){
+            helpButton.addEventListener("click", () => {
+                startTour();
+            });
+        }
+        //END OF ADDED FOR TOUR
     });
     
     //helper for logout function

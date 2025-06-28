@@ -399,6 +399,13 @@ body, html{
     background-color: #45a049;
 }
 
+.landscape-mode{
+   transform: scale(0.75);
+   transform-origin: top left;
+   width: 1400px;
+   max-width: none;
+}
+
 
 /* add to all templates  */
 .field-wrapper{

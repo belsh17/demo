@@ -1,3 +1,40 @@
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+
+function startTour() {
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your teams page!! Let's take a quick tour."
+    },
+    {
+        element: document.getElementById("create-new-team"),
+        intro: "This is where you create a new team."
+    },
+    {
+        element: document.getElementById("team-name"),
+        intro: "Enter your team name."
+    },
+    {
+        element: document.getElementById("project-team"),
+        intro: "Select the project the team is associated with."
+    },
+    {
+        element: document.getElementById("member-btn"),
+        intro: "Click here to add a user to the team!"
+    },
+     {
+        element: document.getElementById("submit-btn"),
+        intro: "Create your first team!",
+        position: 'top'
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
 //functionality for highlighting active page side tab
 const links = document.querySelectorAll(".tab-list a");
 //const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
@@ -162,6 +199,15 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     }
+
+     //ADDED FOR TOUR
+        const helpButton = document.getElementById("help-button");
+        if(helpButton){
+            helpButton.addEventListener("click", () => {
+                startTour();
+            });
+        }
+        //END OF ADDED FOR TOUR
 });
 
 //function for adding memeber to form

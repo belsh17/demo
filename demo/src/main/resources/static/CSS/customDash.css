@@ -554,12 +554,28 @@ body, html{
     font-size: 21px;
 }
 
+#date-widget h4{
+   margin-top: 10px;
+   color: #333;
+   font-size: 16px;
+   border-bottom: 1px solid #ccc;
+   padding-bottom: 5px;
+}
+
 .deadline-item{
-    padding: 1rem;
-    background-color: rgb(237, 238, 254);
-    border-radius: 8px;
-    margin-top: 5px;
-    font-size: 20px;
+   /* background-color: #e6ffe9; */
+   background-color: #fffee8;
+   padding: 10px;
+   border-radius: 10px;
+   height: auto;
+   border: 1px solid #fff08e;
+   transition: all 0.3s ease;
+}
+
+.deadline-item.expired{
+   opacity: 0.6;
+   font-style: italic;
+   background-color: #f0f0f0;
 }
 
 /* edit icons on the tiles */

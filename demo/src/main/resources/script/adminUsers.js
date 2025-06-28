@@ -1,3 +1,28 @@
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+
+function startTour() {
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your users page!! Let's take a quick tour."
+    },
+    {
+        element: document.querySelector(".users-display"),
+        intro: "All registered users will be displayed here."
+    },
+    {
+        element: document.querySelector(".user-tile"),
+        intro: "Feel free to edit roles on this page"
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
+
 //functionality for highlighting active page side tab
 const links = document.querySelectorAll(".tab-list a");
 //const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
@@ -124,5 +149,14 @@ document.addEventListener("DOMContentLoaded",  () => {
     .catch(err => {
         console.error("Error fetching users:", err)
     });
+
+    //ADDED FOR TOUR
+        const helpButton = document.getElementById("help-button");
+        if(helpButton){
+            helpButton.addEventListener("click", () => {
+                startTour();
+            });
+        }
+        //END OF ADDED FOR TOUR
     
 });

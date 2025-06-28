@@ -27,13 +27,7 @@ async function getProjectDetails(){
 
 //fetch for tasks once created and saved
 async function getTaskDetails(){
-    // return fetch(`http://localhost:8081/api/projects/${projectId}/tasks`)
-    // // return fetch("http://localhost:8081/api/tasks")
-    // .then(res => res.json())
-    // .catch(error => {
-    //     console.log("Error fetching from backend: " + error);
-    //     return [];
-    // });
+    
 
      const token = localStorage.getItem("jwt");
      if(!token){
@@ -471,6 +465,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
    }
    renderUpdatedTasks();
+   updateProgressBar(relatedTasks);
     //end code for tasks div
 
     //start code for teams div
@@ -567,6 +562,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     //end code for files
 
     //start code for templates div
+    console.log("Fetching templates for project ID:", projectId);
+    const currentUsername = decoded.sub;
     const templates = await getSavedTemplates(projectId);
     const templatesBlock = document.getElementById("templates-block");
 
@@ -584,11 +581,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         templates.forEach(template => {
             const li = document.createElement("li");
+            li.style.marginBottom = "12px";
             li.innerHTML = `
                 <strong>${template.templateName}</strong> (${template.templateType})<br/>
-                <button class="edit-btn" onclick="editTemplate(${template.id})">Edit</button>
+                ${template.username === currentUsername
+                   ? `<button class="edit-btn" onclick="editTemplate(${template.id})">Edit</button>`
+                   : `<span style="color:gray;">(View only)</span>`
+                }
             `;
             list.appendChild(li);
+            //<button class="edit-btn" onclick="editTemplate(${template.id})">Edit</button>
+        
         });
         //display existing files immediatly
         //getSavedTemplates(templates);

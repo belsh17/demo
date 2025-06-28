@@ -192,9 +192,11 @@ public class CalendarController {
             googleTokensRepository.save(tokens);
 
         return ResponseEntity.status(HttpStatus.FOUND)
-            .header(HttpHeaders.LOCATION, "http://localhost:8081/calendar?linked=true")
+            //.header(HttpHeaders.LOCATION, "http://localhost:8081/calendar?linked=true")
             //use the above line when serving backend 8081 with thymeleaf - use below line for testing using 5500
-            //.header(HttpHeaders.LOCATION, "http://127.0.0.1:5500/calendar?linked=true")
+            //.header(HttpHeaders.LOCATION, "http://localhost:5500/calendar.html?linked=true")
+            .header(HttpHeaders.LOCATION, "http://localhost:5500/calendar.html?linked=true&token=" + state)
+           
             .build();
     }
     

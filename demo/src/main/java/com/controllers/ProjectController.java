@@ -224,6 +224,9 @@ public class ProjectController {
             dto.setClientAccount(project.getClient() != null ? project.getClient().getAccountNumber() : null);
             dto.setManagerName(project.getProjectManager() != null ? project.getProjectManager().getFullName() : null);
             dto.setCreatedBy(project.getCreatedBy() != null ? project.getCreatedBy().getId() : null);
+            //ADDED FOR PROJ STATUS AUTO
+            dto.setComplete(project.getComplete());
+            //END OF ADDED
             return dto;
         }).collect(Collectors.toList());
             

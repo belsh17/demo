@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/client.css">
+    <script src="/demo/src/main/resources/script/client.js" defer></script>
+
+    <link rel="stylesheet" href="/CSS/client.css">
+    <script src="/script/client.js" defer></script>
+    <title>Client Creation</title>
+</head>
+<body>
+      <div class="deadlines-container">
+        <!-- code for side tab for every screen -->
+        <div class="side-tab">
+            <div class="header-side">
+                    <button type="button" title="back-btn" class="back-button">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <!-- <h2>Plan-Nest</h2> -->
+            </div>
+            <ul class="tab-list">
+                <li><a href="defaultDashboard.html">My Dashboard</a></li>
+                <li><a href="projectsHome.html">My Projects</a></li>
+                <li><a href="templatesHome.html">Templates & Graphs</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="teams.html">Teams</a></li>
+                <li><a href="client.html">Clients</a></li>
+                 <li id="admin-tab"><a href="adminUsers.html">Active Users</a></li>
+            </ul>
+        </div>
+        <!-- end of side tab -->
+
+        <!-- code for main content on right of page -->
+        <div class="main-content">
+            <form id="create-new-client">
+
+                <h2>NEW CLIENT FORM</h2>
+               
+                <label for="client-name" class="form-label">Client Name</label>
+                <input title="client-input" type="text" id="client-name" name="clientName" placeholder="Enter client's name." required />
+
+                <label for="client-email" class="form-label">Client Email</label>
+                <input type="text" id="client-email" name="clientEmail" placeholder="Enter client's email" required/>
+
+                <label for="client-account" class="form-label">Client Account Number</label>
+                <input type="text" id="client-account" name="clientAccount" placeholder="Enter client's account number" required/>
+
+
+                <label for="client-number" class="form-label">Client Phone Number</label>
+                <input type="text" id="client-number" name="clientNumber" placeholder="Enter client's phone number" required/>
+
+                <!-- <label for="projectManagerId" class="form-label">Project Manager Id</label>
+                <select name="projectManagerId" id="projectManagerId">
+
+                </select> -->
+
+                <button type="button" id="submit-btn">Create Client</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

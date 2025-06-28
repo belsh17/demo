@@ -30,6 +30,9 @@ public class WebConfig implements WebMvcConfigurer{
                 registry.addViewController("/deadlines").setViewName("deadlines");
                 registry.addViewController("/indivProjects").setViewName("oneProject");
                 registry.addViewController("/createProject").setViewName("indivProject");
+                registry.addViewController("/login").setViewName("login");
+                registry.addViewController("/defaultDashboard").setViewName("defaultDash");
+                registry.addViewController("/customDashboard").setViewName("customDash");
 	}
     //     };
     // }

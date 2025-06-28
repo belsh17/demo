@@ -25,16 +25,29 @@
         ];
         const isLandscape = landscapeTemplates.some(name => templateName.includes(name));
         
+        let wrapper = null;
         //applies temp landscape style
         if(isLandscape){
             form.classList.add("landscape-mode");
+
+            wrapper = document.createElement("div");
+            wrapper.style.position = "relative";
+            wrapper.style.width = `${form.offsetWidth * 0.75}px`;
+            wrapper.style.overflow = "hidden";
+            form.parentNode.insertBefore(wrapper, form);
+            wrapper.appendChild(form);
         }
 
         //wait for DOM to apply changes
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 200));
 
         //use html2canvas to capture form as image
-        const canvas = await html2canvas(form, { scale: 3});
+        const canvas = await html2canvas(form, { 
+            scale: 3,
+            useCORS: true
+            // width: form.scrollWidth,
+            // height: form.scrollHeight
+        });
         const imgData = canvas.toDataURL("image/png");
 
         const { jsPDF } = window.jspdf;
@@ -89,14 +102,23 @@
             //pdf.addImage(imgData, 'PNG', 20, 20, imgWidth, imgHeight);
             pdf.save(`${templateName.replace(/\s+/g, "_")}.pdf`);
 
-            if(isLandscape){
-                form.classList.remove("landscape-mode");
-            }
+            // if(isLandscape){
+            //     form.classList.remove("landscape-mode");
+            // }
         }catch (error){
             console.error("Error generating PDF:", error);
             alert("There was a problem generating the PDF.");
         }finally{
             downloadBtn.disabled = false;
             loadingIndicator.style.display = "none";
+
+            if(form.classList.contains("landscape-mode")){
+                form.classList.remove("landscape-mode");
+
+                if(wrapper && wrapper.parentNode){
+                    wrapper.parentNode.insertBefore(form, wrapper);
+                    wrapper.remove();
+                }
+            }
         }
     }

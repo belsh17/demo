@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/edit-template.css">
+    <script src="/demo/src/main/resources/script/edit-template.js" defer></script>
+
+    <link rel="stylesheet" href="/CSS/edit-template.css">
+    <script src="script/edit-template.js" defer></script>
+    <title>Edit Template</title>
+</head>
+<body>
+    <h2>Edit Template</h2>
+
+    <label for="templateName">Template Name:</label>
+    <input title="templateName" type="text" id="templateName">
+
+    <label for="templateType">Template Type:</label>
+    <input title="templateType" type="text" id="templateType" readonly>
+
+    <form id="template-form"></form>
+
+    <!-- <label for="templateData">Template Data (JSON):</label>
+    <textarea title="templateData" type="text" id="templateData"></textarea> -->
+
+    <button type="button" onclick="saveUpdatedTemplate()">Save Changes</button>
+    
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/CSS/indivProj.css">
+    <script src="/script/indivProj.js" defer></script>
+    <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/indivProj.css">
+    <script src="/demo/src/main/resources/script/Projects/indivproject.js" defer></script>
+    <title>Create a Project</title>
+</head>
+<body>
+    <div class="deadlines-container">
+        <!-- code for side tab for every screen -->
+        <div class="side-tab">
+            <div class="header-side">
+                    <button type="button" title="back-btn" class="back-button">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <!-- <h2>Plan-Nest</h2> -->
+            </div>
+            <ul class="tab-list">
+              <li><a href="defaultDashboard.html">My Dashboard</a></li>
+                <li><a href="projectsHome.html">My Projects</a></li>
+                <li><a href="templatesHome.html">Templates & Graphs</a></li>
+                <li><a href="deadlines.html">Deadlines</a></li>
+                <li><a href="calendar.html">My Calendar</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="teams.html">Teams</a></li>
+                <li><a href="client.html">Clients</a></li>
+                 <li id="admin-tab"><a href="adminUsers.html">Active Users</a></li>
+            </ul>
+        </div>
+        <!-- end of side tab -->
+
+        <!-- code for main content on right of page -->
+        <div class="main-content">
+            <form id="create-project-form">
+
+                <h2>NEW PROJECT FORM</h2>
+               
+
+                <label for="projectName" class="form-label">Project Name</label>
+                <input title="proj-input" type="text" id="project-name" name="projectName" required/>
+
+                <label for="projectDescription" class="form-label">Project Description</label>
+                <textarea type="textarea" id="project-description" name="projDescription" placeholder="Enter project details."></textarea>
+
+                <label for="projectDeadline" class="form-label">Project Deadline</label>
+                <input title="proj-deadline" type="date" id="project-deadline" name="projDeadline" required />
+
+                <label for="startdate" class="form-label">Start Date</label>
+                <input title="start-date" type="date" id="startDate" name="startDate" required />
+
+                <label for="clientId" class="form-label">Select Client</label>
+                <select title="client-id" name="clientId" id="client-id" required>
+                    <option value="" disabled selected>Select client</option>
+                </select>
+
+                <label for="projectManagerId" class="form-label">Select Project Manager</label>
+                <select title="project-manager-id" name="projectManagerId" id="project-manager-id" required>
+                    <option value="" disabled selected>Select Project Manager</option>
+                </select>
+
+                <button type="submit" id="submit-btn">Create Project</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

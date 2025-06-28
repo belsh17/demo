@@ -147,7 +147,6 @@ public class FileUploadController {
         }catch(IOException e){
             e.printStackTrace();
             return ResponseEntity.status(500).body("Failed to upload files: " + e.getMessage());
-
         }
     }
 
