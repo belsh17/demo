@@ -3,9 +3,12 @@ package com.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dto.AuthenticationRequestDto;
+import com.dto.AuthenticationResponseDto;
 import com.dto.RegistrationRequestDto;
 import com.dto.RegistrationResponseDto;
 import com.mapper.UserRegistrationMapper;
+import com.service.AuthenticationService;
 import com.service.UserRegistrationService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,17 +27,42 @@ public class RegistrationController {
 
     private final UserRegistrationMapper userRegistrationMapper;
 
+    private final AuthenticationService authenticationService;
+
     //creates mapping between HTTP POST requests and handler methods
-    @PostMapping("/register")
-    public ResponseEntity<RegistrationResponseDto> registerUser(
+    // @PostMapping("/register")
+    // public ResponseEntity<RegistrationResponseDto> registerUser(
+    //     @RequestBody final RegistrationRequestDto registrationDTO) {
+        
+    //         final var registeredUser = userRegistrationService
+    //             .registerUser(userRegistrationMapper.toEntity(registrationDTO));
+
+    //             //ADDED WAS WORKING BEFORE - GENERATE JWT
+            
+    //             //END OF ADDED
+    //         return ResponseEntity.ok(
+    //             userRegistrationMapper.toRegistrationResponseDto(registeredUser)
+    //         );
+        
+    // }
+//COMMMNETED OUT TOP TO TEST BOTTOM WITH JWTS IF YOU USE TOP THEN CHECK MAPPER AND DTO
+      @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponseDto> registerUser(
         @RequestBody final RegistrationRequestDto registrationDTO) {
         
-            final var registeredUser = userRegistrationService
-                .registerUser(userRegistrationMapper.toEntity(registrationDTO));
-
-            return ResponseEntity.ok(
-                userRegistrationMapper.toRegistrationResponseDto(registeredUser)
+            userRegistrationService.registerUser(
+                userRegistrationMapper.toEntity(registrationDTO)
             );
+
+                //ADDED WAS WORKING BEFORE - GENERATE JWT
+            AuthenticationRequestDto authDto = new AuthenticationRequestDto(
+                registrationDTO.username(),
+                registrationDTO.password()
+            );
+
+            AuthenticationResponseDto authResponse = authenticationService.authenticate(authDto);
+                //END OF ADDED
+            return ResponseEntity.ok(authResponse);
         
     }
     

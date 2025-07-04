@@ -157,7 +157,8 @@ document.addEventListener("DOMContentLoaded", () => {
     //END OF STORAGE JWT
 
     if(isLinked && localStorage.getItem("jwt")){
-        fetchCalendarEvents();
+        setTimeout(fetchCalendarEvents, 300);
+        //fetchCalendarEvents();
     }else if(isLinked){
         alert("Session expired. PLease log in again")
         //fetchCalendarEvents();

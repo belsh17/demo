@@ -9,10 +9,7 @@ import com.entity.Task;
 public class TaskDto {
     private String taskName;
     private String taskDescription;
-    //private String taskStatus;
-    //private LocalDate creationDate;
     private LocalDate dueDate;
-    //private Long projectId;
     private Long assignedUserId;
     private String taskStatus;
     private Long projectId;

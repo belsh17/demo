@@ -8,6 +8,7 @@ import com.google.api.services.calendar.CalendarScopes;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +41,17 @@ public class GoogleCalendarService {
     public Calendar getCalendarService() throws IOException, GeneralSecurityException {
         String username = authenticationFacade.getAuthentication().getName();
         //OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient("google", username);
-        GoogleTokens tokens = tokenRepository.findByUsername(username);
-        
-        if(tokens == null) {
+        //GoogleTokens tokens = tokenRepository.findByUsername(username);
+        //commmneted out above line to test list for tokens
+        List<GoogleTokens> tokensList = tokenRepository.findByUsername(username);
+       
+        if(tokensList == null) {
             throw new RuntimeException("No google tokens linked for user");
         }
+
+        //ADDED THIS BOTTOM CODE TO TEST TOKENS LIST
+        GoogleTokens tokens = tokensList.get(0);
+        //END OF ADDED
 
         Instant expiryInstant = tokens.getExpiryDate();
         Date expiryDate = expiryInstant != null ? Date.from(expiryInstant) : null;

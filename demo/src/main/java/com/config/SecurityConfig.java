@@ -63,7 +63,9 @@ public class SecurityConfig{
         final HttpSecurity http
         ) throws Exception {
         return http
+        //UNCOMMMENTING THE BOTTOM FOR CALENDAR - WAS WORKING WHEN IT WAS COMMNETED OUT
         //.cors(Customizer.withDefaults())
+        //END OF UNCOMMNETED
         //disables CSRF protection (Cross Site Request Forgery)
         //okay to disable for APIs (App. Prog. Interface) 
         //Spring exposes APIs so that other software (frontend/mobile app) can send HTTP requests to it

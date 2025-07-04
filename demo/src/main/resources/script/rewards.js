@@ -23,6 +23,36 @@ introJs().setOptions({
 
 //end of tour code
 //END OF CODE FOR TOUR ON EACH PAGE
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
+//functionality for highlighting active page side tab
+const links = document.querySelectorAll(".tab-list a");
+//const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
+const currentURL = window.location.href;
+
+links.forEach(link => {
+    const href = link.href;
+    //const href = link.getAttribute("href");
+    //if(href === currentPath){
+    if(currentURL.includes(href)){
+        link.classList.add("active");
+    }
+});
+//end of side tab functionality
+
 //code for decoding jwt and getting user signed in
 function getUserIdFromToken(){
     const token = localStorage.getItem("jwt");
@@ -104,6 +134,17 @@ async function getTasks(){
     
 }
 
+//ADDED FOR CLAIMING REWARDS OR KEEPING BOX OPEN
+function getClaimedRewards(){
+    const stored = localStorage.getItem("claimedRewards");
+    return stored ? JSON.parse(stored) : {};
+}
+
+function saveClaimedRewards(claimed){
+    localStorage.setItem("claimedRewards", JSON.stringify(claimed));
+}
+//END OF ADDED
+
 
 const rewardsContainer = document.getElementById("rewardsContainer");
 async function loadProjectRewards(){
@@ -121,15 +162,15 @@ async function loadProjectRewards(){
 
     message.style.display = "none";
 
+    //ADDED FOR CLAIMING REWARD
+    const claimedRewards = getClaimedRewards();
+    //END OF ADDED MORE BELOW
+
     projects.forEach(project => {
        // const completedTasks = (project.tasks || []).filter( t => t.status === "COMPLETED");
         //FILTERS ALL TASKS FOR THAT USER TO ONLY GET COMPLETE ONES
        //const completedTasks = allTasks.filter(t => t.projectId === project.id && t.status === "COMPLETED");
-    const completedTasks = allTasks.filter(
-        //t => t.project?.id === project.id && t.taskStatus === "COMPLETE"
-        t => t.projectId === project.id && t.taskStatus === "COMPLETE"
-    
-    );
+    const completedTasks = allTasks.filter(t => t.projectId === project.id && t.taskStatus === "COMPLETE");
 
     console.log(`Project ${project.projectName} (${project.id}) completed tasks: `, completedTasks);
       
@@ -155,6 +196,9 @@ async function loadProjectRewards(){
                 }
                 </ul>
                 <div class="gift-box stage-5" id="gift-${project.id}-${i}">
+                    <div class="claimed-badge" style="display:none;">
+                        Claimed
+                    </div>
                     <div class="gift-avatar" id="avatar-${project.id}-${i}" style="display:none; width:100px; height:100px; position:absolute; bottom:160px; left:50%; transform:translateX(-50%; z-index:10;"></div>
                
                     <div class="box-base"></div>
@@ -203,10 +247,31 @@ async function loadProjectRewards(){
                 const giftBox = projectBox.querySelector(`#gift-${project.id}-${i}`);
                 const surprise = projectBox.querySelector(`#surprise-${project.id}-${i}`);
 
-                giftBox.style.cursor = "pointer";
-                giftBox.addEventListener("click", () => {
+                //more added for claiming and in innner html above
+                const claimedBadge  = giftBox.querySelector(".claimed-badge");
+                const giftId = `gift-${project.id}-${i}`;
+
+                if(claimedRewards[giftId]){
                     giftBox.classList.add("open");
                     surprise.style.opacity = 1;
+                    giftBox.style.cursor = "default";
+                    claimedBadge.style.display = "block";
+                }
+                //END OF ADDED
+                giftBox.style.cursor = "pointer";
+                claimedBadge.style.display = "none";
+                giftBox.addEventListener("click", () => {
+
+                    //ADDED FOR CLAIMED
+                    claimedRewards[giftId] = true;
+                    saveClaimedRewards(claimedRewards);
+                    //END OF ADDED
+                    giftBox.classList.add("open");
+                    surprise.style.opacity = 1;
+                    //ADDED FOR CLAIMED
+                    giftBox.style.cursor = "default";
+                    claimedBadge.style.display = "block";
+                    //END OF ADDED
 
                    setTimeout(() => {
                      //trigger confetti
@@ -246,7 +311,22 @@ async function loadProjectRewards(){
     }
 }
 
-window.addEventListener("DOMContentLoaded", loadProjectRewards);
+// window.addEventListener("DOMContentLoaded", loadProjectRewards);
+//COMMMNETD OUT TOP LINE FOR CLAIMECD REWARDS
+window.addEventListener("DOMContentLoaded", () => {
+    loadProjectRewards();
+
+    const resetBtn = document.getElementById("reset-claimed-btn");
+    if(resetBtn){
+        resetBtn.addEventListener("click", () => {
+            if(confirm("Are you sure you want to reset all claimed rewards?")){
+                localStorage.removeItem("claimedRewards");
+                location.reload();
+            }
+        });
+    }
+}); 
+//END OF ADDED
 
 //ADDED FOR TOUR
 document.addEventListener("DOMContentLoaded", () => {
@@ -258,5 +338,46 @@ document.addEventListener("DOMContentLoaded", () => {
                 startTour();
             });
         }
-        //END OF ADDED FOR TOUR
+        //END OF ADDED FOR 
+        //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
+        const adminTab = document.getElementById("admin-tab");
+        const token = localStorage.getItem("jwt");
+        if(!token){
+            adminTab.style.display = "none";
+            return;
+        }
+
+        const decoded = parseJwt(token);
+        const roles = decoded?.roles || [];
+        console.log("Decoded roles:", roles);
+
+        const isAdmin = roles.includes("ADMIN") || roles.includes("ROLE_ADMIN");
+
+        //const isAdmin = roles === "ADMIN" || roles === "ROLE_ADMIN";
+
+        if(!isAdmin){
+            adminTab.style.display = "none";
+        }
+        //END OF ADMIN USERS
+    
+    //TESTING DASH LINK
+    const dashboardType = localStorage.getItem("dashboardType");
+    const dashboardLink = document.getElementById("dashboard-link");
+    //const dashboardLink = document.querySelector('.tab-list a[href*="defaultDashboard.html"]');
+
+    if(dashboardLink){
+        dashboardLink.setAttribute("href",
+            dashboardType === "customizable"
+            ? "customizableDashboard.html"
+            : "defaultDashboard.html");
+    }
+
+    const links = document.querySelectorAll(".tab-list a");
+    const currentURL = window.location.href;
+    links.forEach(link => {
+        if(currentURL.includes(link.href)){
+            link.classList.add("active");
+        }
+    });
+    //END OF DASH SET UP
 });

@@ -1,3 +1,18 @@
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
 //CODE FOR TOUR OR GUIDE ON EACH PAGE
 
 function startTour() {
@@ -116,6 +131,47 @@ async function getProjectData(){
             adminTab.style.display = "none";
         }
         //END OF ADMIN USERS
+
+        //code for searhc functionality
+
+    const searchInput = document.getElementById("dashboard-search");
+
+    searchInput.addEventListener("input", async function () {
+        const query = this.value.trim();
+
+        const resultBox = document.getElementById("search-results");
+        if(query.length < 2){
+            if(resultBox) resultBox.remove();
+            return;
+        }
+        //if(query.length < 2)return;
+
+        const token = localStorage.getItem("jwt");
+
+        try{
+            const res = await fetch(`http://localhost:8081/api/search?q=${encodeURIComponent(query)}`, {
+                headers: {
+                    "Authorization" : "Bearer " + token
+                }
+            });
+
+            if(!res.ok) throw new Error("Failed to fetch search results");
+
+            const data = await res.json();
+            renderSearchResults(data);
+        }catch(err){
+            console.error("Search error:", err);
+        }
+
+    });
+
+    document.addEventListener("click", function (e) {
+        const resultBox = document.getElementById("search-results");
+        if(resultBox && !resultBox.contains(e.target) && e.target !== searchInput){
+            resultBox.remove();
+        }
+    });
+    //end of search
     //TESTING DASH LINK
     const dashboardType = localStorage.getItem("dashboardType");
     const dashboardLink = document.querySelector('.tab-list a[href*="defaultDashboard.html"]');
@@ -182,6 +238,52 @@ async function getProjectData(){
         }
         //END OF ADDED FOR TOUR
     });
+
+    function renderSearchResults(results){
+
+        let container = document.getElementById("search-results");
+
+        if(!container){
+        container = document.createElement("div");
+        container.id = "search-results";
+        container.classList.add("search-results");
+        document.querySelector(".main-content").appendChild(container);
+        }
+
+        //container.innerHTML = "";
+
+        const section = (title, items, isProject = false) => {
+            if(!items || items.length === 0) return "";
+
+            // return `
+            //     <div class="result-section">
+            //     <h4>${title}</h4>
+            //     <ul>${items.map(i => `<li>${i}</li>`).join("")}</ul>
+            //     </div>
+            // `;
+            return `
+                <div class="result-section">
+                <h4>${title}</h4>
+                <ul>
+                ${items.map(i => `<li>
+                    ${isProject
+                        ? `<a href="oneProject.html?id=${i.id}">${i.name}</a>`
+                        : i}
+                    </li>`).join("")}
+                    </ul>
+                </div>
+            `;
+        };
+
+        container.innerHTML = `
+            ${section("Projects", results.projects, true)}
+            ${section("Teams", results.teams)}
+        `;
+
+        if(!results.projects.length && !results.teams.length){
+            container.innerHTML = "<p>No matching results found.</p>";
+        }
+  }
     
     //helper for logout function
   function parseJwt(token){

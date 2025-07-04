@@ -163,7 +163,7 @@ public class ProjectController {
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
-        List<Project> projects = projectRepository.findByProjectManager(user);
+        List<Project> projects = projectRepository.findByProjectManagerOrCreatedBy(user, user);
         return projects.stream()
         .map(p -> new ProjectDeadlineDTO(p.getId(), p.getProjectName(), p.getDeadlineDate()))
         .collect(Collectors.toList());

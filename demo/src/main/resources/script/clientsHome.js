@@ -1,3 +1,18 @@
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
 //functionality for highlighting active page side tab
 const links = document.querySelectorAll(".tab-list a");
 //const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
@@ -81,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return [];
         }
 
-        // fetch("http://localhost:8081/api/clients/user", {
+        //fetch("http://localhost:8081/api/clients/user", {
         fetch("http://localhost:8081/api/clients", {
             method: "GET",
             headers: {
@@ -152,40 +167,3 @@ document.addEventListener("DOMContentLoaded", () => {
         return null;
     }
   }
-//THIS CODE WORKED
-// document.addEventListener("DOMContentLoaded", () => {
-//     fetch("http://localhost:8081/api/clients")
-//     .then(res => res.json())
-//     .then(data => {
-//         const container = document.querySelector(".clients-tiles");
-//         const message = document.querySelector(".no-clients-msg");
-
-//         //if client exists its more than 0
-//         if(data.length > 0){
-//             message.style.display = "none";
-
-//              data.forEach(client => {
-//                 const tile = document.createElement("div");
-//                 //creates class client tile
-//                 tile.classList.add("client-tile");
-
-//                 tile.innerHTML = `
-                
-//                 <p><strong>Client Name:</strong> ${client.clientName || "N/A"}</p>
-//                 <p><strong>Email:</strong> ${client.email || "N/A"}</p>
-//                 <p><strong>Account:</strong> ${client.accountNumber || "N/A"}</p>
-//                 <p><strong>Number:</strong> ${client.phoneNumber || "N/A"}</p>
-//                 `;
-//                 container.appendChild(tile);
-//             });
-
-//         } else{
-//             //if no clients show the no clients block
-//             message.style.display = "block";
-
-//         }
-//     })
-//     .catch(err => {
-//         console.error("Error fetching clients:", err)
-//     });
-// });

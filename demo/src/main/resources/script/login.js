@@ -40,7 +40,8 @@ async function loginUser(){
 
         //END OF TESTING
 
-        alert("Success: " + data.message);
+        // alert("Login successful!!" + data.message);
+        alert("Login successful!!");
 
         if(data.dashboardType === "customizable"){
             window.location.href = "customizableDashboard.html";
@@ -50,6 +51,10 @@ async function loginUser(){
 
     }else{
         const error = await response.text();
-        alert("Login failed: " + error);
+        //alert("Login failed: " + error);
+        if(response.status === 401){
+            alert("Invalid input data");
+        }
     }
+
 }

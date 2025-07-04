@@ -29,30 +29,41 @@ import lombok.RequiredArgsConstructor;
 
 //protect all endpoints except /api/auth/**
 //Configure JwtEncoder and JwtDecoder
+//defines beans for encoding and decoding JWTs using the RSA keys.
 @Configuration
 @RequiredArgsConstructor
 public class JwtConfig {
 
+    //contains the path to the RSA key field
     private final JwtProperties jwtProperties;
     private final ResourceLoader resourceLoader;
 
+    //creates JwtEncoder bean using RSA keys and Nimbus library
+    //private key - used to sign tokens using RS256 algo.
     @Bean
     public JwtEncoder jwtEncoder() throws Exception {
+        //loads public and private keys from file
         RSAPublicKey publicKey = loadPublicKey(jwtProperties.getPublicKey());
         RSAPrivateKey privateKey = loadPrivateKey(jwtProperties.getPrivateKey());
 
+        //build the JWK (Json Web Key) with the RSA keys
         var jwk = new RSAKey.Builder(publicKey)
             .privateKey(privateKey)
             .build();
         
-            return new NimbusJwtEncoder(new ImmutableJWKSet<>(new JWKSet(jwk)));
+        //return a nimbusJwtEncoder with the JWKSet
+        return new NimbusJwtEncoder(new ImmutableJWKSet<>(new JWKSet(jwk)));
     }
 
+    //creates JwtDecoder bean verifies JWTs using public RSA key
     @Bean 
     public JwtDecoder jwtDecoder() throws Exception {
-        return NimbusJwtDecoder.withPublicKey(loadPublicKey(jwtProperties.getPublicKey())).build();
+        return NimbusJwtDecoder
+        .withPublicKey(loadPublicKey(jwtProperties.getPublicKey()))
+        .build();
     }
 
+    //registers JwtService bean which uses an encoder and JWT properties
     @Bean
     public JwtService jwtService(JwtEncoder jwtEncoder){
         return new JwtService(jwtEncoder, jwtProperties);
@@ -60,12 +71,14 @@ public class JwtConfig {
 
     private RSAPublicKey loadPublicKey(String location) throws Exception{
         //Resource resource = resourceLoader.getResource(location);
+        //load public key file from classpath
         Resource resource = new ClassPathResource("jwt/app.pub");
         try(InputStream is = resource.getInputStream()){
             String key = new String(is.readAllBytes())
                 .replace("-----BEGIN PUBLIC KEY-----", "")
                 .replace("-----END PUBLIC KEY-----", "")
                 .replaceAll("\\s","");
+            //decode base64 and reconstruct the key
             byte[] decoded = Base64.getDecoder().decode(key);
             var spec = new X509EncodedKeySpec(decoded);
             System.out.println("Resource exists? " + resource.exists());
@@ -75,6 +88,7 @@ public class JwtConfig {
 
      private RSAPrivateKey loadPrivateKey(String location) throws Exception{
         //Resource resource = resourceLoader.getResource(location);
+        //load private key file from classpath
          Resource resource = new ClassPathResource("jwt/app.key");
         try(InputStream is = resource.getInputStream()){
             String key = new String(is.readAllBytes())
@@ -87,39 +101,4 @@ public class JwtConfig {
         }
     }
 
-    //kept secret and used to create digital signatures
-    // private RSAPrivateKey privateKey;
-
-    // //shared and used to verify signatures
-    // private RSAPublicKey publicKey;
-
-    //private Duration ttl;
-    //private final JwtProperties jwtProperties;
-
-    // @Bean
-    // public JwtEncoder jwtEncoder(){
-    //     final var jwk = new RSAKey.Builder(publicKey)
-    //         .privateKey(privateKey).build();
-
-    //     return new NimbusJwtEncoder(
-    //         new ImmutableJWKSet<>(new JWKSet(jwk)));
-    // }
-
-    // @Bean 
-    // public JwtDecoder jwtDecoder(){
-    //     return NimbusJwtDecoder.withPublicKey(publicKey).build();
-    // }
-
-    // @Bean 
-    // public JwtService jwtService(
-    //     JwtEncoder jwtEncoder,
-    //     JwtProperties jwtProperties
-    // ){
-    //     return new JwtService(jwtEncoder, jwtProperties);
-    // }
-    // public JwtService jwtService(
-    //     @Value("${spring.application.name}") final String appName,
-    //     final JwtEncoder jwtEncoder){
-    //         return new JwtService(appName, ttl, jwtEncoder);
-    //     }    
 }

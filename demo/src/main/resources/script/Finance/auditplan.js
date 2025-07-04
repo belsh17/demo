@@ -1,6 +1,56 @@
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
 // javascript loads templates from JSON file, renders them as tiles on 
 // the screen, and displays a detailed form when 
 // tile is clicked. Users can fill in form and save.
+
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+window.addEventListener('load', startTour);
+function startTour() {
+    //check browser local storage if tour has been shown and saved already
+    //TOUR TO SHOW
+    if(localStorage.getItem('indivTempTourShown')){
+        //so if ^^ does exist in local storage then function stops immediatly using return
+        return;
+    }
+
+    // //mark tour as shown
+     localStorage.setItem("indivTempTourShown", "true");
+
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your finance templates!! Let's take a quick tour."
+    },
+    {
+        element: document.getElementById("template-gallery"),
+        intro: "All templates for finance are displayed here."
+    },
+    {
+        element: document.querySelector(".template-tile1"),
+        intro: "Scroll down to customize your selected template."
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
 
 // loading templates. Async = tasks can run independently of main program flow
 async function loadTemplates(){
@@ -140,7 +190,7 @@ async function loadTemplates(){
             return;
         }
 
-        const response = await fetch("http://localhost:8081/api/projects/user", {
+        const response = await fetch("http://localhost:8081/api/projects/user/display", {
             headers: {
                 "Authorization": "Bearer " + token
             }

@@ -170,6 +170,41 @@ body,html {
    align-items: center;
 }
 
+
+.search-results{
+   background: #fff;
+   border: 1px solid #ccc;
+   position: absolute;
+   top: 70px;
+   right: 470px;
+   z-index: 1000;
+   padding: 15px;
+   width: 300px;
+   max-height: 300px;
+   overflow-y: auto;
+   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+}
+
+.search-results .result-section{
+   margin-bottom: 10px;
+}
+
+.search-results h4{
+   margin: 0 0 5px 0;
+}
+
+.search-results ul{
+   padding: 4px 0;
+   cursor: pointer;
+   list-style: none;
+}
+
+.search-results li:hover{
+   background: #f0f0f0;
+}
+
+
 .newProject{
    z-index: 1;
    display: flex;

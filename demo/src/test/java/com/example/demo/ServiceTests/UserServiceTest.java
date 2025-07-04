@@ -1,3 +1,4 @@
+package com.example.demo.ServiceTests;
 // //unit test for UserSerice class tests registerUser and authenticate
 // //Using JUnit 5 for testing and Mockito to mock dependencies like UserRep. & PassEnco
 // package com.example.demo;

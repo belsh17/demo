@@ -1,3 +1,54 @@
+
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+window.addEventListener('load', startTour);
+function startTour() {
+    //check browser local storage if tour has been shown and saved already
+    //TOUR TO SHOW
+    if(localStorage.getItem('indivTempTourShown')){
+        //so if ^^ does exist in local storage then function stops immediatly using return
+        return;
+    }
+
+    // //mark tour as shown
+     localStorage.setItem("indivTempTourShown", "true");
+
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your construction templates!! Let's take a quick tour."
+    },
+    {
+        element: document.getElementById("template-gallery"),
+        intro: "All templates for construction are displayed here."
+    },
+    {
+        element: document.querySelector(".template-tile5"),
+        intro: "Scroll down to customize your selected template."
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
+
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
 async function loadConstrucProjReportTemps(){
     try{
         const response = await fetch("/demo/src/main/resources/static/data/construction.json")
@@ -197,7 +248,7 @@ function renderConstrucReportForm(template){
             return;
         }
 
-        const response = await fetch("http://localhost:8081/api/projects/user", {
+        const response = await fetch("http://localhost:8081/api/projects/user/display", {
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -278,11 +329,88 @@ function renderConstrucReportForm(template){
         }else{
             alert("Error saving temaplate");
         }
+        //ADDED FOR AUTO SAVE MORE JUST BELOW
+        clearDraft();
+        //END OF ADDED
      };
 
      loadUserProjects();
 
+     //ADDED FOR AUTO SAVE MORE AT BOTTOM AND IN SAVE BTN CODE
+     setInterval(saveDraft, 3000);
+     loadDraftIfExists();
+     //END OF ADDED
 }
+
+//ADDED THIS CODE FOR AUTO SAVE FEATURE and more inside renderContruct...()
+const DRAFT_STORAGE_KEY = "constructionTemplateDraft";
+//auto-save current form state
+function saveDraft(){
+    const form = document.getElementById("template-form");
+    const fields = [];
+
+    form.querySelectorAll(".field-wrapper").forEach(wrapper => {
+        const label = wrapper.querySelector("label")?.textContent || "";
+        const input = wrapper.querySelector("input, textarea, table");
+
+        if(input?.tagName === 'TABLE'){
+            const tableRows = [];
+            input.querySelectorAll("tr").forEach((tr, i) => {
+                if(i === 0) return;
+                const rowValues = [];
+                tr.querySelectorAll("input").forEach(cellInput => {
+                    rowValues.push(cellInput.value);
+                });
+                tableRows.push(rowValues);
+            });
+            fields.push({ label, type: "dynamic_table", value: tableRows });
+        }else{
+            fields.push({ label, type: input?.type || "text", value: input?.value });
+        }
+    });
+    localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(fields));
+}
+
+//restore draft if it exists
+function loadDraftIfExists(){
+    const draft = localStorage.getItem(DRAFT_STORAGE_KEY);
+    if(!draft) return;
+
+    if(!confirm("You have an unsaved draft. Would you like to restore it?")) return;
+
+    const parsed = JSON.parse(draft);
+    const form = document.getElementById("template-form");
+
+    parsed.forEach(draftField => {
+        form.querySelectorAll(".field-wrapper").forEach(wrapper => {
+            const label = wrapper.querySelector("label")?.textContent || "";
+            if(label === draftField.label){
+                const input = wrapper.querySelector("input, textarea, table");
+
+                if(input?.tagName === 'TABLE'){
+                    const rows = draftField.value;
+                    const inputRows = input.querySelectorAll("tr");
+                    rows.forEach((rowData, rowIndex) => {
+                        const tr = inputRows[rowIndex + 1];
+                        if(!tr) return;
+                        const inputs = tr.querySelectorAll("input");
+                        rowData.forEach((cellVal, i) => {
+                            if(inputs[i]) inputs[i].value = cellVal;
+                        });
+                    });
+                }else{
+                    input.value = draftField.value;
+                }
+            }
+        });
+    });
+}
+
+//clear draft manually
+function clearDraft(){
+    localStorage.removeItem(DRAFT_STORAGE_KEY);
+}
+//END OF ADDED
 //code for pdf conversion and download
     async function downloadPDF() {
         const form = document.getElementById("template-form");
@@ -328,3 +456,19 @@ document.addEventListener("DOMContentLoaded", function(){
     loadConstrucProjReportTemps();
 });
 //loadConstrucProjReportTemps();
+
+//ADD THIS TO THE OTHER TEMPLATES
+function getUserIdFromToken(){
+    const token = localStorage.getItem("jwt");
+    if(!token) return null;
+
+    try{
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+        return payload.userId || payload.id || payload.sub || null;
+
+    }catch(e){
+        console.error("Invalid JWT token:", e);
+        return null;
+    }
+}

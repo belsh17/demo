@@ -54,12 +54,7 @@ public class AuthController {
     public ResponseEntity<AuthenticationResponseDto> authenticate(
         @RequestBody final AuthenticationRequestDto authenticationRequestDto
         ) {
-        //try{
                 return ResponseEntity.ok(authenticationService.authenticate(authenticationRequestDto));
-            
-            //} catch(BadCredentialsException e){
-            //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-        //}
     }
 
     @GetMapping("/login")

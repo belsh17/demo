@@ -12,8 +12,7 @@ import java.util.List;
 //Repository for User entity and primary key is of type long hence <User, Long>
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    //query method, Spring Data JPA automatically implements it
-    //translates to SELECT * FROM users WHERE username = ?;
+    
    List<User> findByRoleRoleName(String roleName);
    Optional<User> findByUsername(String username);
    Optional<User> findByFullName(String fullName);

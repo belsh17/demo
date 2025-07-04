@@ -136,7 +136,7 @@ function renderDailyProgressForm(template){
             return;
         }
 
-        const response = await fetch("http://localhost:8081/api/projects/user", {
+        const response = await fetch("http://localhost:8081/api/projects/display", {
             headers: {
                 "Authorization": "Bearer " + token
             }

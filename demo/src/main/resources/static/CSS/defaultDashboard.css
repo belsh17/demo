@@ -270,12 +270,13 @@ body, html{
 /* code for search bar */
 .search-block .search-bar input{
    display: flex;
-   width: 777px;
+   width: 600px;
    height: 50px;
    border-radius: 30px;
    border: none;
    font-size: 25px;
    padding-left: 10px;
+   margin-right: 5px;
 }
 
 /* code for popup background */

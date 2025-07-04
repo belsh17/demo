@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.ServiceTests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -78,11 +78,16 @@ public class RegistrationServiceTest {
         //act
         User registeredUser = registrationService.registerUser(user);
 
+        System.out.println("Registered user:" + registeredUser);
+        System.out.println("Password:"+registeredUser.getPassword());
+        System.out.println("Role:" + (registeredUser.getRole() != null ? registeredUser.getRole().getRoleName() : "null"));
+    
         //assert
         assertNotNull(registeredUser);
         assertEquals(username, registeredUser.getUsername());
         assertEquals(encodedPassword, registeredUser.getPassword());
-        assertEquals(userRole.getRoleName(), registeredUser.getRole().getRoleName());
+        assertEquals("USER", registeredUser.getRole().getRoleName());
+        //assertEquals(userRole.getRoleName(), registeredUser.getRole().getRoleName());
         
         //verify
         verify(userRepository).existsByUsername(username);

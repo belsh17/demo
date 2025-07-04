@@ -86,44 +86,6 @@ body,html {
    width: 200px;
 }
 
-/* editing individual items on tab list */
-/* .tab-list li:nth-child(1) a{
-     background-color: white;
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(1) a:hover{
-     background-color: rgb(42, 88, 49);
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(3) a{
-     background-color: white;
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(3) a:hover{
-     background-color: rgb(42, 88, 49);
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(5) a{
-     background-color: white;
-     color: #7d9b7e;
-     width: 200px;
-}
-
-.tab-list li:nth-child(5) a:hover{
-     background-color: rgb(42, 88, 49);
-     color: #7d9b7e;
-     width: 200px;
-} */
-
-
 /* styling of content on the right */
 .main-content{
    margin-left: 280px; 
@@ -159,14 +121,10 @@ body,html {
    width: 75vw;
    /* max-width: 100%; */
    margin: 40px auto;
-   height: 78vh;
+   /* height: 78vh; */
+   height: 600px;
    padding: 0 10px;
 }
-
-/* .calendar-container{
-   width: 95%;
-   margin: 0 auto;
-} */
 
 #link-btn{
    position: relative;

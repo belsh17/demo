@@ -2,6 +2,22 @@
 // window.onload = function(){
 //     loadTasks();
 // };
+
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(jwt && isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
 //code for decoding jwt and getting user signed in
 function getUserIdFromToken(){
     const token = localStorage.getItem("jwt");
@@ -81,6 +97,7 @@ window.addEventListener('load', startTour);
 
 function startTour() {
     //check browser local storage if tour has been shown and saved already
+    //TOUR TO SHOW
     if(localStorage.getItem('dashboardTourShown')){
         //so if ^^ does exist in local storage then function stops immediatly using return
         return;
@@ -186,8 +203,28 @@ async function loadTasksComplete(){
     //const projects = await getProjectData();
     const allTasks = await getTasks();
     console.log("Tasks loaded:", allTasks);
-    const res = await fetch("http://localhost:8081/api/projects");
-    const projects = await res.json();
+    //ADDED THIS TO TEST USER PROJECT AND TASKS - COMMENTED OUT ^
+    const token = localStorage.getItem("jwt");
+
+        if(!token){
+            console.error("No token found. User not authenticated.");
+            return [];
+        }
+
+        const response = await fetch("http://localhost:8081/api/projects/user/display", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if(!response.ok){
+            console.error("Failed to load user projects.");
+            return [];
+        }
+        const projects = await response.json();
+    //END OF ADDED
+    // const res = await fetch("http://localhost:8081/api/projects");
+    // const projects = await res.json();
 
     let message = document.querySelector(".empty-state-tasks");
     if(projects.length === 0)
@@ -197,21 +234,6 @@ async function loadTasksComplete(){
     } else{
         message.style.display = "none";
     }
-
-    // const emptyMsg = progTile.querySelector(".empty-state-tasks");
-    // if(allTasks.length === 0) {
-    //     emptyMsg.style.display = "block";
-    // }
-    //extract unique projects from tasks
-    // const projectsMap = new Map();
-    // allTasks.forEach(task => {
-    //     const project = task.project;
-    //     if(project && !projectsMap.has(project.id)){
-    //         projectsMap.set(project.id, project);
-    //     }
-    // });
-
-    //const projects = Array.from(projectsMap.values());
 
     projects.forEach(project => {
         const completeTasks = allTasks.filter(
@@ -337,6 +359,9 @@ function clearAllTasks(){
 
 document.addEventListener("DOMContentLoaded", () => {
 
+    //to do list tasks
+    loadTasks();
+    updateProgress();
     //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
         const adminTab = document.getElementById("admin-tab");
         const token = localStorage.getItem("jwt");
@@ -488,9 +513,9 @@ async function loadDeadlines() {
             return [];
         }
 
-        const response = await fetch("http://localhost:8081/api/projects/deadlines", {
+        //const response = await fetch("http://localhost:8081/api/projects/deadlines", {
         
-        //const response = await fetch("http://localhost:8081/api/projects/deadlines/user", {
+        const response = await fetch("http://localhost:8081/api/projects/deadlines/user", {
             headers: {
                 "Authorization": "Bearer " + token
             }
@@ -501,12 +526,13 @@ async function loadDeadlines() {
             return [];
         }
 
+
         const projects = await response.json();
         console.log("Raw project response:", projects);
 
         //const projects = await res.json();
 
-        if(projects.length === 0){
+        if(!projects || projects.length === 0){
             container.innerHTML = `
             <h3 class="widget-heading">Deadlines:</h3>
             <p class="empty-state">No upcoming deadlines.</p>
@@ -687,8 +713,9 @@ let sCurveChart = null;
 
         teams.forEach(team => {
             const userHtml = team.users && team.users.length > 0
-            ? team.users.map(u => `<li>${u.username} (${u.email})</li>`).join("")
+            ? team.users.map(u => `<li>${u.fullName} (${u.teamRole || "No role"})</li>`).join("")
             : `<li>No members</li>`;
+
 
             const item = document.createElement("div");
             item.className = "team-item";
@@ -869,5 +896,7 @@ let sCurveChart = null;
         return null;
     }
   }
+
+  
 
   

@@ -491,6 +491,37 @@ button{
    animation: confetti-fall 1s ease-out forwards;
 }
 
+#reset-claimed-btn{
+   margin: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* display: none;  */
+}
+
+#reset-claimed-btn:active{
+    background-color: #45a049;
+}
+
+
+.claimed-badge{
+   position: absolute;
+   top: 5px;
+   right: 5px;
+   background: #4CAF50;
+   color: white;
+   padding: 2px 8px;
+   border-radius: 12px;
+   font-size: 0.8rem;
+   font-weight: bold;
+   z-index: 20;
+   pointer-events: none;
+   /* user-select: none; */
+}
+
 
 /* code for opening lid of box */
 @keyframes openLid{

@@ -1,3 +1,18 @@
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
 //functionality for highlighting active page side tab
 const links = document.querySelectorAll(".tab-list a");
 //const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
@@ -29,6 +44,12 @@ async function fetchCalendarEvents(){
         }
         const events = await response.json();
         console.log("Fetched events:", events);
+
+        //added was working before but blank page more below
+        document.getElementById("linked-msg").style.display = "block";
+        document.getElementById("msg-block").style.display = "none";
+        //end of added more in dom
+
         renderCalendar(events);
     }catch (error){
         console.error("Error fetching events:", error);
@@ -45,7 +66,7 @@ async function getGoogleAuthUrl(){
     //window.location.href = `http://localhost:8081/calendar/api/google/link?token=${encodeURIComponent(token)}`;
 
     //window.location.href = "http://localhost:8081/calendar/api/google/link?token=" + encodeURIComponent(token);
-
+   console.log("Sending request with token: ", token);
         const response = await fetch("http://localhost:8081/calendar/api/google/link",{
             method: "GET",
             headers: {
@@ -87,10 +108,21 @@ function renderCalendar(eventsFromBackend){
             },
             events: eventsFromBackend.map(e => ({
                 title: e.summary,
-                // || e.startDate
-                // start: new Date(e.start.dateTime.value),
-                start: new Date(e.start.dateTime) || e.startDate,
-                end: new Date(e.end.dateTime) || e.endDate,
+            //    start: e.start?.dateTime ? new Date(e.start.dateTime) : e.startDate,
+            //    end: e.end?.dateTime ? new Date(e.end.dateTime) : e.endDate,
+                // start: new Date(e.start.dateTime) || e.startDate,
+                // end: new Date(e.end.dateTime) || e.endDate,
+                start: new Date(
+                    e.start?.dateTime ?? 
+                    e.start?.date?.value ?? 
+                    e.start?.value
+                ),
+                end: new Date(
+                    e.end?.dateTime ?? 
+                    e.end?.date?.value ?? 
+                    e.end?.value
+                ),
+
                 description: e.description || ''
             })),
             eventDidMount: function(info){
@@ -146,6 +178,10 @@ document.addEventListener("DOMContentLoaded", () => {
     //END OF DASH SET UP
     const urlParams = new URLSearchParams(window.location.search);
     const isLinked = urlParams.get("linked") === "true";
+    //ADDIONG THIS WAS WOERKING BEFORWE THIS
+    const msgBlock = document.getElementById("msg-block");
+    const linkedMsg = document.getElementById("linked-msg");
+    //END OF ADDED more below in if statement
     //ADDED THIS FOR TESTING SESSION STORAGE
     const restoredToken = urlParams.get("token");
 
@@ -159,11 +195,33 @@ document.addEventListener("DOMContentLoaded", () => {
     //END OF STORAGE JWT
 
     if(isLinked && localStorage.getItem("jwt")){
+        //ADDED MORE FROM ABOVE
+        localStorage.setItem("googleLinked", "true");
+        msgBlock.style.display = "none";
+        linkedMsg.style.display = "block";
+        //END OF ADDED MORE IN ELSE
         fetchCalendarEvents();
-    }else if(isLinked){
-        alert("Session expired. PLease log in again")
-        //fetchCalendarEvents();
     }
+    //TEST
+    else if(localStorage.getItem("googleLinked") === "true" && localStorage.getItem("jwt")){
+        msgBlock.style.display = "none";
+        linkedMsg.style.display = "block";
+        fetchCalendarEvents();
+    } else if(isLinked){
+        msgBlock.style.display = "block";
+        linkedMsg.style.display = "none";
+        alert("Session expired. PLease log in again")
+    }
+    //END TEST
+    //COMMNETED OUT BOTTOM TO TEST ELSE IF ABOVE
+    // }else if(isLinked){
+    //     //MORE FROM ABOVE
+    //     msgBlock.style.display = "block";
+    //     linkedMsg.style.display = "none";
+    //     //END OF ADDED
+    //     alert("Session expired. PLease log in again")
+    //     //fetchCalendarEvents();
+    // }
     });
 
     //helper for logout function

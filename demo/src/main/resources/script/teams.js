@@ -35,6 +35,21 @@ introJs().setOptions({
 
 //end of tour code
 //END OF CODE FOR TOUR ON EACH PAGE
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
 //functionality for highlighting active page side tab
 const links = document.querySelectorAll(".tab-list a");
 //const currentPath = window.location.pathname.split("/").pop(); //gets file name/html
@@ -92,7 +107,10 @@ document.addEventListener("DOMContentLoaded", () => {
     //load projects to load into dropdown
     //using project controller for listing all projects
     fetch("http://localhost:8081/api/projects")
-    //fetch("http://localhost:8081/api/projects/user/display")
+    // fetch("http://localhost:8081/api/projects/user/display", {
+    //         headers: {
+    //             "Authorization": "Bearer " + token
+    //         });
     .then(res => res.json())
     .then(projects => {
         const projectSelect = document.getElementById("project-team");

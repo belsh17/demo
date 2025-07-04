@@ -22,17 +22,20 @@ async function navigate(event) {
         // characters username can contain
         const usernamePattern = /^[a-zA-Z0-9_]{8,20}$/;
         if(!usernamePattern.test(username)){
+            alert("Username must be at least 8 characters");
             errorMsg.textContent = "Username must be at least 8 characters and contain only letters, numbers or underscores"
             return;
         }
 
         //check if terms are accepted
         if(!termsBox){
+            alert("Please accept the terms and conditions");
             errorMsg.textContent = "Please accept the terms and conditions";
             return;
         }
 
         if(!selectedOption){
+            alert("Please select a dashboard type");
             errorMsg.textContent = "Please select a dashboard type."
             return;
         }
@@ -59,6 +62,15 @@ async function navigate(event) {
             console.log("Response status:", response.status);
             
             if(response.ok){
+                const data = await response.json();
+                const jwt = data.token;
+
+                if(jwt){
+                    localStorage.setItem("jwt", jwt);
+                }else{
+                    alert("No token received. PLease log in manually");
+                    return;
+                }
                 // const data = await response.json();
                 // const dashboardType = data.dashboardType;
                 alert("Signup successful!");
@@ -92,9 +104,11 @@ async function navigate(event) {
 
             //addded for existing users
             if(response.status === 409){
+                alert("User already exists. PLease try logging in or use a different email");
                 errorMessage = "User already exists. PLease try logging in or use a different email";
             }else if(response.status === 400){
-                errorMessage = "Invalid input data. PLease che3ck your details.";
+                alert("Invalid input data. Please check your details");
+                errorMessage = "Invalid input data. Please check your details.";
             }
             //end of existing users code
             errorMsg.textContent = errorMessage;

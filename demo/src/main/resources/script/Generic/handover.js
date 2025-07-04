@@ -1,3 +1,37 @@
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+window.addEventListener('load', startTour);
+function startTour() {
+    //check browser local storage if tour has been shown and saved already
+    //TOUR TO SHOW
+    if(localStorage.getItem('indivTempTourShown')){
+        //so if ^^ does exist in local storage then function stops immediatly using return
+        return;
+    }
+
+    // //mark tour as shown
+     localStorage.setItem("indivTempTourShown", "true");
+
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your generic templates!! Let's take a quick tour."
+    },
+    {
+        element: document.getElementById("template-gallery"),
+        intro: "All templates for generic are displayed here."
+    },
+    {
+        element: document.querySelector(".template-tile4"),
+        intro: "Scroll down to customize your selected template."
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
 async function loadHandoverTemps(){
     const response = await fetch("/demo/src/main/resources/static/data/generic.json");
     const data = await response.json();
@@ -133,7 +167,7 @@ function renderHandoverForm(template){
             return;
         }
 
-        const response = await fetch("http://localhost:8081/api/projects/user", {
+        const response = await fetch("http://localhost:8081/api/projects/user/display", {
             headers: {
                 "Authorization": "Bearer " + token
             }

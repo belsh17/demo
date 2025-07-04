@@ -1,3 +1,19 @@
+//CODE FOR TOKEN EXPIRY
+function isJwtExpired(token){
+    if(!token) return true;
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  }
+
+  const jwt = localStorage.getItem("jwt");
+  if(isJwtExpired(jwt)){
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwt");
+    window.location.href = "/login.html";
+  }
+//END OF CODE FOR TOKEN EXPIRY
+
 //code for decoding jwt and getting user signed in
 function getUserIdFromToken(){
     const token = localStorage.getItem("jwt");
@@ -71,6 +87,7 @@ window.addEventListener('load', startTour);
 
 function startTour() {
     //check browser local storage if tour has been shown and saved already
+    //TOUR TO SHHOW
     if(localStorage.getItem('dashboardTourShown')){
         //so if ^^ does exist in local storage then function stops immediatly using return
         return;
@@ -127,10 +144,28 @@ async function loadDeadlines() {
     emptyState.style.display = "none";
 
     try{
-        const res = await fetch("http://localhost:8081/api/projects/deadlines");
+
+        //ADDING THIS FOR INDIV USERS
+        const token = localStorage.getItem("jwt");
+
+        if(!token){
+            console.error("No token found. User not authenticated.");
+            return [];
+        }
+        //END OF ADDED WQORKED BEFORE COMMMENTED OUT BELOW WHICH WORKED
+        // const res = await fetch("http://localhost:8081/api/projects/deadlines");
+
+        //MORE ADDED FOR INDIV DEADLINES
+        const res = await fetch("http://localhost:8081/api/projects/deadlines/user", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+       //end of added
         if(!res.ok) throw new Error("Failed to fetch deadlines");
 
         const projects = await res.json();
+        console.log("Fetching deadlines", projects);
 
         if(!projects || projects.length === 0){
             emptyState.style.display = "block";
@@ -193,31 +228,31 @@ let sCurveChart = null;
  async function loadProjectOptions(){
     
     //ADDED 
-    // const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("jwt");
 
-    //     if(!token){
-    //         console.error("No token found. User not authenticated.");
-    //         return [];
-    //     }
+        if(!token){
+            console.error("No token found. User not authenticated.");
+            return [];
+        }
 
-    //     const response = await fetch("http://localhost:8081/api/projects/user", {
-    //         headers: {
-    //             "Authorization": "Bearer " + token
-    //         }
-    //     });
+        const response = await fetch("http://localhost:8081/api/projects/user/display", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
 
-    //     if(!response.ok){
-    //         console.error("Failed to load user projects.");
-    //         return [];
-    //     }
+        if(!response.ok){
+            console.error("Failed to load user projects.");
+            return [];
+        }
     //     const projects = await response.json();
         //const data = await response.json();
         //return data;
     //END OF ADDED
     
     //const res = await fetch("http://localhost:8081/api/projects/user/display");
-     const res = await fetch("http://localhost:8081/api/projects");
-    const projects = await res.json();
+     //const res = await fetch("http://localhost:8081/api/projects");
+    const projects = await response.json();
     const selector = document.getElementById("projectSelector");
 
     projects.forEach((p, index) => {
@@ -313,7 +348,7 @@ let sCurveChart = null;
 
         teams.forEach(team => {
             const userHtml = team.users && team.users.length > 0
-            ? team.users.map(u => `<li>${u.username} (${u.email})</li>`).join("")
+            ? team.users.map(u => `<li>${u.fullName} (${u.teamRole || "No role"})</li>`).join("")
             : `<li>No members</li>`;
 
             const item = document.createElement("div");
@@ -410,8 +445,28 @@ async function loadTasksComplete(){
     //const projects = await getProjectData();
     const allTasks = await getTasks();
     console.log("Tasks loaded:", allTasks);
-    const res = await fetch("http://localhost:8081/api/projects");
-    const projects = await res.json();
+    // const res = await fetch("http://localhost:8081/api/projects");
+    //ADDED THIS TO TEST USER PROJECT AND TASKS - COMMENTED OUT ^
+    const token = localStorage.getItem("jwt");
+
+        if(!token){
+            console.error("No token found. User not authenticated.");
+            return [];
+        }
+
+        const response = await fetch("http://localhost:8081/api/projects/user/display", {
+            headers: {
+                "Authorization": "Bearer " + token
+            }
+        });
+
+        if(!response.ok){
+            console.error("Failed to load user projects.");
+            return [];
+        }
+        const projects = await response.json();
+    //END OF ADDED
+    // const projects = await res.json();
    // const projects = await getProjectData(); //ADDED FOR TESTS
 
     let message = document.querySelector(".empty-state-tasks");
@@ -422,17 +477,6 @@ async function loadTasksComplete(){
     } else{
         message.style.display = "none";
     }
-    // const emptyMsg = progTile.querySelector(".empty-state");
-    // if(emptyMsg) emptyMsg.remove();
-
-    //extract unique projects from tasks
-    //const projectsMap = new Map();
-    // allTasks.forEach(task => {
-    //     const project = task.project;
-    //     if(project && !projectsMap.has(project.id)){
-    //         projectsMap.set(project.id, project);
-    //     }
-    // });
 
     //const projects = Array.from(projectsMap.values());
     let totalCompletedTasks = 0;
@@ -569,6 +613,38 @@ async function loadTasksComplete(){
         }
     });
     //end of search
+
+    //CODE FOR THE NEW PROJECT AND CLIENTS ALERT ON BUTTON CLICK
+    document.querySelector(".newProj-btn").addEventListener("click", async () => {
+        try{
+            const token = localStorage.getItem("jwt");
+            const response = await fetch("http://localhost:8081/api/clients", {
+                headers:{
+                    "Authorization": "Bearer " + token
+                }
+            });
+
+            if(response.status === 401){
+                alert("Session expired. Please log in again");
+                localStorage.removeItem("jwt");
+                window.location.href = "login.html";
+                return;
+            }
+
+            const clients = await response.json();
+
+            if(!clients || clients.length === 0){
+                alert("Please create a client before starting a new project");
+                window.location.href = "indivClient.html";
+            }else{
+                window.location.href = "indivProject.html";
+            }
+        }catch(error){
+            console.error("Error checking clients:", error);
+            alert("Something went wrong while checking your clients. Please try again");
+        }
+    });
+    //END OF ADDED FOR PROJECTS
     const bell = document.getElementById("notification-bell");
     const dropdown = document.getElementById("notifications-container");
 

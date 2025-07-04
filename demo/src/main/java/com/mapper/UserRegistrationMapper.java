@@ -23,11 +23,12 @@ public class UserRegistrationMapper {
         return user;
     }
 
-    public RegistrationResponseDto toRegistrationResponseDto(
-        final User user){
-            return new RegistrationResponseDto(
-                user.getEmail(), 
-                user.getUsername(), 
-                user.getDashboardType());
-        }
+    //SIGNUP WAS WORKING WITH THE FIRST POST IN CONTROLLER AND THIS...
+    // public RegistrationResponseDto toRegistrationResponseDto(
+    //     final User user){
+    //         return new RegistrationResponseDto(
+    //             user.getEmail(), 
+    //             user.getUsername(), 
+    //             user.getDashboardType());
+    //     }
 }

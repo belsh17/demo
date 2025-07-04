@@ -295,12 +295,13 @@ body, html{
 /* code for search bar */
 .search-block .search-bar input{
    display: flex;
-   width: 763px;
+   width: 600px;
    height: 50px;
    border-radius: 30px;
    border: none;
    font-size: 25px;
    padding-left: 10px;
+   margin-right: 5px;
 }
 
 /* code for popup background */
@@ -446,6 +447,24 @@ body, html{
     color: darkgreen;
     box-shadow: 2px 2px 4px #ccc;
 }
+
+.indiv-project-task{
+   background-color: rgb(234, 255, 234);
+   border-radius: 10px;
+   margin: 20px 20px;
+   border: 1px solid #a7ff8e;
+}
+
+.indiv-project-task #project-name{
+   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   margin-left: 10px;
+   padding-top: 10px;
+}
+
+.indiv-project-task .task-list{
+   padding-bottom: 10px;
+}
+
 
 #task-list{
     list-style: none;
@@ -602,6 +621,7 @@ body, html{
    border-radius: 10px;
    height: auto;
    margin: 20px 20px;
+    border: 1px solid #ffae51;
 }
 
 .dragging{

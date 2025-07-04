@@ -4,10 +4,15 @@
         const downloadBtn = document.getElementById("pdf-btn");
         const loadingIndicator = document.getElementById("loading-indicator");
 
+         let wrapper = null;
+
         downloadBtn.disabled = true;
         loadingIndicator.style.display = "inline";
 
         try{
+        //const templateName = form.getAttribute("data-template-name") || "Template";
+       
+            //commmneted out bottom to test top
         const templateName = form.querySelector("h2, h3")?.textContent || "Template";
         //use html2canvas to capture form as image
         // const canvas = await html2canvas(form, { scale: 2});
@@ -15,7 +20,7 @@
 
         const landscapeTemplates = [
             "Regulation Obligation Tracker",
-            "Tax Compliance Tracker",
+            "Tax compliance tracker",
             "Staff Hours",
             "Semester Planner",
             "Weekly Work Schedule",
@@ -23,9 +28,11 @@
             "Change Log",
             "Test/Issue Log"
         ];
-        const isLandscape = landscapeTemplates.some(name => templateName.includes(name));
+        const isLandscape = landscapeTemplates.some(name => 
+            templateName.toLowerCase().includes(name.toLowerCase())
+        );
         
-        let wrapper = null;
+        // let wrapper = null;
         //applies temp landscape style
         if(isLandscape){
             form.classList.add("landscape-mode");
@@ -38,6 +45,14 @@
             wrapper.appendChild(form);
         }
 
+        //ADDED FOR TABLE OVERFLOW
+        const originalWidth = form.style.width;
+        const originalOverflow = form.style.overflow;
+
+        form.style.overflow = "visible";
+        form.style.width = form.scrollWidth + "px";
+        //END OF ADDED
+
         //wait for DOM to apply changes
         await new Promise(resolve => setTimeout(resolve, 200));
 
@@ -48,6 +63,11 @@
             // width: form.scrollWidth,
             // height: form.scrollHeight
         });
+
+        //ADED FOR TABLE OVERFLOW
+        form.style.width = originalWidth;
+        form.style.overflow = originalOverflow;
+        //END OF ADDED
         const imgData = canvas.toDataURL("image/png");
 
         const { jsPDF } = window.jspdf;
@@ -62,8 +82,19 @@
         const pageHeight = pdf.internal.pageSize.getHeight();
 
         //fit image to page
-        const imgWidth = pageWidth - 40;
-        const imgHeight = canvas.height * imgWidth / canvas.width;
+        // const imgWidth = pageWidth - 40;
+        // const imgHeight = canvas.height * imgWidth / canvas.width;
+        //TESTING BOTTOM TO FIT TO PAGE
+        const margin = 20;
+
+        let imgWidth = pageWidth - 2 * margin;
+        let imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        if(imgHeight > pageHeight - 2 * margin){
+            imgHeight = pageHeight - 2 * margin;
+            imgWidth = (canvas.width * imgHeight) / canvas.height;
+        }
+        //END OF TESTING
 
         let position = 20;
 
@@ -88,6 +119,13 @@
                 pageCtx.clearRect(0,0,pageCanvas.width, pageCanvas.height);
                 pageCtx.drawImage(canvas, 0 ,y, canvas.width, pageCanvasHeight, 0, 0, canvas.width, pageCanvasHeight);
                 const img = pageCanvas.toDataURL("image/png");
+
+                console.log({pageWidth, 
+                            pageHeight,
+                            canvasHeight: canvas.height,
+                            canvasWidth: canvas.width,
+                            imgWidth,
+                            imgHeight});
 
                 pdf.addImage(img, "PNG", 20, 20, imgWidth, pageHeight - 40);
 

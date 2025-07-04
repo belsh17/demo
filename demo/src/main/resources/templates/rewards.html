@@ -24,7 +24,9 @@
                     <h2>Plan-Nest</h2>
             </div>
             <ul class="tab-list">
-                <li><a href="defaultDashboard.html">My Dashboard</a></li>
+                <li><a id="dashboard-link" href="defaultDashboard.html">My Dashboard</a></li>
+               
+                <!-- <li><a href="defaultDashboard.html">My Dashboard</a></li> -->
                 <li><a href="projectsHome.html">My Projects</a></li>
                 <li><a href="templatesHome.html">Templates & Graphs</a></li>
                 <li><a href="deadlines.html">Deadlines</a></li>
@@ -32,7 +34,7 @@
                 <li><a href="rewards.html">Rewards</a></li>
                 <li><a href="teams.html">Teams</a></li>
                 <li><a href="client.html">Clients</a></li>
-                <li><a href="adminUsers.html">Active Users</a></li>
+                <li id="admin-tab"><a href="adminUsers.html">Active Users</a></li>
             </ul>
         </div>
         <!-- end of side tab -->
@@ -53,7 +55,8 @@
            
             <div id="rewardsContainer" class="project-rewards-section"></div>
             <p  class="no-rewards-msg">You have no rewards yet. Complete project tasks to get started!</p>
-                
+            <button id="reset-claimed-btn" style="margin-top: 20px">Reset Claimed Rewards</button>
+
             <div class="gift-box stage-0" id="giftBox">
                 <div class="box-base"></div>
                 <div class="box-wrap"></div>

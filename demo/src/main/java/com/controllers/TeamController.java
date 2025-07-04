@@ -4,6 +4,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.dto.CreateTeamDTO;
+import com.dto.TeamMemberDTO;
+import com.dto.UserDto;
+import com.dto.UserTeamDto;
 import com.dto.TeamDto;
 import com.entity.Project;
 import com.entity.Task;
@@ -12,6 +15,7 @@ import com.entity.User;
 import com.entity.UserTeams;
 import com.repository.ProjectRepository;
 import com.repository.TeamRepository;
+import com.repository.UserRepository;
 import com.repository.UserTeamsRepository;
 import com.service.TeamService;
 
@@ -46,6 +50,9 @@ public class TeamController {
     private TeamRepository teamRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private ProjectRepository projectRepository;
 
     @Autowired
@@ -72,24 +79,53 @@ public class TeamController {
         return team;
     }
 
-    @GetMapping("/teams/users")
+//     @GetMapping("/teams/users")
+//     public List<TeamDto> getTeamsWithUsers() {
+//         List<Team> teams = teamRepository.findAll();
+//         return teams.stream().map(team -> {
+//             //List<User> users = userTeamsRepository.findByTeamsContains(team)
+//             List<User> users = userTeamsRepository.findByTeam(team)
+           
+//             .stream()
+//             .map(UserTeams::getUser)
+//             .collect(Collectors.toList());
+
+//             System.out.println("Team: " + team.getTeamName() + "users: " + users.size());
+
+//             return new TeamDto(team.getId(), team.getTeamName(), users);
+   
+//         }).collect(Collectors.toList());
+
+// }
+//COMMENTED OUT TOP TO TEST TEAM MEMBERS LIST
+//ADDED AND MORE IN POST MAPPING
+  @GetMapping("/teams/users")
     public List<TeamDto> getTeamsWithUsers() {
         List<Team> teams = teamRepository.findAll();
+        
         return teams.stream().map(team -> {
             //List<User> users = userTeamsRepository.findByTeamsContains(team)
-            List<User> users = userTeamsRepository.findByTeam(team)
+            List<UserTeamDto> userDtos = userTeamsRepository.findByTeam(team)
            
             .stream()
-            .map(UserTeams::getUser)
+            .map(userTeam -> {
+                User user = userTeam.getUser();
+                return new UserTeamDto(
+                    user.getId(), 
+                    user.getFullName(),
+                    userTeam.getTeamRole()
+                );
+            })
             .collect(Collectors.toList());
 
-            System.out.println("Team: " + team.getTeamName() + "users: " + users.size());
+            System.out.println("Team: " + team.getTeamName() + "users: " + userDtos.size());
 
-            return new TeamDto(team.getId(), team.getTeamName(), users);
+            return new TeamDto(team.getId(), team.getTeamName(), userDtos);
    
         }).collect(Collectors.toList());
 
 }
+//END OF ADDED
     
 
     //code for creating team
@@ -108,6 +144,20 @@ public class TeamController {
 
         Team saved  = teamRepository.save(team);
 
+
+        //ADDED THIS CODE FOR MEMEBERS DISPLAY ON DASH
+            for(TeamMemberDTO member : dto.getMembers()){
+               
+                User user = userRepository.findById(member.getUserId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
+                UserTeams userTeam = new UserTeams();
+                userTeam.setUser(user);    
+                userTeam.setTeam(saved);
+                userTeam.setTeamRole(member.getTeamRole());
+
+                userTeamsRepository.save(userTeam);
+            }
+        //END OF ADDED
         return ResponseEntity.ok(saved);
     }
     

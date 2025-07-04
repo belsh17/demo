@@ -13,6 +13,8 @@ import com.repository.TeamRepository;
 @Service
 public class TeamService {
 
+    // private final TeamRepository teamRepository;
+
     @Autowired
     private ProjectRepository projectRepository;
     
@@ -22,6 +24,10 @@ public class TeamService {
     TeamService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
+
+    // public TeamService(TeamRepository teamRepository) {
+    //     this.teamRepository = teamRepository;
+    // }
 
     public Team getTeamsByProjectId(Long projectId){
         return teamRepository.findByProjectId(projectId)

@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" >
-      <script src="https://unpkg.com/fullcalendar@6.1.8/index.global.min.js"></script>
+      <!-- <link rel="stylesheet" href="https://unpkg.com/fullcalendar@6.1.8/main.min.css"> -->
+       <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css"> -->
+      <!-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.js"></script> -->
+       <script src="https://unpkg.com/fullcalendar@6.1.8/index.global.min.js"></script>
     <link rel="stylesheet" href="/demo/src/main/resources/static/CSS/calendar.css">
     <script src="/demo/src/main/resources/script/calendar.js"></script>
 
@@ -39,19 +41,26 @@
 
         <!-- code for main content on right of page -->
         <div class="main-content">
-            <div th:if="${!linked}" id="msg-block">
+            <!-- <div th:if="${!linked}" id="msg-block">
                 <h1>Sign into your Google account, to view google calendar events and link project deadlines.</h1>
                 <div th:if="${!linked}">
-                    <!-- <a href="http://localhost:8081/oauth2/authorization/google"> -->
-                    <!-- <a href="http://localhost:8081/calendar/api/google/link"> -->
-                        <button type="button" id="link-btn">Link Google Account</button>
-                    <!-- </a> -->
+                         <button type="button" id="link-btn">Link Google Account</button>
                 </div>
-            </div>   
-            <div th:if="${linked}">
+            </div>    -->
+            <!-- top section is if you using thymeleaf but we using live server -->
+             <div id="msg-block" style="display: none;">
+                <h1>Sign into your Google account, to view google calendar events and link project deadlines.</h1>
+                <button type="button" id="link-btn">Link Google Account</button>
+            </div>  
+            <!-- <div th:if="${linked}">
                 <p>Google account linked successfully!</p>
                 <div id="calendar"></div>
-            </div> 
+            </div>  -->
+            <!-- top section is if you using thymeleaf but we using live server -->
+           <div id="linked-msg" style="display: none;">
+                <p>Google account linked successfully!</p>
+                <div id="calendar"></div>
+           </div>
         </div>
     </div>
     <script th:inline="javascript">

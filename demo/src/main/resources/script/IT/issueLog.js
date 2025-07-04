@@ -12,6 +12,40 @@
 //     }
 // });
 //end of side tab functionality
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+window.addEventListener('load', startTour);
+function startTour() {
+    //check browser local storage if tour has been shown and saved already
+    //TOUR TO SHOW
+    if(localStorage.getItem('indivTempTourShown')){
+        //so if ^^ does exist in local storage then function stops immediatly using return
+        return;
+    }
+
+    // //mark tour as shown
+     localStorage.setItem("indivTempTourShown", "true");
+
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your IT templates!! Let's take a quick tour."
+    },
+    {
+        element: document.getElementById("template-gallery"),
+        intro: "All templates for IT are displayed here."
+    },
+    {
+        element: document.querySelector(".template-tile1"),
+        intro: "Scroll down to customize your selected template."
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
+//END OF CODE FOR TOUR ON EACH PAGE
 async function loadIssueLogTemps(){
     try{
 
@@ -50,6 +84,9 @@ function renderIssueLogForm(template){
     const formContainer = document.getElementById("template-form");
     formContainer.innerHTML = `<h2>${template.name}</h2>`;
     formContainer.dataset.templateId = template.id;
+    //ADDED BOTTOM FOR PDF DOWNLOADING
+    //formContainer.setAttribute("data-template-name", template.name);
+    //END OF ADDED
 
     template.fields.forEach(field => {
             const label = document.createElement("label");
@@ -122,6 +159,8 @@ function renderIssueLogForm(template){
                 fieldWrapper.appendChild(input);
                 fieldWrapper.appendChild(addRowBtn);
                 formContainer.appendChild(fieldWrapper);
+                
+                //COMMENTING OUT BOTTOM FOR PDF DOWNLOAD
                 return;
 
             }
@@ -138,7 +177,7 @@ function renderIssueLogForm(template){
             return;
         }
 
-        const response = await fetch("http://localhost:8081/api/projects/user", {
+        const response = await fetch("http://localhost:8081/api/projects/user/display", {
             headers: {
                 "Authorization": "Bearer " + token
             }

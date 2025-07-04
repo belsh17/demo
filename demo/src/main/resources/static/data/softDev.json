@@ -55,7 +55,7 @@
                     "rows": []
                 }
             ],
-            "image": "",
+            "image": "/demo/src/main/resources/assets/ITTemps/TestLog.PNG",
             "tags": ["test log", "IT"]
         },
         {
@@ -89,7 +89,7 @@
                     "rows": []
                 }
             ],
-            "image": "",
+            "image": "/demo/src/main/resources/assets/ITTemps/ChangeLog.PNG",
             "tags": ["change log", "IT"]
         },
         {

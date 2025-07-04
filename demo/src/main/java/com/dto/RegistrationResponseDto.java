@@ -5,6 +5,7 @@ public record RegistrationResponseDto(
     String username,
     String email,
     //String fullName,
-    String dashboardType
+    String dashboardType,
+    String token
 ){
 }
