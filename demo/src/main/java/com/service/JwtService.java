@@ -27,17 +27,13 @@ public class JwtService {
     private final JwtProperties jwtProperties;
 
     //LOGIN WORKS WITH THE COMMMENTED OUT ONES
+    //generates token with username, dashboard type and role 
     public String generateToken(final String username, final String dashboardType, Role role){
     //public String generateToken(final String username, final String dashboardType){
         
-    //ADDED TO TEST ADMIN - login also worked without this
-    // List<String> roleNames = roles.stream()
-    //     .map(Role::getRoleName)
-    //     .collect(Collectors.toList());
-    //END OF TEST
-    
+    //builds claim set
         final var claimsSet = JwtClaimsSet.builder()
-            .subject(username)
+            .subject(username) //makes subject username
             .issuer(jwtProperties.getIssuer())
             .expiresAt(Instant.now().plus(jwtProperties.getTtl()))
             .claim("dashboardType", dashboardType)

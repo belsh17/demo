@@ -314,6 +314,14 @@ async function loadProjectRewards(){
 // window.addEventListener("DOMContentLoaded", loadProjectRewards);
 //COMMMNETD OUT TOP LINE FOR CLAIMECD REWARDS
 window.addEventListener("DOMContentLoaded", () => {
+    //ADDED CODE FOR BACK BUTTON
+        const backBtn = document.querySelector(".back-button");
+        if(backBtn){
+            backBtn.addEventListener("click", function(){
+                window.history.back();
+            });
+        }
+        //END OF ADDED
     loadProjectRewards();
 
     const resetBtn = document.getElementById("reset-claimed-btn");

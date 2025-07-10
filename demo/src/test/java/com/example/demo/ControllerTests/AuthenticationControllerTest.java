@@ -19,6 +19,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.repository.RoleRepository;
 import com.repository.UserRepository;
 
+import jakarta.transaction.Transactional;
+
 import static org.hamcrest.Matchers.is;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -30,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@Transactional
 public class AuthenticationControllerTest {
 
     @Autowired
@@ -72,7 +75,7 @@ public class AuthenticationControllerTest {
 
         AuthenticationRequestDto requestDto = new AuthenticationRequestDto("testuser1", "testpass");
 
-        mockMvc.perform(post("/api/auth/login")
+            mockMvc.perform(post("/api/auth/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto)))
             .andDo(print())

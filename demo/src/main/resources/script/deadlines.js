@@ -132,6 +132,15 @@ async function getTasks(){
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    //ADDED CODE FOR BACK BUTTON
+        const backBtn = document.querySelector(".back-button");
+        if(backBtn){
+            backBtn.addEventListener("click", function(){
+                window.history.back();
+            });
+        }
+        //END OF ADDED
+
     //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
         const adminTab = document.getElementById("admin-tab");
         const token = localStorage.getItem("jwt");

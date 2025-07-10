@@ -32,28 +32,11 @@ public class GanttController {
     @Autowired
     private GanttRepository ganttRepository;
 
-    // @GetMapping("/project/{projectId}")
-    // public ResponseEntity<List<GanttChartDto>> getTasksByProject(
-    //     @PathVariable Long projectId) {
-        
-    //     List<Gantt> tasks = ganttRepository.findByProjectId(projectId);    
-    //     List<GanttChartDto> dtos = tasks.stream().map(task -> {
-    //         GanttChartDto dto = new GanttChartDto();
-    //         dto.setId(task.getId());
-    //         dto.setTaskName(task.getTaskName());
-    //         dto.setStart(task.getStart());
-    //         dto.setEnd(task.getEnd());
-    //         dto.setProgress(task.getProgress());
-    //         dto.setProjectId(task.getProjectId());
-    //         return dto;
-    //     }).toList();
-
-    //     return ResponseEntity.ok(dtos);
-    // }
-
+    //gets all saved gantt charts
     @GetMapping("/all")
     public ResponseEntity<List<GanttChartDto>> getAllTasks() {
         
+        //finds all tasks for the gantt chart
         List<Gantt> tasks = ganttRepository.findAll();    
         List<GanttChartDto> dtos = tasks.stream().map(task -> {
             GanttChartDto dto = new GanttChartDto();
@@ -68,13 +51,14 @@ public class GanttController {
         return ResponseEntity.ok(dtos);
     }
     
-
+//code for only the project manager being able to create new tasks in the gantt chart
     @PreAuthorize("hasRole('PROJECT_MANAGER')")
     @PostMapping("/save")
     public ResponseEntity<GanttChartDto> createGantt(
         @RequestBody GanttChartDto dto,
         Principal principal) {
 
+        //creates gantt object
         Gantt gantt = new Gantt();
         gantt.setTaskName(dto.getTaskName());
         gantt.setStart(dto.getStart());

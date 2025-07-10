@@ -44,7 +44,49 @@ function getUserIdFromToken(){
     }
 }
 //end of code for user
+//CODE FOR TOUR OR GUIDE ON EACH PAGE
+
+function startTour() {
+
+introJs().setOptions({
+    steps: [
+    {
+        intro: "Welcome to your clients!! Let's take a quick tour."
+    },
+    {
+        element: document.querySelector(".clients-display"),
+        intro: "All clients will be displayed here."
+    },
+     {
+        element: document.querySelector(".newProj-btn"),
+        intro: "Create your first client!",
+        position: 'top'
+    }
+
+    ]
+}).start();
+}
+
+//end of tour code
 document.addEventListener("DOMContentLoaded", () => {
+
+    //ADDED CODE FOR BACK BUTTON
+        const backBtn = document.querySelector(".back-button");
+        if(backBtn){
+            backBtn.addEventListener("click", function(){
+                window.history.back();
+            });
+        }
+        //END OF ADDED
+
+        //ADDED FOR TOUR
+        const helpButton = document.getElementById("help-button");
+        if(helpButton){
+            helpButton.addEventListener("click", () => {
+                startTour();
+            });
+        }
+        //END OF ADDED FOR TOUR
 
     //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
         const adminTab = document.getElementById("admin-tab");

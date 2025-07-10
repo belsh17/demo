@@ -47,6 +47,7 @@ public class FileUploadController {
     @Autowired
     private ProjectRepository projectRepository;
     
+    //handles file uploads (not tied to specific project)
     @PostMapping(value = "/files/upload", consumes = {"multipart/form-data"})
     public ResponseEntity<String> handleFileUpload(
         @RequestParam("files") MultipartFile[] files
@@ -54,14 +55,18 @@ public class FileUploadController {
         
        try{
          for(MultipartFile file : files){
+            //extract orihginal filename
             String filename = Paths.get(file.getOriginalFilename()).getFileName().toString();
+            //generate unique filename to avoid collisions
             String uniqueFileName = UUID.randomUUID() + "_" + filename;
+            //set the path to where the file will be saved
             String path = "uploads/" + uniqueFileName;
 
-            //Save file to local storage
+            //creates file destination object
             File destination = new File(path);
-
             File parentDir = destination.getParentFile();
+
+            //create directory if it doesnt exist
             if(!parentDir.exists()){
                 boolean created = parentDir.mkdirs();
                 if(!created){
@@ -69,10 +74,11 @@ public class FileUploadController {
                 }
             }
 
+            //save file to localstorage 
             //destination.getParentFile().mkdirs(); //makes sure /uploads exists creates directory tree if needed
             file.transferTo(destination);
 
-            //only savinf file metadata to mysql
+            //only saving file metadata to mysql
             FileEntity fileEntity = new FileEntity();
             fileEntity.setFilename(filename);
             fileEntity.setFilepath(path);
@@ -100,6 +106,7 @@ public class FileUploadController {
     @PathVariable Long projectId,
     @RequestParam("files") MultipartFile[] files){
         try{
+            //check if project exists
             Optional<Project> projectOpt = projectRepository.findById(projectId);
 
             if(!projectOpt.isPresent()){
@@ -112,10 +119,14 @@ public class FileUploadController {
                 String filename = Paths.get(file.getOriginalFilename()).getFileName().toString();
                 String uniqueFileName = UUID.randomUUID() + "_" + filename;
                 //String path = "uploads/projects/" + projectId + "/" + uniqueFileName;
+                //define the project- specific upload directory
                 String uploadDir = System.getProperty("user.dir") + "uploads/projects/" + projectId;
                 //save file to local storage in project specific dir.adminController
+                //create destinatioin file object
                 File destination = new File(uploadDir, uniqueFileName);
                 File parentDir = destination.getParentFile();
+
+                //create directories if needed
                 if(!parentDir.exists()){
                     boolean created = parentDir.mkdirs();
                     if(!created){
@@ -124,8 +135,10 @@ public class FileUploadController {
                     }
                 }
 
+                //save file to disk
                 file.transferTo(destination);
 
+                //create and save file metadata linked to the project
                 FileEntity fileEntity = new FileEntity();
 
                 fileEntity.setFilename(filename);
@@ -150,16 +163,18 @@ public class FileUploadController {
         }
     }
 
-    //get all files for specific project
+    //get all uploaded files for specific project
     @GetMapping("/projects/{projectId}/files")
     public ResponseEntity<List<FileEntity>> getProjectFiles(
         @PathVariable Long projectId) {
 
         try{
+            //check if project exists
             if(!projectRepository.existsById(projectId)){
                 return ResponseEntity.notFound().build();
             }
 
+            //retrieve and return all files linked to the project
             List<FileEntity> projectFiles = fileUploadRepository.findByProjectId(projectId);
             return ResponseEntity.ok(projectFiles);
         }catch(Exception e){
@@ -169,7 +184,7 @@ public class FileUploadController {
 
     }
     
-
+//delete a file associated with a specific project
     @DeleteMapping("/projects/{projectId}/files/{fileId}")
     public ResponseEntity<?> deleteProjectFiles(
         @PathVariable Long projectId,
@@ -184,12 +199,13 @@ public class FileUploadController {
 
             FileEntity fileEntity = fileOpt.get();
 
+            //chceck if file belongs to the specified project
             if(fileEntity.getProject() == null || !fileEntity.getProject().getId().equals(projectId)){
                 return ResponseEntity.badRequest().body("File does not belong to the specified project");
 
             }
 
-            //delete physical file
+            //delete physical file from disk
             File physicalFile = new File(fileEntity.getFilepath());
             if(physicalFile.exists()){
                 boolean deleted = physicalFile.delete();
@@ -198,6 +214,7 @@ public class FileUploadController {
                 }
             }
 
+            //delete file metadata from db
             fileUploadRepository.delete(fileEntity);
 
             return ResponseEntity.ok().body("File deleted successfully");
@@ -223,10 +240,12 @@ public class FileUploadController {
                 Path filePath = Paths.get(fileEntity.getFilepath());
                 Resource resource = new UrlResource(filePath.toUri());
 
+                //check if file exists and is accessible
                 if(!resource.exists() || !resource.isReadable()){
                     return ResponseEntity.notFound().build();
                 }
 
+                //determine content type, fallback to binary
                 String contentType = fileEntity.getFiletype();
                 if(contentType == null){
                     contentType = "application/octet-stream";

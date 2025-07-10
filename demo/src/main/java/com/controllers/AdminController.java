@@ -47,17 +47,20 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    //code for admin to update users roles
     @PutMapping("/users/{id}/role")
     //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> updateUserRole(@PathVariable Long id, @RequestBody RoleUpdateRequest request) {
         System.out.println("Received request to update user " + id + " to role: " + request.getNewRole());
-        
+        //uses request dto to show the exact structure - uses dto get new role method
         String newRoleName = request.getNewRole();
 
+        //if the request has no new role assigned then it displays the error msg
         if(newRoleName == null || newRoleName.isEmpty()){
             return ResponseEntity.badRequest().body("New role name is required");
         }
 
+        //the new role is assigned using role repo method find by role name
         Role newRole = roleRepository.findByRoleName(newRoleName)
             .orElseThrow(() -> new RuntimeException("Role not found: " + newRoleName));
         
@@ -70,13 +73,7 @@ public class AdminController {
         return ResponseEntity.ok("User role updated to " + newRoleName);
     }
 
-    //use this mapping whenever you want list of users
-    // @GetMapping("/users")
-    // public List<User> getAllUsers() {
-    //     return adminService.getAllUsers();
-    // }
-
-
+    //gets all registered users for admin to see
      @GetMapping("/users")
     public ResponseEntity<List<AdminUserDto>> getAllUsers() {
 

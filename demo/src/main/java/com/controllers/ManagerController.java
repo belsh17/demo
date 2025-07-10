@@ -48,10 +48,12 @@ public class ManagerController {
     //     //return ResponseEntity.ok(adminService.getUserByRole("PROJECT_MANAGER"));
     // }
 
+    //gets project managers
     @GetMapping("/project-managers")
     //public ResponseEntity<List<UserDto>> getProjectManagers() {
     public ResponseEntity<List<UserDto>> getProjectManagers() {
      
+        //uses user dto structure and finds user by role name = project manager
         List<UserDto> managers = userRepository.findByRoleRoleName("PROJECT_MANAGER")
             .stream()
             .map(user -> new UserDto(user.getId(), user.getFullName()))

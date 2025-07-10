@@ -58,12 +58,15 @@ public class TeamController {
     @Autowired
     private UserTeamsRepository userTeamsRepository;
     
+    //get existing teams to display
     @GetMapping("/projects/{projectId}/teams")
     public ResponseEntity<Team>  getTeamsByProject(@PathVariable Long projectId) {
 
+        //first find project which is being called
         Project project = projectRepository.findById(projectId)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Project not found"));
 
+        //then find team linked to that project
         Team team = teamRepository.findByProject(project);
 
         if(team == null){
@@ -73,6 +76,7 @@ public class TeamController {
         //return teamService.getTeamsByProjectId(projectId);
     }
 
+    //displays all teams
     @GetMapping("/teams")
     public List<Team> getTeams() {
         List<Team> team = teamRepository.findAll();
@@ -105,8 +109,10 @@ public class TeamController {
         
         return teams.stream().map(team -> {
             //List<User> users = userTeamsRepository.findByTeamsContains(team)
+            //gets users by team for team members
             List<UserTeamDto> userDtos = userTeamsRepository.findByTeam(team)
            
+            //maps each user team to user team dto
             .stream()
             .map(userTeam -> {
                 User user = userTeam.getUser();

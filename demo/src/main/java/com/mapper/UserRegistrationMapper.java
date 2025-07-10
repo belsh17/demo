@@ -7,13 +7,15 @@ import com.dto.RegistrationResponseDto;
 // import com.entity.ProjectManager;
 import com.entity.User;
 
-//user register mapper
+//user register mapper - convert data between dto sent from frontend and user entity
 @Component
 public class UserRegistrationMapper {
     public User toEntity(RegistrationRequestDto registrationRequestDto){
         final var user = new User();
+        //NEED MAPPER SO DONT EXPOSE ENTITY CLASS LIKE USER DIRECTLY TO FRONTEND (security - sensitive fields, flexiability - only specified fields, separation of concerns)
         //final var user = new ProjectManager();
 
+        //takes request dto front frontened and builds a user entity to save to db
         user.setEmail(registrationRequestDto.email());
         user.setUsername(registrationRequestDto.username());
         user.setPassword(registrationRequestDto.password());
@@ -23,12 +25,5 @@ public class UserRegistrationMapper {
         return user;
     }
 
-    //SIGNUP WAS WORKING WITH THE FIRST POST IN CONTROLLER AND THIS...
-    // public RegistrationResponseDto toRegistrationResponseDto(
-    //     final User user){
-    //         return new RegistrationResponseDto(
-    //             user.getEmail(), 
-    //             user.getUsername(), 
-    //             user.getDashboardType());
-    //     }
+   
 }

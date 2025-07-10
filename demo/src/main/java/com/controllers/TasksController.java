@@ -60,11 +60,13 @@ public class TasksController {
     public ResponseEntity<List<Task>> getTaskByLoggedInUser(
         @AuthenticationPrincipal Jwt jwt) {
 
+        //check if user is authorized
         String username = jwt.getSubject();
 
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
+        //find tasks by the project manager it is linked to
         List<Task> tasks = taskRepository.findTasksByProjectManager(user);
         return ResponseEntity.ok(tasks);
     }

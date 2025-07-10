@@ -34,16 +34,19 @@ public class ProjectService {
         @Autowired
         private UserRepository userRepository;
 
-
+//creates project and links client
         public Project createProjectWithClient(String clientName, String projectName){
             //check if client exists
             Client client = clientRepository.findByClientName(clientName)
                 .orElseGet(() -> {
+                    //creates new client object
                     Client newClient = new Client();
+                    //sets clients name
                     newClient.setClientName(clientName);
                     return clientRepository.save(newClient);
                 });
 
+                //creates new project
                 Project project = new Project();
                 project.setProjectName(projectName);
                 project.setClient(client);
@@ -51,7 +54,7 @@ public class ProjectService {
                 return projectRepository.save(project);
         }
 
-        //handles
+        //links project and client
         public Client linkClientProject(Client client){
             
             client.setClientName(client.getClientName());
@@ -76,9 +79,11 @@ public class ProjectService {
                 return projectRepository.save(project);
         }
 
-        //function for creating project with names of client and manabegr
+        //function for creating project with names of client and manabegr this was the method used
         public Project createProjectWithClientAndManager(ProjectDto dto){
+            //checks if client exists 
             Client client = clientRepository.findByClientName(dto.getClientName())
+            //else creates a new client
                 .orElseGet(() -> {
                     Client newClient = new Client();
                     newClient.setClientName(dto.getClientName());
@@ -86,12 +91,15 @@ public class ProjectService {
                     return clientRepository.save(newClient);
                 });
 
+            //finds manager by their fullname else throws error message
             User manager = userRepository.findByFullName(dto.getManagerName())
                  .orElseThrow(() -> new RuntimeException("Project manager not found: " + dto.getManagerName()));
 
+            //finds logged in user and sets as project creator
             User creator = userRepository.findById(dto.getCreatedBy())
                  .orElseThrow(() -> new RuntimeException("User not found with id: " + dto.getCreatedBy()));
 
+            //setting project properties
             Project project = new Project();
             project.setProjectName(dto.getProjectName());
             project.setProjDescription(dto.getProjDescription());
@@ -106,13 +114,14 @@ public class ProjectService {
             return projectRepository.save(project);
         }
 
-        //code for displaying graph on dasdhbnoard
+        //code for displaying graph on dashbnoard
         public List<SPointDTO> generateSCurveData(Project project){
             List<SPointDTO> points = new ArrayList<>();
             LocalDate start = project.getStartDate();
             LocalDate end = project.getDeadlineDate();
             long days = ChronoUnit.DAYS.between(start, end);
 
+            //for loop i represents the days
             for(int i = 0; i <= days; i += 5){
                 LocalDate date = start.plusDays(i);
                 double t = (double) i / days;

@@ -29,27 +29,13 @@ public class RegistrationController {
 
     private final AuthenticationService authenticationService;
 
-    //creates mapping between HTTP POST requests and handler methods
-    // @PostMapping("/register")
-    // public ResponseEntity<RegistrationResponseDto> registerUser(
-    //     @RequestBody final RegistrationRequestDto registrationDTO) {
-        
-    //         final var registeredUser = userRegistrationService
-    //             .registerUser(userRegistrationMapper.toEntity(registrationDTO));
-
-    //             //ADDED WAS WORKING BEFORE - GENERATE JWT
-            
-    //             //END OF ADDED
-    //         return ResponseEntity.ok(
-    //             userRegistrationMapper.toRegistrationResponseDto(registeredUser)
-    //         );
-        
-    // }
+   
 //COMMMNETED OUT TOP TO TEST BOTTOM WITH JWTS IF YOU USE TOP THEN CHECK MAPPER AND DTO
       @PostMapping("/register")
     public ResponseEntity<AuthenticationResponseDto> registerUser(
         @RequestBody final RegistrationRequestDto registrationDTO) {
         
+            //maps user mapper to dto
             userRegistrationService.registerUser(
                 userRegistrationMapper.toEntity(registrationDTO)
             );

@@ -21,11 +21,14 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    //method to load users by username
     @Override
     public UserDetails loadUserByUsername(final String username) 
       throws UsernameNotFoundException {
 
+        //finds user by username
         return userRepository.findByUsername(username).map(user ->
+        //gives user permissions according to the role
                 User.builder()
                         .username(username)
                         .password(user.getPassword())

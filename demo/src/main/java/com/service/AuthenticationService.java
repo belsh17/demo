@@ -48,6 +48,7 @@ public class AuthenticationService {
 
             //List<Role> roles = user.getRole();
 
+            //generates token with username, dash type and role
             String token = jwtService.generateToken(request.username(), user.getDashboardType(), user.getRole());
             return new AuthenticationResponseDto(token, user.getDashboardType());
          }  

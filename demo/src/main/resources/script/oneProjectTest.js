@@ -223,6 +223,15 @@ let relatedTasks = [];
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    //ADDED CODE FOR BACK BUTTON
+        const backBtn = document.querySelector(".back-button");
+        if(backBtn){
+            backBtn.addEventListener("click", function(){
+                window.history.back();
+            });
+        }
+        //END OF ADDED
+
     //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
         const adminTab = document.getElementById("admin-tab");
         const token = localStorage.getItem("jwt");
@@ -351,6 +360,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </div>
                 <input type="text" id="new-task-name" placeholder="New task name">
                 <input type="text" id="new-task-description" placeholder="Task description">
+                <label for="new-task-due-date">Due Date: </label>
                 <input type="date" id="new-task-due-date">
                 <select id="user-assigned-dropdown">
                     <option value="" disabled selected>Select a user</option>

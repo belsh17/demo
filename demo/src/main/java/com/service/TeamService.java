@@ -25,11 +25,9 @@ public class TeamService {
         this.projectRepository = projectRepository;
     }
 
-    // public TeamService(TeamRepository teamRepository) {
-    //     this.teamRepository = teamRepository;
-    // }
-
+    //get the  teams by its associated project linked by project id
     public Team getTeamsByProjectId(Long projectId){
+        //returns team associated with specified project
         return teamRepository.findByProjectId(projectId)
             .orElseThrow(() -> new RuntimeException("Team not found for project ID: " + projectId));
     }

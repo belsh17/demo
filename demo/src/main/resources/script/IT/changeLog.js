@@ -272,3 +272,20 @@ function renderChangeLogForm(template){
         pdf.save(`${templateName.replace(/\s+/g, "_")}.pdf`);
     }
 loadChangeLogTemps();
+
+
+//ADD THIS TO THE OTHER TEMPLATES
+function getUserIdFromToken(){
+    const token = localStorage.getItem("jwt");
+    if(!token) return null;
+
+    try{
+        const payload = JSON.parse(atob(token.split('.')[1]));
+
+        return payload.userId || payload.id || payload.sub || null;
+
+    }catch(e){
+        console.error("Invalid JWT token:", e);
+        return null;
+    }
+}

@@ -43,8 +43,10 @@ public class GoogleCalendarService {
         //OAuth2AuthorizedClient client = authorizedClientService.loadAuthorizedClient("google", username);
         //GoogleTokens tokens = tokenRepository.findByUsername(username);
         //commmneted out above line to test list for tokens
+        //creates token list 
         List<GoogleTokens> tokensList = tokenRepository.findByUsername(username);
        
+        //if the list is null then throws error message
         if(tokensList == null) {
             throw new RuntimeException("No google tokens linked for user");
         }
@@ -53,17 +55,21 @@ public class GoogleCalendarService {
         GoogleTokens tokens = tokensList.get(0);
         //END OF ADDED
 
+        //gets the token expiry date from the topken
         Instant expiryInstant = tokens.getExpiryDate();
         Date expiryDate = expiryInstant != null ? Date.from(expiryInstant) : null;
 
+        //creates access token 
         AccessToken accessToken = new AccessToken(tokens.getAccessToken(), expiryDate);
+        //creates user credentials accpording to the account created on google api 
         UserCredentials userCredentials = UserCredentials.newBuilder()
-            .setClientId("121171246684-ub0gl8368g7am3lp0p3aahtbiohn0uaq.apps.googleusercontent.com")
+            .setClientId("121171246684-ub0gl8368g7am3lp0p3aahtbiohn0uaq.apps.googleusercontent.com") 
             .setClientSecret("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")
             .setRefreshToken(tokens.getRefreshToken())
             .setAccessToken(accessToken)
             .build();
 
+            //builds calendar
         return new Calendar.Builder(
             GoogleNetHttpTransport.newTrustedTransport(), 
             com.google.api.client.json.gson.GsonFactory.getDefaultInstance(),

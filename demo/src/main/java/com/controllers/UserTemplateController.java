@@ -58,12 +58,14 @@ public class UserTemplateController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         }
 
+        //create a user object by using method from user repo and trhow error if not found
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
         Project project = projectRepository.findById(request.projectId)
             .orElseThrow(() -> new RuntimeException("Project not found"));
 
+        //create user templates object according to user templates entity
         UserTemplates template = new UserTemplates();
         template.setTemplateName(request.getTemplateName());
         template.setTemplateType(request.getTemplateType());
@@ -72,6 +74,7 @@ public class UserTemplateController {
         template.setProject(project);
         template.setSaveDate(new Date());
 
+        //repo saves templates as the repo is the communication between the backend and db
         userTemplatesRepository.save(template);
         return ResponseEntity.ok("Template saved!");
     }
@@ -84,6 +87,7 @@ public class UserTemplateController {
 
         String username = jwt.getSubject();
 
+        //checks if username from token exists if it doesnt then user isnt authorized so cant see templates
         if(username == null){
             return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         }
@@ -116,6 +120,7 @@ public class UserTemplateController {
         //END OF ADDED
     }
 
+    //put mapping is used to update existing resources
     @PutMapping("/update/{templateId}")
     public ResponseEntity<?> updateTemplate(
         @PathVariable Long templateId, 
@@ -144,6 +149,7 @@ public class UserTemplateController {
         existing.setTemplateData(updatedData.getTemplateData());
         existing.setSaveDate(new Date());
 
+        //edited template gets saved
         userTemplatesRepository.save(existing);
 
         return ResponseEntity.ok("Template updated successfully");
@@ -174,29 +180,5 @@ public class UserTemplateController {
         UserTemplateResponseDto dto = new UserTemplateResponseDto(template);
         return ResponseEntity.ok(dto);
     }
-
-    // @GetMapping("/{templateId}")
-    // public ResponseEntity<?> getTemplateById(
-    //     @PathVariable Long templateId,
-    //     @AuthenticationPrincipal Jwt jwt) {
-    //     String username = jwt.getSubject();
-    //     if(username == null){
-    //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
-    //     }
-
-    //     User user = userRepository.findByUsername(username)
-    //         .orElseThrow(() -> new RuntimeException("User not found"));
-        
-    //     UserTemplates template = userTemplatesRepository.findById(templateId)
-    //         .orElseThrow(() -> new RuntimeException("Template not found"));
-
-    //     if(!template.getUser().getId().equals(user.getId())){
-    //         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied");
-    //     }
-
-    //     return ResponseEntity.ok(template);
-    // }
-    
-    
     
 }

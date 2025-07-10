@@ -23,8 +23,10 @@ public class UserController {
         @Autowired
         private UserService userService;
 
+        //only gets user if it has these defined roles
         @PreAuthorize("hasAnyRole('ADMIN', 'PROJECT_MANAGER', 'USER')")
         @GetMapping
+        //using dto to define user structure in token and dashboard type form
         public ResponseEntity<List<UserDto>> getAllUsers() {
             List<UserDto> users = userService.getAllUsers();
             return ResponseEntity.ok(users);

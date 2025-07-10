@@ -66,6 +66,15 @@ links.forEach(link => {
 //end of side tab functionality
 let users = [];
 document.addEventListener("DOMContentLoaded", () => {
+
+    //ADDED CODE FOR BACK BUTTON
+        const backBtn = document.querySelector(".back-button");
+        if(backBtn){
+            backBtn.addEventListener("click", function(){
+                window.history.back();
+            });
+        }
+    //END OF ADDED
     
     //CODE FOR HIDING THE ADMIN USERS FROM SIDE TAB
         const adminTab = document.getElementById("admin-tab");

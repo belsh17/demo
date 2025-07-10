@@ -34,14 +34,17 @@ public class NotificationController {
     @Autowired
     private UserRepository userRepository;
 
+    //gets notifications for the user logged in and returns list
     @GetMapping("/user")
     public ResponseEntity<List<String>> getDeadlineNotificationsForLoggedInUser(
         @AuthenticationPrincipal Jwt jwt) {
+            //gets authorized username from token
             String username = jwt.getSubject();
 
             User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
             
+                //gets present date, date in a days time and the date in a weeks time
             LocalDate now = LocalDate.now();
             LocalDate in24Hours = now.plusDays(1);
             LocalDate nextWeek = now.plusDays(7);
@@ -52,6 +55,7 @@ public class NotificationController {
             //due within next 7 days
             List<Project> dueThisWeek = projectRepository.findByProjectManagerAndDeadlineDateBetween(user, now.plusDays(2), nextWeek);
             
+            //lists notifications in array list
             List<String> notifications = new ArrayList<>();
 
             for(Project p : dueTomorrow){
@@ -61,14 +65,6 @@ public class NotificationController {
             for(Project p : dueThisWeek){
                  notifications.add("Project '" + p.getProjectName() + "' is due this week on " + p.getDeadlineDate());
             }
-
-            // List<String> notifications = projects.stream()
-            //     .map(project -> {
-            //         String projectName = project.getProjectName();
-            //         //LocalDateTime deadline = project.getDeadlineDate();
-            //         return "Project '" + projectName + "' is due by " + project.getDeadlineDate();
-            //     })
-            //     .collect(Collectors.toList());
 
         return ResponseEntity.ok(notifications);
     }

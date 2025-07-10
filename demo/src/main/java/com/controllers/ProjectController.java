@@ -69,6 +69,7 @@ public class ProjectController {
         @RequestBody CreateProjectDto dto,
         @AuthenticationPrincipal Jwt jwt
     ) {
+        //new project object using dto structure
         Project project = new Project();
         project.setProjectName(dto.getProjectName());
         project.setProjDescription(dto.getProjectDescription());
@@ -83,7 +84,7 @@ public class ProjectController {
         User manager = userRepository.findById(dto.getProjectManagerId()) 
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Manager not found"));  
         
-        //ADDED THIS TO SET CREATED BY
+        //ADDED THIS TO SET CREATED BY - logged in user
         String username = jwt.getSubject();
         User creator = userRepository.findByUsername(username)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
@@ -163,6 +164,7 @@ public class ProjectController {
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
+            //only lists project if its the manager or creator
         List<Project> projects = projectRepository.findByProjectManagerOrCreatedBy(user, user);
         return projects.stream()
         .map(p -> new ProjectDeadlineDTO(p.getId(), p.getProjectName(), p.getDeadlineDate()))
@@ -191,6 +193,7 @@ public class ProjectController {
     // }
 
     //WAS WORKING
+    //gets projects to display only for the manager or logged in user
      @GetMapping("/user")
     public ResponseEntity<List<Project>> getProjectsForLoggedInUser(@AuthenticationPrincipal Jwt jwt) {
         String username = jwt.getSubject();

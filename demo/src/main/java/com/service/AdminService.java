@@ -30,18 +30,23 @@ public class AdminService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
 
+    //method for getting user by username
     public User getUserByUsername(final String username) {
+        //finds user by username
         return userRepository.findByUsername(username)
           .orElseThrow(() -> new ResponseStatusException(HttpStatus.GONE, 
               "The user account has been deleted or inactivated"));
     }
 
+    //lists the users by thwe role
     public List<User> getUserByRole(String roleName){
         return userRepository.findByRoleRoleName(roleName);
     }
 
+    //assigns the role to the user
     @Transactional
     public void assignRoleToUser(String username, String roleName){
+        //user variable sets to the user from username found
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"User not found"));
         
